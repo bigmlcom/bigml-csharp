@@ -1,2 +1,2 @@
-Erik Meijer
-Claudio Caldato
+- [Erik Meijer](/headinthebox)
+- [Claudio Caldato](/clcal)
