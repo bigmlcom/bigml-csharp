@@ -1,2 +1,2 @@
-- [Erik Meijer](/headinthebox)
-- [Claudio Caldato](/clcal)
+- [Erik Meijer](https://github.com/headinthebox)
+- [Claudio Caldato](https://github.com/clca)
