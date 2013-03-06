@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{458B9779-E302-4C7C-A0E7-7F20F4EA2D67}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BigML</RootNamespace>
+    <AssemblyName>BigML</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Json">
+      <HintPath>..\..\OpenCnam\packages\System.Json.4.0.20126.16343\lib\net40\System.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Client\Client.cs" />
+    <Compile Include="DataSet\Field\Categorial.cs" />
+    <Compile Include="DataSet\Field\Numeric.cs" />
+    <Compile Include="DataSet\Field\Summary.cs" />
+    <Compile Include="Response\Category.cs" />
+    <Compile Include="DataSet\Filterable.cs" />
+    <Compile Include="DataSet\Orderable.cs" />
+    <Compile Include="Helpers\Reflection.cs" />
+    <Compile Include="Model\Arguments.cs" />
+    <Compile Include="Model\Description.cs" />
+    <Compile Include="Model\Node.cs" />
+    <Compile Include="Model\Orderable.cs" />
+    <Compile Include="Prediction\Arguments.cs" />
+    <Compile Include="Prediction\Orderable.cs" />
+    <Compile Include="Prediction\PredictionListing.cs" />
+    <Compile Include="Model\ModelListing.cs" />
+    <Compile Include="Helpers\Extensions.cs" />
+    <Compile Include="DataSet\BigMLClientDataSet.cs" />
+    <Compile Include="DataSet\Status.cs" />
+    <Compile Include="DataSet\Field\Field.cs" />
+    <Compile Include="Helpers\JsonContent.cs" />
+    <Compile Include="Model\BigMLClientModel.cs" />
+    <Compile Include="Model\Filterable.cs" />
+    <Compile Include="Model\Status.cs" />
+    <Compile Include="Model\Predicate.cs" />
+    <Compile Include="Prediction\BigMLClientPrediction.cs" />
+    <Compile Include="Prediction\Filterable.cs" />
+    <Compile Include="Prediction\Predicate.cs" />
+    <Compile Include="Prediction\Prediction.cs" />
+    <Compile Include="Prediction\PredictionPath.cs" />
+    <Compile Include="Prediction\Status.cs" />
+    <Compile Include="DataSet\DataSetListing.cs" />
+    <Compile Include="Query\Filterable\Bool.cs" />
+    <Compile Include="Query\Filterable\Category.cs" />
+    <Compile Include="Query\Filterable\DateTimeOffset.cs" />
+    <Compile Include="Query\Filterable\Double.cs" />
+    <Compile Include="Query\Filterable\Int.cs" />
+    <Compile Include="Query\Filterable\Object.cs" />
+    <Compile Include="Query\Filterable\String.cs" />
+    <Compile Include="Query\Filterable\Type.cs" />
+    <Compile Include="Query\Json\JsonValue.cs" />
+    <Compile Include="Query\Orderable\Bool.cs" />
+    <Compile Include="Query\Orderable\Category.cs" />
+    <Compile Include="Query\Orderable\DateTimeOffset.cs" />
+    <Compile Include="Query\Orderable\Double.cs" />
+    <Compile Include="Query\Orderable\Int.cs" />
+    <Compile Include="Query\Orderable\Object.cs" />
+    <Compile Include="Query\Orderable\String.cs" />
+    <Compile Include="Query\Orderable\Type.cs" />
+    <Compile Include="Response\Arguments.cs" />
+    <Compile Include="Response\Commands.cs" />
+    <Compile Include="Response\Status.cs" />
+    <Compile Include="Query\Filterable.cs" />
+    <Compile Include="Query\InputAttribute.cs" />
+    <Compile Include="Query\Query.cs" />
+    <Compile Include="Source\Arguments.cs" />
+    <Compile Include="DataSet\Arguments.cs" />
+    <Compile Include="Source\Filterable.cs" />
+    <Compile Include="Source\Orderable.cs" />
+    <Compile Include="Response\Field.cs" />
+    <Compile Include="Source\SourceListing.cs" />
+    <Compile Include="Query\Filtered.cs" />
+    <Compile Include="Query\NameAttribute.cs" />
+    <Compile Include="Query\Orderable.cs" />
+    <Compile Include="Query\Ordered.cs" />
+    <Compile Include="Source\Client.cs" />
+    <Compile Include="DataSet\DataSet.cs" />
+    <Compile Include="Model\Model.cs" />
+    <Compile Include="Helpers\OpType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Response\Response.cs" />
+    <Compile Include="Source\Field.cs" />
+    <Compile Include="Source\Source.cs" />
+    <Compile Include="Response\Listing.cs" />
+    <Compile Include="Response\MetaObject.cs" />
+    <Compile Include="Source\Parser.cs" />
+    <Compile Include="Response\Code.cs" />
+    <Compile Include="Source\Status.cs" />
+    <Compile Include="Source\Type.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Query\Object\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
