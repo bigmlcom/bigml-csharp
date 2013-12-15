@@ -21,10 +21,23 @@ namespace BigML
             internal Expression Expression(Dictionary<string, ParameterExpression> parameters)
             {
                 var result = System.Linq.Expressions.Expression.Constant(Output) as Expression;
+                //var confidence = System.Linq.Expressions.Expression.Constant(Confidence) as Expression;
+
                 return Children.Aggregate(result,
                                           (current, child) =>
                                           System.Linq.Expressions.Expression.Condition(
                                               child.Predicate.Expression(parameters), child.Expression(parameters),
+                                              current));
+            }
+
+            internal Expression ConfidVal(Dictionary<string, ParameterExpression> parameters)
+            {
+                var confidence = System.Linq.Expressions.Expression.Constant(Confidence) as Expression;
+
+                return Children.Aggregate(confidence,
+                                          (current, child) =>
+                                          System.Linq.Expressions.Expression.Condition(
+                                              child.Predicate.ConfidenceVal(parameters), child.ConfidVal(parameters),
                                               current));
             }
 
@@ -37,6 +50,14 @@ namespace BigML
                 {
                     return (_node.children as JsonValue).Select(child => new Node(child));
                 }
+            }
+
+            /// <summary>
+            /// The confidence of the output with more weight in this node.
+            /// </summary>
+            public float Confidence
+            {
+                get { return _node.confidence; }
             }
 
             /// <summary>

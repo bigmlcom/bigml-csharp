@@ -57,6 +57,46 @@ namespace BigML
                 }
             }
 
+
+            internal Expression ConfidenceVal(Dictionary<string, ParameterExpression> parameters)
+            {
+                if (IsSimple)
+                {
+                    return System.Linq.Expressions.Expression.Constant(Constant);
+                }
+                var value = default(double);
+                var x = Value as object;
+                if (double.TryParse(Value, out value)) x = value;
+
+                switch (Operator)
+                {
+                    case ">":
+
+                        return System.Linq.Expressions.Expression.GreaterThan(parameters[Field],
+                                                                              System.Linq.Expressions.Expression.
+                                                                                  Constant(x));
+                    case ">=":
+                        return System.Linq.Expressions.Expression.GreaterThanOrEqual(parameters[Field],
+                                                                                     System.Linq.Expressions.
+                                                                                         Expression.
+                                                                                         Constant(x));
+                    case "<":
+                        return System.Linq.Expressions.Expression.LessThan(parameters[Field],
+                                                                           System.Linq.Expressions.Expression.
+                                                                               Constant(Value));
+                    case "<=":
+                        return System.Linq.Expressions.Expression.LessThanOrEqual(parameters[Field],
+                                                                                  System.Linq.Expressions.Expression.
+                                                                                      Constant(x));
+                    case "=":
+                        return System.Linq.Expressions.Expression.Equal(parameters[Field],
+                                                                        System.Linq.Expressions.Expression.
+                                                                            Constant(x));
+                    default:
+                        throw new Exception("unknown operator");
+                }
+            }
+
             /// <summary>
             /// Is leaf node (boolean)
             /// </summary>
