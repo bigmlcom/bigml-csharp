@@ -21,7 +21,6 @@ namespace BigML
             internal Expression Expression(Dictionary<string, ParameterExpression> parameters)
             {
                 var result = System.Linq.Expressions.Expression.Constant(Output) as Expression;
-                //var confidence = System.Linq.Expressions.Expression.Constant(Confidence) as Expression;
 
                 return Children.Aggregate(result,
                                           (current, child) =>
@@ -37,7 +36,23 @@ namespace BigML
                 return Children.Aggregate(confidence,
                                           (current, child) =>
                                           System.Linq.Expressions.Expression.Condition(
-                                              child.Predicate.ConfidenceVal(parameters), child.ConfidVal(parameters),
+                                              child.Predicate.Expression(parameters), child.ConfidVal(parameters),
+                                              current));
+            }
+
+            internal Expression ComplexResult(Dictionary<string, ParameterExpression> parameters)
+            {
+                ResultNode rn = new ResultNode();
+                rn.Output = Output;
+                rn.Confidence = Confidence;
+                rn.Count = Count;
+
+                var result = System.Linq.Expressions.Expression.Constant(rn) as Expression;
+
+                return Children.Aggregate(result,
+                                          (current, child) =>
+                                          System.Linq.Expressions.Expression.Condition(
+                                              child.Predicate.Expression(parameters), child.ComplexResult(parameters),
                                               current));
             }
 
