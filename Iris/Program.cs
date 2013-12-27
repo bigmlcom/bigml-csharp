@@ -67,16 +67,23 @@ namespace Iris
             var expressionConf = description.ConfidenceValue();
             Console.WriteLine(expressionConf);
 
+            Console.WriteLine("\n ---- Model description as a function (Object with properties) ------ ");
+            var expressionCR = description.ComplexResult();
+            Console.WriteLine(expressionCR);
+
             Console.WriteLine("\n Prediction block ------ ");
             // Then compile the expression tree into MSIL
             var predict = expression.Compile() as Func<double,double,double,double,string>;
             var confP = expressionConf.Compile() as Func<double, double, double, double, float>;
+            var modelCR = expressionCR.Compile() as Func<double, double, double, double, Object>;
 
             // And try the first flower of the example set.
             var result2 = predict(5.1, 3.5, 1.4, 0.2);
             var resultP = confP(5.1, 3.5, 1.4, 0.2);
+            var resultR = modelCR(5.1, 3.5, 1.4, 0.2);
             Console.WriteLine("result = {0}, expected = {1}", result2, "setosa");
             Console.WriteLine("confP = {0}", resultP);
+            Console.WriteLine("Node: {0}", ((Model.ResultNode) resultR).Confidence );
         }
 
         private static IEnumerable<string> iris = new[]
