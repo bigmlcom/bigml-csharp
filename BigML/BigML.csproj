@@ -55,6 +55,7 @@
     <Compile Include="DataSet\Field\Categorial.cs" />
     <Compile Include="DataSet\Field\Numeric.cs" />
     <Compile Include="DataSet\Field\Summary.cs" />
+    <Compile Include="Model\ResultNode.cs" />
     <Compile Include="Response\Category.cs" />
     <Compile Include="DataSet\Filterable.cs" />
     <Compile Include="DataSet\Orderable.cs" />
