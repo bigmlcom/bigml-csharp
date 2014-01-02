@@ -42,6 +42,10 @@ namespace BigML
                 get { return this.resultOutput; }
             }
 
+            public override string ToString() {
+                return "{Output: " + this.Output + ", Confidence: " + this.Confidence + "}";
+            }
+
         }
     }
 }
