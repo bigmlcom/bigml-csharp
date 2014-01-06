@@ -36,7 +36,7 @@ namespace Iris
                 Console.WriteLine(src.ToString());
             }
 
-            // New source from in-memory stream, with separate header.
+            // New source from in-memory stream, with separate header. That's the header
             var source = await client.Create(iris, "Iris.csv", "sepal length, sepal width, petal length, petal width, species");
             // No push, so we need to busy wait for the source to be processed.
             while ((source = await client.Get(source)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
@@ -73,17 +73,17 @@ namespace Iris
 
             Console.WriteLine("\n Prediction block ------ ");
             // Then compile the expression tree into MSIL
-            var predict = expression.Compile() as Func<double,double,double,double,string>;
-            var confP = expressionConf.Compile() as Func<double, double, double, double, float>;
-            var modelCR = expressionCR.Compile() as Func<double, double, double, double, Object>;
+            var predictOutput = expression.Compile() as Func<double,double,double,double,string>;
+            var predictConfid = expressionConf.Compile() as Func<double, double, double, double, float>;
+            var predictBoth = expressionCR.Compile() as Func<double, double, double, double, Object>;
 
             // And try the first flower of the example set.
-            var result2 = predict(5.1, 3.5, 1.4, 0.2);
-            var resultP = confP(5.1, 3.5, 1.4, 0.2);
-            var resultR = modelCR(5.1, 3.5, 1.4, 0.2);
-            Console.WriteLine("result = {0}, expected = {1}", result2, "setosa");
-            Console.WriteLine("confP = {0}", resultP);
-            Console.WriteLine("Node: {0}", ((Model.ResultNode) resultR).Confidence );
+            var resultOutput = predictOutput(5.1, 3.5, 1.4, 0.2);
+            var resultConfid = predictConfid(5.1, 3.5, 1.4, 0.2);
+            var resultNode = predictBoth(5.1, 3.5, 1.4, 0.2);
+            Console.WriteLine("Output = {0}, expected = {1}", resultOutput, "setosa");
+            Console.WriteLine("Confidence = {0}", resultConfid);
+            Console.WriteLine("Whole node values: {0}", ((Model.ResultNode)resultNode).ToString());
         }
 
         private static IEnumerable<string> iris = new[]
