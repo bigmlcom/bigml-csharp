@@ -52,7 +52,6 @@ namespace BigML
                 if (Category != Category.Miscellaneous) json.category = (int)Category;
                 if (!string.IsNullOrWhiteSpace(Description)) json.description = Description;
                 if (!string.IsNullOrWhiteSpace(Name)) json.name = Name;
-                if (!Private) json.@private = Private;
                 if (Tags.Count > 0) json.tags = new JsonArray(Tags.Select(tag => (JsonValue) tag));
 
                 return json;
