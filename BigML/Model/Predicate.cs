@@ -40,6 +40,12 @@ namespace BigML
                                                                                      System.Linq.Expressions.
                                                                                          Expression.
                                                                                          Constant(x));
+                    case "<>":
+                    case "!=":
+                        return System.Linq.Expressions.Expression.NotEqual(parameters[Field],
+                                                                           System.Linq.Expressions.
+                                                                               Expression.
+                                                                               Constant(x));
                     case "<":
                         return System.Linq.Expressions.Expression.LessThan(parameters[Field],
                                                                            System.Linq.Expressions.Expression.
@@ -56,6 +62,7 @@ namespace BigML
                         throw new Exception("unknown operator");
                 }
             }
+
 
             /// <summary>
             /// Is leaf node (boolean)

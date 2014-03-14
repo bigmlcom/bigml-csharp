@@ -37,6 +37,46 @@ namespace BigML
                 return lambda;
             }
 
+
+            /// <summary>
+            /// Compile Model description to Expression, focused on confidence
+            /// </summary>
+            public LambdaExpression ConfidenceValue()
+            {
+                var parameters = new Dictionary<string, ParameterExpression>();
+                foreach (var field in Fields)
+                {
+                    if (!_inputFields.Contains(field.Key)) continue;
+                    var type = field.Value.OpType.TypeOf();
+                    var parameter = System.Linq.Expressions.Expression.Parameter(type, field.Value.Name);
+                    parameters[field.Key] = parameter;
+                }
+
+                var body = Root.ConfidVal(parameters);
+                var lambda = System.Linq.Expressions.Expression.Lambda(body, parameters.Values);
+                return lambda;
+            }
+
+
+            /// <summary>
+            /// Compile Model description to Expression using ResultNode objects
+            /// </summary>
+            public LambdaExpression ComplexResult()
+            {
+                var parameters = new Dictionary<string, ParameterExpression>();
+                foreach (var field in Fields)
+                {
+                    if (!_inputFields.Contains(field.Key)) continue;
+                    var type = field.Value.OpType.TypeOf();
+                    var parameter = System.Linq.Expressions.Expression.Parameter(type, field.Value.Name);
+                    parameters[field.Key] = parameter;
+                }
+
+                var body = Root.ComplexResult(parameters);
+                var lambda = System.Linq.Expressions.Expression.Lambda(body, parameters.Values);
+                return lambda;
+            }
+
             /// <summary>
             /// A dictionary with an entry per field in the model. 
             /// Each entry includes the column number in original source, the name of the field, the type of the field, and the summary.
@@ -88,6 +128,11 @@ namespace BigML
             }
 
             public override string ToString()
+            {
+                return _description.ToString();
+            }
+
+            public string ToStringConfidence()
             {
                 return _description.ToString();
             }

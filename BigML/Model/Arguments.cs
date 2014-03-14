@@ -67,7 +67,8 @@ namespace BigML
                 dynamic json = base.ToJson();
 
                 if(!string.IsNullOrWhiteSpace(DataSet)) json.dataset = DataSet;
-                if (!double.IsNaN(HoldOut)) json.holdout = HoldOut;
+                //HoldOut parameter is deprecated
+                //if (!double.IsNaN(HoldOut)) json.holdout = HoldOut;
                 if(Inputs.Count > 0) json.input_fields = new JsonArray(Inputs.Select(input => (JsonValue)input));
                 if (!string.IsNullOrWhiteSpace(Objective)) json.Objective = new JsonArray((JsonValue)Objective);
                 if(Range.Count >= 2) json.range = new JsonArray(Range.Take(2).Select(index => (JsonValue)index));

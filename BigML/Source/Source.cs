@@ -112,5 +112,10 @@ namespace BigML
         {
             get { return (Type)(int)Object.type; }
         }
+
+        public override string ToString()
+        {
+            return "{Name: " + this.Name + ", Status: " + this.StatusMessage.StatusCode + "}";
+        }
     }
 }
