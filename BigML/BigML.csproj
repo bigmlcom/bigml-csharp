@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client\Client.cs" />
+    <Compile Include="Cluster\Cluster.cs" />
     <Compile Include="DataSet\Field\Categorial.cs" />
     <Compile Include="DataSet\Field\Numeric.cs" />
     <Compile Include="DataSet\Field\Summary.cs" />
