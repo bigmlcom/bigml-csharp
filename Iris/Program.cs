@@ -48,6 +48,11 @@ namespace Iris
             while ((dataset = await client.Get(dataset)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
             Console.WriteLine(dataset.StatusMessage.ToString());
 
+            // Default cluster from dataset
+            var cluster = await client.CreateCluster(dataset);
+            while ((cluster = await client.Get(cluster)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
+            Console.WriteLine(cluster.StatusMessage.ToString());
+
             // Default model from dataset
             var model = await client.Create(dataset);
             // No push, so we need to busy wait for the source to be processed.
