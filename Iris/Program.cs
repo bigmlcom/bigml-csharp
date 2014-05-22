@@ -49,7 +49,7 @@ namespace Iris
             Console.WriteLine(dataset.StatusMessage.ToString());
 
             // Default cluster from dataset
-            var cluster = await client.CreateCluster(dataset);
+            var cluster = await client.CreateCluster(dataset, "my first cluster", 3);
             while ((cluster = await client.Get(cluster)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
             Console.WriteLine(cluster.StatusMessage.ToString());
 
