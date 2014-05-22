@@ -7,7 +7,7 @@ namespace BigML
         /// <summary>
         /// Create a model using supplied arguments.
         /// </summary>
-        public Task<Cluster> Create(Cluster.Arguments arguments)
+        public Task<Cluster> CreateCluster(Cluster.Arguments arguments)
         {
             return Create<Cluster>(arguments);
         }
@@ -16,10 +16,10 @@ namespace BigML
         /// Create a cluster.
         /// </summary>
         /// <param name="dataset">A DataSet instance</param>
-        /// <param name="name">The name you want to give to the new model. </param>
-        /// <param name="inputFields">Specifies the ids of the fields that you want to use as predictors to create the model. </param>
+        /// <param name="name">The name you want to give to the new cluster. </param>
+        /// <param name="inputFields">Specifies the ids of the fields that you want to use as important to create the cluster. </param>
         /// <param name="objectiveField">Specifies the id of the field that you want to predict.</param>
-        public Task<Cluster> Create(DataSet dataset, string name = null, string[] inputFields = null, 
+        public Task<Cluster> CreateCluster(DataSet dataset, string name = null, string[] inputFields = null,
                                     string objectiveField = null, Cluster.Arguments arguments = null)
         {
             arguments = arguments ?? new Cluster.Arguments();
@@ -34,9 +34,9 @@ namespace BigML
         }
 
         /// <summary>
-        /// List all models
+        /// List all clusters
         /// </summary>
-        public Query<Cluster.Filterable, Cluster.Orderable, Cluster> ListModels()
+        public Query<Cluster.Filterable, Cluster.Orderable, Cluster> ListClusters()
         {
             return new ClusterListing(List<Cluster>);
         }
