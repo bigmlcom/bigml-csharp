@@ -25,6 +25,20 @@ namespace BigML
             return Create<DataSet>(arguments);
         }
 
+
+        /// <summary>
+        /// Clone, filter or sample a dataset
+        /// </summary>
+        /// <param name="name">The optional name you want to give to the new dataset. </param>
+        public Task<DataSet> Transform(DataSet dataset, string name = null, DataSet.Arguments arguments = null)
+        {
+            arguments = arguments ?? new DataSet.Arguments();
+            arguments.OriginDataset = dataset.Resource;
+            if (!string.IsNullOrWhiteSpace(name)) arguments.Name = name;
+            return Create<DataSet>(arguments);
+        }
+
+
         public Query<DataSet.Filterable, DataSet.Orderable, DataSet> ListDataSets()
         {
             return new DataSetListing(List<DataSet>);

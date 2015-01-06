@@ -44,12 +44,45 @@ namespace BigML
                 set;
             }
 
+            /// <summary>
+            /// A valid dataset/id.
+            /// </summary>
+            public string OriginDataset
+            {
+                get;
+                set;
+            }
+
+            /// <summary>
+            /// get the rows in the bag or not.
+            /// </summary>
+            public bool OutOfBag
+            {
+                get;
+                set;
+            }
+
+            /// <summary>
+            /// A valid float number between zero and one.
+            /// </summary>
+            public float SampleRate
+            {
+                get;
+                set;
+            }
+
             public override JsonValue ToJson()
             {
                 dynamic json = base.ToJson();
 
                 json.source = Source;
+                if (OriginDataset != null)
+                {
+                    json.origin_dataset = OriginDataset;
+                }
                 if (Size != 0) json.size = Size;
+                if (SampleRate != 0.0) json.sample_rate = SampleRate;
+                json.out_of_bag = OutOfBag;
                 if(FieldInfos.Count > 0)
                 {
                    var field = new JsonObject();
