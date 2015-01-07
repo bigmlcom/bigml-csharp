@@ -13,7 +13,7 @@ namespace BigML
         /// <summary>
         /// Specifies in which page of the the listing you are, 
         /// how to get to the previous page and next page, 
-        /// and the total number of sources.
+        /// and the total number of resources.
         /// </summary>
         public MetaObject Meta 
         { 

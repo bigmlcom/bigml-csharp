@@ -18,9 +18,9 @@ namespace BigML
             }
 
             /// <summary>
-            /// Data for inline source creation. 
+            /// Data for inline source creation.
             /// </summary>
-            public IDictionary<string, Field> FieldInfos 
+            public IDictionary<string, Field> FieldInfos
             {
                 get;
                 private set;
@@ -36,7 +36,7 @@ namespace BigML
             }
 
             /// <summary>
-            /// A valid source/id. 
+            /// A valid source/id.
             /// </summary>
             public string Source
             {
@@ -71,6 +71,16 @@ namespace BigML
                 set;
             }
 
+            /// <summary>
+            /// A string to generate deterministic samples.
+            /// </summary>
+            public string Seed
+            {
+                get;
+                set;
+            }
+
+
             public override JsonValue ToJson()
             {
                 dynamic json = base.ToJson();
@@ -80,6 +90,7 @@ namespace BigML
                 {
                     json.origin_dataset = OriginDataset;
                 }
+                if (Seed != "") json.seed = Seed;
                 if (Size != 0) json.size = Size;
                 if (SampleRate != 0.0) json.sample_rate = SampleRate;
                 json.out_of_bag = OutOfBag;
