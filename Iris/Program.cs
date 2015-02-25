@@ -44,7 +44,7 @@ namespace Iris
 
             // Default dataset from source
             var dataset = await client.Create(source);
-            // No push, so we need to busy wait for the source to be processed.
+            // No push, so we need to busy wait for the dataset to be processed.
             while ((dataset = await client.Get(dataset)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
             Console.WriteLine(dataset.StatusMessage.ToString());
 
@@ -77,7 +77,7 @@ namespace Iris
             Console.WriteLine(expressionCR);
 
             Console.WriteLine("\n Prediction block ------ ");
-            // Then compile the expression tree into MSIL
+            // Then compile the expression tree into MSIL. Only with the input fields of the model
             var predictOutput = expression.Compile() as Func<double,double,double,double,string>;
             var predictConfid = expressionConf.Compile() as Func<double, double, double, double, float>;
             var predictBoth = expressionCR.Compile() as Func<double, double, double, double, Object>;

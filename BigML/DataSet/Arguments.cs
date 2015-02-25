@@ -9,11 +9,14 @@ namespace BigML
         {
             public Arguments(Source source): this()
             {
+                Seed = "";
+                FieldInfos = new Dictionary<string, Field>();
                 Source = source.Resource;
             }
 
             public Arguments()
             {
+                Seed = "";
                 FieldInfos = new Dictionary<string,Field>();
             }
 
