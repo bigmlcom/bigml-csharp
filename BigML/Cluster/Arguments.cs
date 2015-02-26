@@ -23,7 +23,8 @@ namespace BigML
             }
 
             /// <summary>
-            /// Specifies the number of groups that you do want to be considered when building the cluster.
+            /// Specifies the number of groups that you do want to be considered
+            /// when building the cluster.
             /// </summary>
             public int NumberOfCluster
             {
