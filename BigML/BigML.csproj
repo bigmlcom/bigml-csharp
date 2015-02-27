@@ -51,6 +51,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Anomaly\Anomaly.cs" />
+    <Compile Include="Anomaly\AnomalyListing.cs" />
+    <Compile Include="Anomaly\Arguments.cs" />
+    <Compile Include="Anomaly\BigMLClientAnomaly.cs" />
+    <Compile Include="Anomaly\Filterable.cs" />
+    <Compile Include="Anomaly\Orderable.cs" />
+    <Compile Include="Anomaly\Status.cs" />
+    <Compile Include="Centroid\Arguments.cs" />
+    <Compile Include="Centroid\BigMLClientCentroid.cs" />
+    <Compile Include="Centroid\Centroid.cs" />
+    <Compile Include="Centroid\CentroidListing.cs" />
+    <Compile Include="Centroid\Filterable.cs" />
+    <Compile Include="Centroid\Orderable.cs" />
+    <Compile Include="Centroid\Status.cs" />
     <Compile Include="Client\Client.cs" />
     <Compile Include="Cluster\Arguments.cs" />
     <Compile Include="Cluster\BigMLClientCluster.cs" />
@@ -62,6 +76,13 @@
     <Compile Include="DataSet\Field\Categorial.cs" />
     <Compile Include="DataSet\Field\Numeric.cs" />
     <Compile Include="DataSet\Field\Summary.cs" />
+    <Compile Include="Ensemble\Ensemble.cs" />
+    <Compile Include="Ensemble\EnsembleListing.cs" />
+    <Compile Include="Ensemble\Arguments.cs" />
+    <Compile Include="Ensemble\BigMLClientEnsemble.cs" />
+    <Compile Include="Ensemble\Filterable.cs" />
+    <Compile Include="Ensemble\Orderable.cs" />
+    <Compile Include="Ensemble\Status.cs" />
     <Compile Include="Model\ResultNode.cs" />
     <Compile Include="Response\Category.cs" />
     <Compile Include="DataSet\Filterable.cs" />

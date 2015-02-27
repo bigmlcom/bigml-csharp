@@ -8,6 +8,22 @@ The implementation of the LINQ provider may be an interesting topic of
 study by itself, and follows the pattern outlined in
 [The World According to LINQ](http://queue.acm.org/detail.cfm?id=2024658).
 
+### Adding JSON Library
+
+This binginds uses the System.Json dll that was released as part of Silverlight
+Framework ([See reference] (https://msdn.microsoft.com/en-us/library/system.json(v=vs.95).aspx)).
+So, its common to add it mannually. In order to add it you should use the
+package manager. In your visual studio enviroments
+go to the package manager console (Tools > Library packages
+manager > Package manager console) and type:
+```Shell
+Install-Package System.Json -Version 4.0.20126.16343 BigML
+```
+you should see a message like this
+```Shell
+'System.Json 4.0.20126.16343' was successfully added to BigML.
+```
+
 ### Accessing BigML.io
 
 To access BigML using the bindings, you first create a new client
