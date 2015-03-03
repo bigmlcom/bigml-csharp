@@ -11,7 +11,7 @@ namespace BigML
         {
 
             /// <summary>
-            /// The current number of predictions that use this source.
+            /// The current number of predictions that use this ensemble.
             /// </summary>
             public Int NumberOfPredictions
             {
@@ -19,7 +19,7 @@ namespace BigML
             }
 
             /// <summary>
-            /// The source/id that was used to build the dataset.
+            /// The dataset/id that was used to build the ensemble.
             /// </summary>
             public String Dataset
             {

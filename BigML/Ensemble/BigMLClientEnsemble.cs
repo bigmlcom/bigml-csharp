@@ -5,7 +5,7 @@ namespace BigML
     public partial class Client
     {
         /// <summary>
-        /// Create an anomaly detector using supplied arguments.
+        /// Create a ensemble using supplied arguments.
         /// </summary>
         public Task<Ensemble> CreateEnsemble(Ensemble.Arguments arguments)
         {

@@ -7,6 +7,14 @@ namespace BigML
         /// <summary>
         /// Create a model using supplied arguments.
         /// </summary>
+        public Task<Model> CreateModel(Model.Arguments arguments)
+        {
+            return Create<Model>(arguments);
+        }
+
+        /// <summary>
+        /// Create a model using supplied arguments.
+        /// </summary>
         public Task<Model> Create(Model.Arguments arguments)
         {
             return Create<Model>(arguments);

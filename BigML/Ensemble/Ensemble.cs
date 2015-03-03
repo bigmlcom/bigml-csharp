@@ -21,7 +21,7 @@ namespace BigML
 
 
         /// <summary>
-        /// The dataset/id that was used to build the dataset.
+        /// The dataset/id that was used to build the ensemble.
         /// </summary>
         public string DataSet
         {
@@ -40,7 +40,7 @@ namespace BigML
 
 
         /// <summary>
-        /// A description of the status of the cluster. It includes a code, a message,
+        /// A description of the status of the ensemble. It includes a code, a message,
         /// and some extra information.
         /// </summary>
         public Status StatusMessage
