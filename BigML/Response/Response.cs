@@ -56,7 +56,7 @@ namespace BigML
         }
 
         /// <summary>
-        /// A text describing the dataset. It can contain restricted markdown to decorate the text.
+        /// A text describing the resource. It can contain restricted markdown to decorate the text.
         /// </summary>
         public string Description
         {

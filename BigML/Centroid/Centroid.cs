@@ -18,14 +18,6 @@ namespace BigML
             get { return Object.name; }
         }
 
-        /// <summary>
-        /// The name of the cluster as your provided or based on the name of the dataset by default.
-        /// </summary>
-        public string Description
-        {
-            get { return Object.Description; }
-        }
-
 
         /// <summary>
         /// The dataset/id that was used to build the dataset.
