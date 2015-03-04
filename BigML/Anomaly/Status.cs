@@ -5,12 +5,13 @@ namespace BigML
     public partial class Anomaly
     {
         /// <summary>
-        /// Creating a cluster is a process that can take just a few seconds or a few days 
-        /// depending on the size of the dataset used as input and on the work load of 
-        /// BigML's systems. 
-        /// The cluster goes through a number of states until its fully completed.
-        /// Through the status field in the cluster you can determine when the anomaly has 
-        /// been fully processed and ready to be used to create predictions. 
+        /// Creating an anomaly detector is a process that can take just a few
+        /// seconds or a few days depending on the size of the dataset used as
+        /// input and on the work load of BigML's systems.
+        /// The anomaly detector goes through a number of states until its
+        /// fully completed.
+        /// Through the status field in the anomaly you can determine when the
+        /// anomaly has been fully processed and ready to be used to create scores.
         /// </summary>
         public class Status : Status<Anomaly>
         {

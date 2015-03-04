@@ -7,7 +7,7 @@ namespace BigML
     public partial class Centroid
     {
         /// <summary>
-        /// Orderable properties for DataSets
+        /// Orderable properties for Centroids
         /// </summary>
         public class Orderable : Orderable<Centroid>
         {
