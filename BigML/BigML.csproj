@@ -142,6 +142,13 @@
     <Compile Include="Query\Filterable.cs" />
     <Compile Include="Query\InputAttribute.cs" />
     <Compile Include="Query\Query.cs" />
+    <Compile Include="AnomalyScore\AnomalyScore.cs" />
+    <Compile Include="AnomalyScore\ScoreListing.cs" />
+    <Compile Include="AnomalyScore\Arguments.cs" />
+    <Compile Include="AnomalyScore\BigMLClientScore.cs" />
+    <Compile Include="AnomalyScore\Filterable.cs" />
+    <Compile Include="AnomalyScore\Orderable.cs" />
+    <Compile Include="AnomalyScore\Status.cs" />
     <Compile Include="Source\Arguments.cs" />
     <Compile Include="DataSet\Arguments.cs" />
     <Compile Include="Source\Filterable.cs" />
