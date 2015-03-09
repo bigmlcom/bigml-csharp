@@ -13,11 +13,11 @@ namespace BigML
         {
 
             /// <summary>
-            /// Whether the project is completed or in a different status.
+            /// Which is project's category.
             /// </summary>
-            public Bool Status
+            public Category category
             {
-                get { return Object.status; }
+                get { return Object.category; }
             }
         }
     }
