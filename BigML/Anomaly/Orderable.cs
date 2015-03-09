@@ -7,7 +7,7 @@ namespace BigML
     public partial class Anomaly
     {
         /// <summary>
-        /// Orderable properties for DataSets
+        /// Orderable properties for Anomalies
         /// </summary>
         public class Orderable : Orderable<Anomaly>
         {

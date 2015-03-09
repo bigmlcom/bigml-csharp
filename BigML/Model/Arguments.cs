@@ -23,18 +23,22 @@ namespace BigML
                 set;
             }
 
+            /* DEPRECATED
             /// <summary>
-            /// Specifies the percentage of instances that you do not want to be considered directly when building the model 
-            /// but to use them to later prune the model and obtain and model that generalizes better. 
+            /// Specifies the percentage of instances that you do not want to be considered
+            /// directly when building the model but to use them to later prune the model
+            /// and obtain and model that generalizes better.
             /// </summary>
             public double HoldOut
             {
                 get;
                 set;
             }
+             * */
 
             /// <summary>
-            /// Specifies the ids of the fields that you want to use as predictors to create the model. 
+            /// Specifies the ids of the fields that you want to use as predictors to create
+            /// the model.
             /// TODO use Field?
             /// </summary>
             public ICollection<string> Inputs
@@ -44,8 +48,7 @@ namespace BigML
             }
 
             /// <summary>
-            /// Specifies the id of the field that you want to predict.
-            /// TODO use Field? 
+            /// Specifies the id of the field that you want to predict with this model.
             /// </summary>
             public string Objective
             {
@@ -69,9 +72,12 @@ namespace BigML
                 if(!string.IsNullOrWhiteSpace(DataSet)) json.dataset = DataSet;
                 //HoldOut parameter is deprecated
                 //if (!double.IsNaN(HoldOut)) json.holdout = HoldOut;
-                if(Inputs.Count > 0) json.input_fields = new JsonArray(Inputs.Select(input => (JsonValue)input));
-                if (!string.IsNullOrWhiteSpace(Objective)) json.Objective = new JsonArray((JsonValue)Objective);
-                if(Range.Count >= 2) json.range = new JsonArray(Range.Take(2).Select(index => (JsonValue)index));
+                if(Inputs.Count > 0)
+                    json.input_fields = new JsonArray(Inputs.Select(input => (JsonValue)input));
+                if (!string.IsNullOrWhiteSpace(Objective))
+                    json.Objective = new JsonArray((JsonValue)Objective);
+                if(Range.Count >= 2)
+                    json.range = new JsonArray(Range.Take(2).Select(index => (JsonValue)index));
                 
                 return json;
             }

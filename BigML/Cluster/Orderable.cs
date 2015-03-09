@@ -7,7 +7,7 @@ namespace BigML
     public partial class Cluster
     {
         /// <summary>
-        /// Orderable properties for DataSets
+        /// Orderable properties for Clusters
         /// </summary>
         public class Orderable : Orderable<Cluster>
         {

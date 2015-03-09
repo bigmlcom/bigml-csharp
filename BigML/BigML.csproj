@@ -84,6 +84,13 @@
     <Compile Include="Ensemble\Orderable.cs" />
     <Compile Include="Ensemble\Status.cs" />
     <Compile Include="Model\ResultNode.cs" />
+    <Compile Include="Project\Arguments.cs" />
+    <Compile Include="Project\BigMLClientProject.cs" />
+    <Compile Include="Project\Project.cs" />
+    <Compile Include="Project\ProjectListing.cs" />
+    <Compile Include="Project\Filterable.cs" />
+    <Compile Include="Project\Orderable.cs" />
+    <Compile Include="Project\Status.cs" />
     <Compile Include="Response\Category.cs" />
     <Compile Include="DataSet\Filterable.cs" />
     <Compile Include="DataSet\Orderable.cs" />

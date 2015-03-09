@@ -13,8 +13,21 @@ namespace BigML
         FraudAndCrime = 4,
         HealthCare = 5,
         LifeSciences = 6,
-        Retail = 7,
+        ConsumerAndRetail = 7,
         SportsAndGames = 8,
-        DemographicsAndSurveys =9
+        DemographicsAndSurveys = 9,
+        AerospaceAndDefense = 10,
+        ChemicalAndPharmaceutical = 11,
+        HigherEduactionAndResearch = 12,
+        HumanResourcesAndPsycolgy = 13,
+        Insurance = 14,
+        LawAndOrder = 15,
+        MarketingAndAdvertising = 16,
+        PublicSectorAndNonprofit = 17,
+        ProfessionalServices = 18,
+        TechnologyAndCommunications = 19,
+        TransportationAndLogistics = 20,
+        TravelAndLeisure = 21,
+        Utilities = 22
     }
 }

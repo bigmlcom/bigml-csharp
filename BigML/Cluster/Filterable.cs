@@ -5,7 +5,7 @@ namespace BigML
     public partial class Cluster
     {
         /// <summary>
-        /// Filterable properties for DataSets
+        /// Filterable properties for Clusters
         /// </summary>
         public class Filterable : Filterable<Cluster>
         {

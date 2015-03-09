@@ -5,7 +5,7 @@ namespace BigML
     public partial class Anomaly
     {
         /// <summary>
-        /// Filterable properties for DataSets
+        /// Filterable properties for Anomalies
         /// </summary>
         public class Filterable : Filterable<Anomaly>
         {

@@ -5,7 +5,7 @@ namespace BigML
     public partial class Centroid
     {
         /// <summary>
-        /// Filterable properties for DataSets
+        /// Filterable properties for Centroids
         /// </summary>
         public class Filterable : Filterable<Centroid>
         {

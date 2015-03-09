@@ -17,14 +17,14 @@ namespace BigML
         /// </summary>
         /// <param name="dataset">A DataSet instance</param>
         /// <param name="name">The name you want to give to the new cluster. </param>
-        /// <param name="inputFields">Specifies the ids of the fields that you want to use as important to create the cluster. </param>
-        /// <param name="objectiveField">Specifies the id of the field that you want to predict.</param>
+        /// <param name="k">Specifies the number of groups you want to create as parts of the cluster. </param>
+        /// <param name="arguments">An object with more cluster parameters.</param>
         public Task<Cluster> CreateCluster(DataSet dataset, string name = null, int k = 8,
                                             Cluster.Arguments arguments = null)
         {
             arguments = arguments ?? new Cluster.Arguments();
             if (!string.IsNullOrWhiteSpace(name)) arguments.Name = name;
-            if (k != null && k > 0)
+            if (k > 0)
             {
                 arguments.NumberOfCluster = k;
             }

@@ -5,12 +5,12 @@ namespace BigML
     public partial class Ensemble
     {
         /// <summary>
-        /// Creating an ensemble is a process that can take just a few seconds or a few days 
-        /// depending on the size of the dataset used as input and on the work load of 
-        /// BigML's systems. 
+        /// Creating an ensemble is a process that can take just a few seconds or a few days
+        /// depending on the size of the dataset used as input and on the work load of
+        /// BigML's systems.
         /// The ensemble goes through a number of states until its fully completed.
-        /// Through the status field in the ensemble you can determine when the anomaly has 
-        /// been fully processed and ready to be used to create predictions. 
+        /// Through the status field in the ensemble you can determine when the ensemble has
+        /// been fully processed and ready to be used to create predictions.
         /// </summary>
         public class Status : Status<Ensemble>
         {
