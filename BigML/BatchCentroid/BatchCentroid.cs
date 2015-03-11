@@ -12,7 +12,7 @@ namespace BigML
 
         /// <summary>
         /// The name of the batch centroid as your provided or based on the name 
-        /// of the cluster by default.
+        /// of the cluster and dataset by default.
         /// </summary>
         public string Name
         {
@@ -21,7 +21,7 @@ namespace BigML
 
 
         /// <summary>
-        /// The cluster/id that was used to build the dataset.
+        /// The cluster/id that was used to build the batch centroid.
         /// </summary>
         public string Cluster
         {
@@ -38,6 +38,24 @@ namespace BigML
             get { return Object.dataset_status; }
         }
 
+
+        /// <summary>
+        /// The dataset/id that was used to build the batch centroid.
+        /// </summary>
+        public string DataSet
+        {
+            get { return Object.dataset; }
+        }
+
+
+
+        /// <summary>
+        /// Whether the dataset is still available or has been deleted.
+        /// </summary>
+        public bool DatasetStatus
+        {
+            get { return Object.dataset_status; }
+        }
 
         /// <summary>
         /// A description of the status of the BatchCentroid. 
