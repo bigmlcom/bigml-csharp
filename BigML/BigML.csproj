@@ -65,6 +65,13 @@
     <Compile Include="BatchCentroid\Filterable.cs" />
     <Compile Include="BatchCentroid\Orderable.cs" />
     <Compile Include="BatchCentroid\Status.cs" />
+    <Compile Include="BatchPrediction\BatchPrediction.cs" />
+    <Compile Include="BatchPrediction\BatchPredictionListing.cs" />
+    <Compile Include="BatchPrediction\Arguments.cs" />
+    <Compile Include="BatchPrediction\BigMLClientBatchPredictions.cs" />
+    <Compile Include="BatchPrediction\Filterable.cs" />
+    <Compile Include="BatchPrediction\Orderable.cs" />
+    <Compile Include="BatchPrediction\Status.cs" />
     <Compile Include="Centroid\Arguments.cs" />
     <Compile Include="Centroid\BigMLClientCentroid.cs" />
     <Compile Include="Centroid\Centroid.cs" />
