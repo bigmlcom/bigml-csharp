@@ -10,7 +10,7 @@ study by itself, and follows the pattern outlined in
 
 ### Adding JSON Library
 
-This binginds uses the System.Json dll that was released as part of Silverlight
+This bindings uses the System.Json dll that was released as part of Silverlight
 Framework ([See reference] (https://msdn.microsoft.com/en-us/library/system.json(v=vs.95).aspx)).
 So, its common to add it mannually. In order to add it you should use the
 package manager. In your visual studio enviroments
