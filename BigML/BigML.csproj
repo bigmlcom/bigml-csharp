@@ -58,6 +58,13 @@
     <Compile Include="Anomaly\Filterable.cs" />
     <Compile Include="Anomaly\Orderable.cs" />
     <Compile Include="Anomaly\Status.cs" />
+    <Compile Include="BatchCentroid\BatchCentroid.cs" />
+    <Compile Include="BatchCentroid\BatchCentroidListing.cs" />
+    <Compile Include="BatchCentroid\Arguments.cs" />
+    <Compile Include="BatchCentroid\BigMLClientBatchCentroid.cs" />
+    <Compile Include="BatchCentroid\Filterable.cs" />
+    <Compile Include="BatchCentroid\Orderable.cs" />
+    <Compile Include="BatchCentroid\Status.cs" />
     <Compile Include="Centroid\Arguments.cs" />
     <Compile Include="Centroid\BigMLClientCentroid.cs" />
     <Compile Include="Centroid\Centroid.cs" />
