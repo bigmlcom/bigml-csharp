@@ -71,6 +71,30 @@ namespace BigML
         }
 
         /// <summary>
+        /// The current number of ensembles that use this source.
+        /// </summary>
+        public int NumberOfEnsembles
+        {
+            get { return Object.number_of_ensembles; }
+        }
+
+        /// <summary>
+        /// The current number of clusters that use this source.
+        /// </summary>
+        public int NumberOfClusters
+        {
+            get { return Object.number_of_clusters; }
+        }
+
+        /// <summary>
+        /// The current number of anomalies that use this source.
+        /// </summary>
+        public int NumberOfAnomalies
+        {
+            get { return Object.number_of_anomalies; }
+        }
+
+        /// <summary>
         /// The current number of predictions that use this source.
         /// </summary>
         public int NumberOfPredictions
