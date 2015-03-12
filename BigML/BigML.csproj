@@ -72,6 +72,13 @@
     <Compile Include="BatchPrediction\Filterable.cs" />
     <Compile Include="BatchPrediction\Orderable.cs" />
     <Compile Include="BatchPrediction\Status.cs" />
+    <Compile Include="BatchAnomalyScore\BatchAnomalyScore.cs" />
+    <Compile Include="BatchAnomalyScore\BatchAnomalyScoreListing.cs" />
+    <Compile Include="BatchAnomalyScore\Arguments.cs" />
+    <Compile Include="BatchAnomalyScore\BigMLClientBatchScore.cs" />
+    <Compile Include="BatchAnomalyScore\Filterable.cs" />
+    <Compile Include="BatchAnomalyScore\Orderable.cs" />
+    <Compile Include="BatchAnomalyScore\Status.cs" />
     <Compile Include="Centroid\Arguments.cs" />
     <Compile Include="Centroid\BigMLClientCentroid.cs" />
     <Compile Include="Centroid\Centroid.cs" />
