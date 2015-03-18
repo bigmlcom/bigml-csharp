@@ -186,6 +186,7 @@
     <Compile Include="AnomalyScore\Status.cs" />
     <Compile Include="Source\Arguments.cs" />
     <Compile Include="DataSet\Arguments.cs" />
+    <Compile Include="Source\TermAnalysis.cs" />
     <Compile Include="Source\Filterable.cs" />
     <Compile Include="Source\Orderable.cs" />
     <Compile Include="Response\Field.cs" />
