@@ -93,7 +93,7 @@ namespace BigML
                 {
                     json.origin_dataset = OriginDataset;
                 }
-                if (Seed != "") json.seed = Seed;
+                if (string.IsNullOrWhiteSpace(Seed)) json.seed = Seed;
                 if (Size != 0) json.size = Size;
                 if (SampleRate != 0.0) json.sample_rate = SampleRate;
                 json.out_of_bag = OutOfBag;
