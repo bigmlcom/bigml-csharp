@@ -29,7 +29,7 @@ namespace BigML
         }
 
         /// <summary>
-        /// List all the anomalies
+        /// List all the ensembles
         /// </summary>
         public Query<Ensemble.Filterable, Ensemble.Orderable, Ensemble> ListEnsembles()
         {
