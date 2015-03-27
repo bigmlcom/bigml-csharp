@@ -3,7 +3,11 @@ using System.Collections.Generic;
 namespace BigML
 {
     /// <summary>
-    /// A data source or source is the raw data that you want to use to create a predictive model. 
+    /// A data source or source is the raw data that you want to use to create
+    /// a predictive model, detect their anomalies, etc.
+    /// The complete and updated reference with all available parameters is in
+    /// our <a href="https://bigml.com/developers/sources">developers</a>
+    /// website.
     /// </summary>
     public partial class Source : Response
     {

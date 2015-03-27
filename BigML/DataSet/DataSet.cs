@@ -3,7 +3,11 @@ using System.Collections.Generic;
 namespace BigML
 {
     /// <summary>
-    /// A dataset is a structured version of a source where each field has been processed and serialized according to its type. 
+    /// A dataset is a structured version of a source where each field has been
+    /// processed and serialized according to its type.
+    /// The complete and updated reference with all available parameters is in
+    /// our <a href="https://bigml.com/developers/datasets">developers</a>
+    /// website.
     /// </summary>
     public partial class DataSet : Response
     {

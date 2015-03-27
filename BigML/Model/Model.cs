@@ -4,8 +4,14 @@ using System.Json;
 namespace BigML
 {
     /// <summary>
-    /// A model is a tree-like representation of your dataset with predictive power. 
-    /// You can create a model selecting which fields from your dataset you want to use as input fields (or predictors) and which field you do want to predict, the objective field.
+    /// A model is a tree-like representation of your dataset with predictive
+    /// power.
+    /// You can create a model selecting which fields from your dataset you want
+    /// to use as input fields (or predictors) and which field you do want to
+    /// predict, the objective field.
+    /// The complete and updated reference with all available parameters is in
+    /// our <a href="https://bigml.com/developers/models">developers</a>
+    /// website.
     /// </summary>
     public partial class Model : Response
     {
