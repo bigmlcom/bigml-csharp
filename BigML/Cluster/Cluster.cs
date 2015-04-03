@@ -6,9 +6,18 @@ using System.Threading.Tasks;
 
 namespace BigML
 {
+    /// <summary>
+    /// A cluster is a set of groups (i.e., clusters) of instances of a dataset
+    /// that have been automatically classified together according to a distance
+    /// measure computed using the fields of the dataset. Each group is
+    /// represented by a centroid or center that is computed using the mean for
+    /// each numeric field and the mode for each categorical field.
+    /// The complete and updated reference with all available parameters is in
+    /// our <a href="https://bigml.com/developers/clusters">developers</a>
+    /// website.
+    /// </summary>
     public partial class Cluster : Response
     {
-
 
         /// <summary>
         /// The name of the cluster as your provided or based on the name of the dataset by default.

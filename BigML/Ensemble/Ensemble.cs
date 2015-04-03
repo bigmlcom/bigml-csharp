@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace BigML
 {
+    /// <summary>
+    /// An ensemble is a number of models grouped together to create a stronger
+    /// model with better predictive performance.
+    /// The complete and updated reference with all available parameters is in
+    /// our <a href="https://bigml.com/developers/ensembles">developers</a>
+    /// website.
+    /// </summary>
     public partial class Ensemble : Response
     {
-
-
         /// <summary>
         /// The name of the ensemble as your provided or based on the name 
         /// of the dataset by default.
