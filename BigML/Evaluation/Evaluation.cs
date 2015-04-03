@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace BigML
 {
+    /// <summary>
+    /// An evaluation provides an easy way to measure the performance of a
+    /// predictive model. To create a new evaluation you need a model/id or an
+    /// ensemble/id and a dataset/id.
+    /// The complete and updated reference with all available parameters is in
+    /// our <a href="https://bigml.com/developers/evaluations">developers</a>
+    /// website.
+    /// </summary>
     public partial class Evaluation : Response
     {
 

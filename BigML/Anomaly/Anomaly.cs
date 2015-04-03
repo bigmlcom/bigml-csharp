@@ -6,9 +6,18 @@ using System.Threading.Tasks;
 
 namespace BigML
 {
+    /// <summary>
+    /// An anomaly detector is a predictive model that can help identify the
+    /// instances within a dataset that do not conform to a regular pattern.
+    /// It can be useful for tasks like data cleansing, identifying unusual
+    /// instances, or, given a new data point, deciding whether a model is
+    /// competent to make a prediction or not.
+    /// The complete and updated reference with all available parameters is in
+    /// our <a href="https://bigml.com/developers/anomalies">developers</a>
+    /// website.
+    /// </summary>
     public partial class Anomaly : Response
     {
-
 
         /// <summary>
         /// The name of the anomaly detection as your provided or based on the name 
