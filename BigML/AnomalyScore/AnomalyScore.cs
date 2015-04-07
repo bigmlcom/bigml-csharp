@@ -6,9 +6,16 @@ using System.Threading.Tasks;
 
 namespace BigML
 {
+    /// <summary>
+    /// An anomaly score is created from an anomaly and the input_data for
+    /// which you wish to create an anomaly score. New anomaly score will be
+    /// between 0 and 1.
+    /// The complete and updated reference with all available parameters is in
+    /// our <a href="https://bigml.com/developers/anomalyscores">developers</a>
+    /// website.
+    /// </summary>
     public partial class AnomalyScore : Response
     {
-
 
         /// <summary>
         /// The name of the anomaly score as your provided or based on the name

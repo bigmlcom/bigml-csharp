@@ -6,9 +6,16 @@ using System.Threading.Tasks;
 
 namespace BigML
 {
+    /// <summary>
+    /// A batch anomaly score provides an easy way to compute an anomaly score
+    /// for each instance in a dataset in only one request. To create a new
+    /// batch anomaly score you need an anomaly/id and a dataset/id.
+    /// The complete and updated reference with all available parameters is in
+    /// our <a href="https://bigml.com/developers/batch_anomalyscores">
+    /// developers</a> website.
+    /// </summary>
     public partial class BatchAnomalyScore : Response
     {
-
 
         /// <summary>
         /// The name of the batch score as your provided or based on the name 

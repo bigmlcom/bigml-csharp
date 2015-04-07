@@ -6,9 +6,16 @@ using System.Threading.Tasks;
 
 namespace BigML
 {
+    /// <summary>
+    /// A batch centroid provides an easy way to compute a centroid for each
+    /// instance in a dataset in only one request. To create a new batch
+    /// centroid you need a cluster/id and a dataset/id.
+    /// The complete and updated reference with all available parameters is in
+    /// our <a href="https://bigml.com/developers/batch_centroids">
+    /// developers</a> website.
+    /// </summary>
     public partial class BatchCentroid : Response
     {
-
 
         /// <summary>
         /// The name of the batch centroid as your provided or based on the name 

@@ -6,9 +6,16 @@ using System.Threading.Tasks;
 
 namespace BigML
 {
+    /// <summary>
+    /// A project is an abstract resource that helps you group related BigML
+    /// resources together. A project must have a name and optionally a
+    /// category, description, and tags to help you organize and retrieve it.
+    /// The complete and updated reference with all available parameters is in
+    /// our <a href="https://bigml.com/developers/projects">developers</a>
+    /// website.
+    /// </summary>
     public partial class Project : Response
     {
-
 
         /// <summary>
         /// The name of the project as your provided or based on the default 
