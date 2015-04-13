@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace BigML
 {
+    /// <summary>
+    /// A sample provides fast-access to the raw data of a dataset on an
+    /// on-demand basis.
+    /// The complete and updated reference with all available parameters is in
+    /// our <a href="https://bigml.com/developers/samples">developers</a>
+    /// website.
+    /// </summary>
     public partial class Sample : Response
     {
-
 
         /// <summary>
         /// The name of the sample as your provided or based on the name

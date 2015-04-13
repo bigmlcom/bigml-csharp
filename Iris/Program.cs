@@ -19,7 +19,7 @@ namespace Iris
         /// </summary>
         static async Task MainAsync()
         {
-            // New BigML client using username and API key.
+            // New BigML client with username and API key
             Console.Write("user: "); var User = Console.ReadLine();
             Console.Write("key: "); var ApiKey = Console.ReadLine();
             var client = new Client(User, ApiKey);

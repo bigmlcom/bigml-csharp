@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace BigML
 {
+    /// <summary>
+    /// A centroid is created using a cluster/id and the new instance (input_data)
+    /// for which you wish to create a centroid.
+    /// The complete and updated reference with all available parameters is in
+    /// our <a href="https://bigml.com/developers/centroids">developers</a>
+    /// website.
+    /// </summary>
     public partial class Centroid : Response
     {
-
 
         /// <summary>
         /// The name of the centroid as your provided or based on the name of the dataset by default.

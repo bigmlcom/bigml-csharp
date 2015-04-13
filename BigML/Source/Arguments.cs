@@ -14,7 +14,7 @@ namespace BigML
             }
 
             /// <summary>
-            /// Data for inline source creation. 
+            /// Data for inline source creation.
             /// </summary>
             public IEnumerable<string> Data
             {
@@ -22,8 +22,9 @@ namespace BigML
             }
 
             /// <summary>
-            /// File containing your data in csv format. 
-            /// It can be compressed, gzipped, or zipped if the archive contains only one file. 
+            /// File containing your data in csv or arff format.
+            /// It can be compressed, gzipped, or zipped if the archive contains
+            /// only one file.
             /// </summary>
             public string File
             {
@@ -31,7 +32,8 @@ namespace BigML
             }
 
             /// <summary>
-            /// A URL pointing to file containing your data in csv format. It can be compressed, gzipped, or zipped. 
+            /// A URL pointing to file containing your data in csv or arff format.
+            /// It can be compressed, gzipped, or zipped.
             /// </summary>
             public string Remote
             {
@@ -49,7 +51,7 @@ namespace BigML
 
                 if (!string.IsNullOrWhiteSpace(File)) json.file = File;
                 if (Data != null && Data.Any()) json.data = string.Join("\n", Data);
-                if (!string.IsNullOrWhiteSpace(Remote)) json.remote = File;
+                if (!string.IsNullOrWhiteSpace(Remote)) json.remote = Remote;
                 json.source_parser = Parser.ToJson();
                 return json;
             }

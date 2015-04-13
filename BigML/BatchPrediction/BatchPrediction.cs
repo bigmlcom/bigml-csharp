@@ -6,9 +6,16 @@ using System.Threading.Tasks;
 
 namespace BigML
 {
+    /// <summary>
+    /// A batch prediction provides an easy way to compute a prediction for
+    /// each instance in a dataset in only one request. To create a new batch
+    /// prediction you need a model/id or an ensemble/id and a dataset/id.
+    /// The complete and updated reference with all available parameters is in
+    /// our <a href="https://bigml.com/developers/batch_predictions">
+    /// developers</a> website.
+    /// </summary>
     public partial class BatchPrediction : Response
     {
-
 
         /// <summary>
         /// The name of the BatchPrediction as your provided or based on the name

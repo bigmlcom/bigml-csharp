@@ -5,7 +5,11 @@ using System.Linq;
 namespace BigML
 {
     /// <summary>
-    /// A prediction is created using a model/id and the new instance (input_data) that you want to create a prediction for.
+    /// A prediction is created using a model/id and the new instance (input_data)
+    /// that you want to create a prediction for.
+    /// The complete and updated reference with all available parameters is in
+    /// our <a href="https://bigml.com/developers/predictions">developers</a>
+    /// website.
     /// </summary>
     public partial class Prediction : Response
     {
