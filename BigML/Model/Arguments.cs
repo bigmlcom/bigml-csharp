@@ -12,6 +12,7 @@ namespace BigML
             {
                 Inputs = new List<string>();
                 Range = new List<int>(2);
+                ExcludedFields = new List<string>();
             }
 
             /// <summary>
@@ -22,19 +23,6 @@ namespace BigML
                 get;
                 set;
             }
-
-            /* DEPRECATED
-            /// <summary>
-            /// Specifies the percentage of instances that you do not want to be considered
-            /// directly when building the model but to use them to later prune the model
-            /// and obtain and model that generalizes better.
-            /// </summary>
-            public double HoldOut
-            {
-                get;
-                set;
-            }
-             * */
 
             /// <summary>
             /// Specifies the ids of the fields that you want to use as predictors to create
@@ -65,6 +53,16 @@ namespace BigML
                 private set;
             }
 
+            /// <summary>
+            /// A list of strings that specifies the fields that won't be
+            /// included in the model
+            /// </summary>
+            public List<string> ExcludedFields
+            {
+                get;
+                set;
+            }
+
             public override JsonValue ToJson()
             {
                 dynamic json = base.ToJson();
@@ -78,7 +76,16 @@ namespace BigML
                     json.Objective = new JsonArray((JsonValue)Objective);
                 if(Range.Count >= 2)
                     json.range = new JsonArray(Range.Take(2).Select(index => (JsonValue)index));
-                
+                if (ExcludedFields.Count > 0)
+                {
+                    var excluded_fields = new JsonArray();
+                    foreach (var excludedField in ExcludedFields)
+                    {
+                        excluded_fields.Add((JsonValue)excludedField);
+                    }
+                    json.excluded_fields = excluded_fields;
+                }
+
                 return json;
             }
         }
