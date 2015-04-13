@@ -11,6 +11,7 @@ namespace BigML
             public Arguments()
             {
                 NumberOfCluster = 8;
+                ExcludedFields = new List<string>();
             }
 
             /// <summary>
@@ -32,12 +33,31 @@ namespace BigML
                 set;
             }
 
+            /// <summary>
+            /// A list of strings that specifies the fields that won't be
+            /// included in the cluster
+            /// </summary>
+            public List<string> ExcludedFields
+            {
+                get;
+                set;
+            }
+
             public override JsonValue ToJson()
             {
                 dynamic json = base.ToJson();
 
                 if(!string.IsNullOrWhiteSpace(DataSet)) json.dataset = DataSet;
                 json.k = NumberOfCluster;
+                if (ExcludedFields.Count > 0)
+                {
+                    var excluded_fields = new JsonArray();
+                    foreach (var excludedField in ExcludedFields)
+                    {
+                        excluded_fields.Add((JsonValue)excludedField);
+                    }
+                    json.excluded_fields = excluded_fields;
+                }
                 return json;
             }
         }

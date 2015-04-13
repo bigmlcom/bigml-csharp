@@ -11,6 +11,8 @@ namespace BigML
             {
                 Seed = "";
                 FieldInfos = new Dictionary<string, Field>();
+                ExcludedFields = new List<string>();
+
                 Source = source.Resource;
             }
 
@@ -18,6 +20,7 @@ namespace BigML
             {
                 Seed = "";
                 FieldInfos = new Dictionary<string,Field>();
+                ExcludedFields = new List<string>();
             }
 
             /// <summary>
@@ -83,6 +86,15 @@ namespace BigML
                 set;
             }
 
+            /// <summary>
+            /// A list of strings that specifies the fields that won't be
+            /// included in the dataset
+            /// </summary>
+            public List<string> ExcludedFields
+            {
+                get;
+                set;
+            }
 
             public override JsonValue ToJson()
             {
@@ -93,10 +105,20 @@ namespace BigML
                 {
                     json.origin_dataset = OriginDataset;
                 }
-                if (string.IsNullOrWhiteSpace(Seed)) json.seed = Seed;
+                if (!string.IsNullOrEmpty(Seed)) json.seed = Seed;
                 if (Size != 0) json.size = Size;
                 if (SampleRate != 0.0) json.sample_rate = SampleRate;
                 json.out_of_bag = OutOfBag;
+                if (ExcludedFields.Count > 0)
+                {
+                    var excluded_fields = new JsonArray();
+                    foreach (var excludedField in ExcludedFields)
+                    {
+                        excluded_fields.Add((JsonValue) excludedField);
+                    }
+                    json.excluded_fields = excluded_fields;
+                }
+
                 if(FieldInfos.Count > 0)
                 {
                    var field = new JsonObject();
