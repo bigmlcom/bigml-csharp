@@ -49,6 +49,16 @@ namespace BigML
                 get { return (_status.extra as JsonValue).Select(e => (string)e); }
             }
 
+            public bool NotSuccessOrFail()
+            {
+                return (StatusCode != BigML.Code.Finished) && (StatusCode > 0);
+            }
+
+            public bool IsSuccessOrFail()
+            {
+                return !this.NotSuccessOrFail();
+            }
+
             public override string ToString()
             {
                 return _status.ToString();
