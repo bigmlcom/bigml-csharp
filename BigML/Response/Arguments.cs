@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Json;
 using System.Linq;
@@ -14,6 +15,31 @@ namespace BigML
             protected Arguments()
             {
                 Tags = new HashSet<string>();
+                DynArgs = new Dictionary<string, dynamic>();
+            }
+
+            /// <summary>
+            /// Dynamic Arguments (internal usage)
+            /// </summary>
+            private Dictionary<string, dynamic> DynArgs { get; set; }
+
+            public Arguments<T> Add(string name, dynamic value)
+            {
+                DynArgs.Add(name, value);
+                return this;
+            }
+
+            public Arguments<T> Remove(string name)
+            {
+                DynArgs.Remove(name);
+                return this;
+            }
+
+            public Arguments<T> Update(string name, dynamic value)
+            {
+                DynArgs.Remove(name);
+                DynArgs.Add(name, value);
+                return this;
             }
 
             /// <summary>
@@ -53,6 +79,20 @@ namespace BigML
                 if (!string.IsNullOrWhiteSpace(Description)) json.description = Description;
                 if (!string.IsNullOrWhiteSpace(Name)) json.name = Name;
                 if (Tags.Count > 0) json.tags = new JsonArray(Tags.Select(tag => (JsonValue) tag));
+                foreach (KeyValuePair<string, dynamic> entry in DynArgs)
+                {
+                    JsonValue inObjectVal;
+                    System.Type valType = entry.Value.GetType();
+                    if (valType.IsPrimitive || (valType == typeof(System.String)))
+                    {
+                        inObjectVal = (JsonValue) entry.Value;
+                    } else {
+                        inObjectVal = entry.Value.ToJsonObject();
+                    }
+                    KeyValuePair<string, JsonValue> jsonEntry;
+                    jsonEntry = new KeyValuePair<string, JsonValue>(entry.Key, inObjectVal);
+                    json.Add(jsonEntry);
+                }
 
                 return json;
             }
