@@ -13,7 +13,7 @@ namespace BigML
         {
             _apiKey = apiKey;
             _username = userName;
-            _dev = (devMode == true) ? "dev/" : "";
+            _dev = (devMode) ? "dev/" : "";
         }
     }
 }
