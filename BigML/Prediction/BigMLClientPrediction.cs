@@ -7,6 +7,14 @@ namespace BigML
         /// <summary>
         /// Create a new prediction.
         /// </summary>
+        public Task<Prediction> CreatePrediction(Prediction.Arguments arguments)
+        {
+            return Create<Prediction>(arguments);
+        }
+
+        /// <summary>
+        /// Create a new prediction.
+        /// </summary>
         public Task<Prediction> Create(Prediction.Arguments arguments)
         {
             return Create<Prediction>(arguments);
