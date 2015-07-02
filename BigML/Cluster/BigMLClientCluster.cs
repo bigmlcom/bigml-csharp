@@ -5,7 +5,7 @@ namespace BigML
     public partial class Client
     {
         /// <summary>
-        /// Create a model using supplied arguments.
+        /// Create a cluster using supplied arguments.
         /// </summary>
         public Task<Cluster> CreateCluster(Cluster.Arguments arguments)
         {
