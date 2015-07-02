@@ -7,7 +7,7 @@ namespace BigML
         /// <summary>
         /// Create an anomaly score using supplied arguments.
         /// </summary>
-        public Task<AnomalyScore> CreateAnomaly(AnomalyScore.Arguments arguments)
+        public Task<AnomalyScore> CreateAnomalyScore(AnomalyScore.Arguments arguments)
         {
             return Create<AnomalyScore>(arguments);
         }

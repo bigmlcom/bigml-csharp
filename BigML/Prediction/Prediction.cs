@@ -91,7 +91,7 @@ namespace BigML
         /// </summary>
         public T GetPredictionOutcome<T>()
         {
-            var prediction =  Object.prediction as JsonObject;
+            var prediction = Object.prediction as JsonObject;
             var key = prediction.Keys.First();
             var value = Convert.ChangeType((string)prediction[key],typeof(T));
             return (T)value;

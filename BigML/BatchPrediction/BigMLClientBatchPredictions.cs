@@ -5,9 +5,9 @@ namespace BigML
     public partial class Client
     {
         /// <summary>
-        /// Create an anomaly detector using supplied arguments.
+        /// Create a batch prediction using supplied arguments.
         /// </summary>
-        public Task<BatchPrediction> CreateAnomaly(BatchPrediction.Arguments arguments)
+        public Task<BatchPrediction> CreateBatchPrediction(BatchPrediction.Arguments arguments)
         {
             return Create<BatchPrediction>(arguments);
         }
