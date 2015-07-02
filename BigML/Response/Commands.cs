@@ -8,8 +8,12 @@ namespace BigML
 {
     public partial class Client
     {
-        const string BigML = "https://bigml.io/{2}andromeda/{3}?username={0};api_key={1}";
-        const string BigMLList = "https://bigml.io/{2}andromeda/{4}?{3};username={0};api_key={1}";
+        const string BigML = "{3}://{4}/{2}andromeda/{5}?username={0};api_key={1}";
+        const string BigMLList = "{3}://{4}/{2}andromeda/{5}?{6};username={0};api_key={1}";
+
+
+        //const string BigML = "https://192.168.1.105:1026/{2}andromeda/{3}?username={0};api_key={1}";
+        //const string BigMLList = "https://192.168.1.105:1026/{2}andromeda/{4}?{3};username={0};api_key={1}";
 
 
         /// <summary>
@@ -35,7 +39,7 @@ namespace BigML
         private async Task<T> Create<T>(HttpContent request) where T : Response, new()
         {
             var client = new HttpClient();
-            var url = string.Format(BigML, _username, _apiKey, _dev, ResourceTypeName<T>());
+            var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, ResourceTypeName<T>());
             var response =  await client.PostAsync(url, request);
             var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync());
 
@@ -72,7 +76,7 @@ namespace BigML
                 throw new ArgumentNullException("resourceId");
 
             var client = new HttpClient();
-            var response = await client.DeleteAsync(string.Format(BigML, _username, _apiKey, _dev, resourceId));
+            var response = await client.DeleteAsync(string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId));
 
             switch (response.StatusCode)
             {
@@ -107,7 +111,7 @@ namespace BigML
                 throw new ArgumentNullException("resourceId");
 
             var client = new HttpClient();
-            var response = await client.GetAsync(string.Format(BigML, _username, _apiKey, _dev, resourceId));
+            var response = await client.GetAsync(string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId));
             var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync());
 
             switch (response.StatusCode)
@@ -150,7 +154,7 @@ namespace BigML
         public async Task<Listing<T>> List<T>(string query) where T : Response, new()
         {
             var client = new HttpClient();
-            var response = await client.GetAsync(string.Format(BigMLList, _username, _apiKey, _dev, query, ResourceTypeName<T>()));
+            var response = await client.GetAsync(string.Format(BigMLList, _username, _apiKey, _dev, _protocol, _VpcDomain, ResourceTypeName<T>(), query));
             var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync());
 
             switch (response.StatusCode)
@@ -187,7 +191,7 @@ namespace BigML
 
             var client = new HttpClient();
             var content = new JsonContent(changes);
-            var response = await client.PutAsync(string.Format("https://bigml.io/{2}andromeda/{3}?username={0};api_key={1}", _username, _apiKey, _dev, resourceId), content);
+            var response = await client.PutAsync(string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId), content);
             var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync());
 
             switch (response.StatusCode)
