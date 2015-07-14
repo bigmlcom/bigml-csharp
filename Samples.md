@@ -10,5 +10,9 @@ You can view some code examples in the Gists folder or in these links below:
 ### Create a cluster in development mode using a source in Azure
 [DevClusterFromAzureSource](https://gist.github.com/joseribes/467b3173cfc8b2a0cbd2)
 
+### Calculate score with a know anomaly
+[ScoreAfterRetrieveAnomaly](https://gist.github.com/joseribes/905977b5642f04c251fb)
+
+
 ### Predict with an Iris ensemble
 [PredictionWithIrisEnsemble](https://gist.github.com/joseribes/97a5b9cff4b17469ece4)
