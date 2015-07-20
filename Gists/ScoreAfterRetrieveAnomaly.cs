@@ -16,8 +16,11 @@ namespace Demo
             // retrieve a anomaly detector with a known ID
             Anomaly anomaly;
             string anomalyId = "anomaly/54daa82eaf447f5daa000XXY"; //Put your ID here
-            while ((anomaly = await client.Get<Anomaly>(anomalyId)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
-            Console.WriteLine(anomaly.StatusMessage.ToString());
+            if ((anomaly = await client.Get<Anomaly>(anomalyId)).StatusMessage.StatusCode != Code.Finished) {
+                Console.WriteLine("Error retrieving anomaly " + anomalyId);
+            } else {
+                Console.WriteLine(anomaly.StatusMessage.ToString());
+            }
 
             //Input the data and calculate the score
             var parameters = new AnomalyScore.Arguments();
