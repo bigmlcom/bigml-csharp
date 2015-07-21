@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Json;
-using System.Linq.Expressions;
+using LinqExpr = System.Linq.Expressions;
 
 namespace BigML
 {
@@ -18,11 +18,11 @@ namespace BigML
                 _predicate = json;
             }
 
-            internal Expression Expression(Dictionary<string, ParameterExpression> parameters)
+            internal LinqExpr.Expression Expression(Dictionary<string, LinqExpr.ParameterExpression> parameters)
             {
                 if (IsSimple)
                 {
-                    return System.Linq.Expressions.Expression.Constant(Constant);
+                    return LinqExpr.Expression.Constant(Constant);
                 }
                 var value = default(double);
                 var x = Value as object;
@@ -31,35 +31,61 @@ namespace BigML
                 switch (Operator)
                 {
                     case ">":
-
-                        return System.Linq.Expressions.Expression.GreaterThan(parameters[Field],
-                                                                              System.Linq.Expressions.Expression.
+                    case ">*":
+                        return LinqExpr.Expression.GreaterThan(parameters[Field],
+                                                                              LinqExpr.Expression.
                                                                                   Constant(x));
                     case ">=":
-                        return System.Linq.Expressions.Expression.GreaterThanOrEqual(parameters[Field],
-                                                                                     System.Linq.Expressions.
+                    case ">=*":
+                        return LinqExpr.Expression.GreaterThanOrEqual(parameters[Field],
+
+                                                                                     LinqExpr.
                                                                                          Expression.
                                                                                          Constant(x));
                     case "<>":
                     case "!=":
-                        return System.Linq.Expressions.Expression.NotEqual(parameters[Field],
-                                                                           System.Linq.Expressions.
+                    case "!=*":
+                        if (fieldType == "string")
+                        {
+                            return LinqExpr.Expression.NotEqual(parameters[Field],
+                                                                        System.Linq.Expressions.Expression.
+                                                                            Constant(Value));
+                        }
+                        else
+                        {
+                            return LinqExpr.Expression.NotEqual(parameters[Field],
+                                                                           LinqExpr.
                                                                                Expression.
                                                                                Constant(x));
+                        }
+                        
                     case "<":
-                        return System.Linq.Expressions.Expression.LessThan(parameters[Field],
+                    case "<*":
+                        return LinqExpr.Expression.LessThan(parameters[Field],
                                                                            System.Linq.Expressions.Expression.
                                                                                Constant(Value));
                     case "<=":
-                        return System.Linq.Expressions.Expression.LessThanOrEqual(parameters[Field],
+                    case "<=*":
+                        return LinqExpr.Expression.LessThanOrEqual(parameters[Field],
                                                                                   System.Linq.Expressions.Expression.
                                                                                       Constant(x));
                     case "=":
-                        return System.Linq.Expressions.Expression.Equal(parameters[Field],
+                    case "=*":
+                        if (fieldType == "string")
+                        {
+                            return LinqExpr.Expression.Equal(parameters[Field],
+                                                                        System.Linq.Expressions.Expression.
+                                                                            Constant(Value));
+                        }
+                        else
+                        {
+                            return LinqExpr.Expression.Equal(parameters[Field],
                                                                         System.Linq.Expressions.Expression.
                                                                             Constant(x));
+                        }
+                        
                     default:
-                        throw new Exception("unknown operator");
+                        throw new Exception("Unknown operator '" + Operator + "'");
                 }
             }
 
