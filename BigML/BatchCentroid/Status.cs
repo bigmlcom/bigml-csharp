@@ -10,6 +10,8 @@ namespace BigML
         /// input and on the work load of BigML's systems.
         /// The batch prediction goes through a number of states until its
         /// fully completed.
+        /// Through the status field in the batchcentroid you can determine
+        /// when the batch process has been fully completed.
         /// </summary>
         public class Status : Status<BatchCentroid>
         {

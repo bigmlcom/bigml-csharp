@@ -5,7 +5,7 @@ namespace BigML
     public partial class BatchAnomalyScore
     {
         /// <summary>
-        /// Filterable properties for Anomalies
+        /// Filterable properties for Batch scores
         /// </summary>
         public class Filterable : Filterable<BatchAnomalyScore>
         {

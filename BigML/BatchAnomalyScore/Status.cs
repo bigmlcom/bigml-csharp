@@ -10,8 +10,8 @@ namespace BigML
         /// input and on the work load of BigML's systems.
         /// The anomaly detector goes through a number of states until its
         /// fully completed.
-        /// Through the status field in the anomaly you can determine when the
-        /// anomaly has been fully processed and ready to be used to create scores.
+        /// Through the status field in the resource you can determine when the
+        /// batch process has been fully processed.
         /// </summary>
         public class Status : Status<BatchAnomalyScore>
         {
