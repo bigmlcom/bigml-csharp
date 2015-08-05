@@ -5,7 +5,7 @@ namespace BigML
     public partial class Client
     {
         /// <summary>
-        /// Create a model using supplied arguments.
+        /// Create a centroid using supplied arguments.
         /// </summary>
         public Task<Centroid> CreateCentroid(Centroid.Arguments arguments)
         {
@@ -16,8 +16,8 @@ namespace BigML
         /// Create a cluster.
         /// </summary>
         /// <param name="dataset">A DataSet instance</param>
-        /// <param name="name">The name you want to give to the new cluster. </param>
-        /// <param name="arguments">Specifies the id of the field that you want to predict.</param>
+        /// <param name="name">The name you want to give to the new centroid. </param>
+        /// <param name="arguments">Specifies the id of the field and values that you want to measure.</param>
         public Task<Centroid> CreateCentroid(DataSet dataset, string name = null, Centroid.Arguments arguments = null)
         {
             arguments = arguments ?? new Centroid.Arguments();
