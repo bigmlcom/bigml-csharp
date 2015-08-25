@@ -37,24 +37,19 @@ namespace Iris
             }
 
             // New source from in-memory stream, with separate header. That's the header
-            var source = await client.Create(iris, "Iris.csv", "sepal length, sepal width, petal length, petal width, species");
+            var source = await client.CreateSource(iris, "Iris.csv", "sepal length, sepal width, petal length, petal width, species");
             // No push, so we need to busy wait for the source to be processed.
             while ((source = await client.Get(source)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
             Console.WriteLine(source.StatusMessage.ToString());
 
             // Default dataset from source
-            var dataset = await client.Create(source);
+            var dataset = await client.CreateDataset(source);
             // No push, so we need to busy wait for the dataset to be processed.
             while ((dataset = await client.Get(dataset)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
             Console.WriteLine(dataset.StatusMessage.ToString());
 
-            // Default cluster from dataset
-            var cluster = await client.CreateCluster(dataset, "my first cluster", 3);
-            while ((cluster = await client.Get(cluster)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
-            Console.WriteLine(cluster.StatusMessage.ToString());
-
             // Default model from dataset
-            var model = await client.Create(dataset);
+            var model = await client.CreateModel(dataset);
             // No push, so we need to busy wait for the source to be processed.
             while ((model = await client.Get(model)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
             Console.WriteLine(model.StatusMessage.ToString());
