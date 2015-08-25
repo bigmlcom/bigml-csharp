@@ -26,7 +26,16 @@ namespace BigML
                 }
                 var value = default(double);
                 var x = Value as object;
-                if (double.TryParse(Value, out value)) x = value;
+                var fieldType = "null";
+
+                try {
+                    if (Double.TryParse(Value, out value)) x = value;
+
+                    fieldType = parameters[Field].Type.Name.ToLower();
+                } catch(Exception ex) {
+                    x = 0.0;
+                    //Console.Out.WriteLine("UnkownType?" + ex.ToString());
+                }
 
                 switch (Operator)
                 {
