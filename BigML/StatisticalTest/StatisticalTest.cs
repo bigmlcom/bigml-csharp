@@ -17,8 +17,8 @@ namespace BigML
     {
 
         /// <summary>
-        /// The name of the BatchPrediction as your provided or based on the name
-        /// of the dataset and the model/ensemble by default.
+        /// The name of the Statistical Test as your provided or based on the name
+        /// of the dataset by default.
         /// </summary>
         public string Name
         {

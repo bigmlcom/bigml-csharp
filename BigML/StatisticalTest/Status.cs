@@ -5,7 +5,7 @@ namespace BigML
     public partial class StatisticalTest
     {
         /// <summary>
-        /// Creating a correlation is a process that can take just a few
+        /// Creating a statistical test is a process that can take just a few
         /// seconds or a few days depending on the size of the dataset used as
         /// input and on the work load of BigML's systems.
         /// The statistical test goes through a number of states until its

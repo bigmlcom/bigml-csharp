@@ -7,12 +7,12 @@ namespace BigML
     public partial class StatisticalTest
     {
         /// <summary>
-        /// Orderable properties for statisticaltest
+        /// Orderable properties for statistical test
         /// </summary>
         public class Orderable : Orderable<StatisticalTest>
         {
             /// <summary>
-            /// The dataset/id that was used to build the correlation.
+            /// The dataset/id that was used to build the statistical test.
             /// </summary>
             public String DataSet
             {
