@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 namespace BigML
 {
     /// <summary>
-    /// A correlation provides an easy way to compute ... 
-    /// TODO: Update documentation
+    /// A correlation resource allows you to compute advanced statistics for
+    /// the fields in your dataset by applying various exploratory data
+    /// analysis techniques to compare the distributions of the fields in your
+    /// dataset against an objective_field.
     /// The complete and updated reference with all available parameters is in
     /// our <a href="https://bigml.com/developers/correlations">
     /// developers</a> website.
