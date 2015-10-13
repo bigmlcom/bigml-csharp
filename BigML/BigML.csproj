@@ -94,6 +94,13 @@
     <Compile Include="Cluster\ClusterListing.cs" />
     <Compile Include="Cluster\Orderable.cs" />
     <Compile Include="Cluster\Status.cs" />
+    <Compile Include="LogisticRegression\LogisticRegression.cs" />
+    <Compile Include="LogisticRegression\LogisticRegressionListing.cs" />
+    <Compile Include="LogisticRegression\Arguments.cs" />
+    <Compile Include="LogisticRegression\BigMLClientLogisticRegression.cs" />
+    <Compile Include="LogisticRegression\Filterable.cs" />
+    <Compile Include="LogisticRegression\Orderable.cs" />
+    <Compile Include="LogisticRegression\Status.cs" />
     <Compile Include="DataSet\Field\Categorial.cs" />
     <Compile Include="DataSet\Field\Numeric.cs" />
     <Compile Include="DataSet\Field\Summary.cs" />
