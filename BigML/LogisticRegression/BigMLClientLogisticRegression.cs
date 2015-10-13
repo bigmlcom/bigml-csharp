@@ -31,7 +31,7 @@ namespace BigML
         /// <summary>
         /// List all the logistic regressions
         /// </summary>
-        public Query<LogisticRegression.Filterable, LogisticRegression.Orderable, LogisticRegression> ListAnomalies()
+        public Query<LogisticRegression.Filterable, LogisticRegression.Orderable, LogisticRegression> ListLogisticRegressions()
         {
             return new LogisticRegressionListing(List<LogisticRegression>);
         }
