@@ -24,7 +24,7 @@ namespace BigML
 
             /// <summary>
             /// A list of strings that specifies the fields that won't be
-            /// included in the ensemble
+            /// included in the anomaly detector
             /// </summary>
             public List<string> ExcludedFields
             {
