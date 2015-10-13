@@ -10,9 +10,9 @@ namespace BigML
         /// input and on the work load of BigML's systems.
         /// The logistic regression goes through a number of states until its
         /// fully completed.
-        /// Through the status field in the logistic r. you can determine when the
-        /// logistic regression has been fully processed and ready to be used to
-        /// create prediction.
+        /// Through the status field in logistic regression you can determine
+        /// when it has been fully processed and is ready to be used to create
+        /// predictions.
         /// </summary>
         public class Status : Status<LogisticRegression>
         {
