@@ -49,8 +49,8 @@ namespace BigML
 
 
         /// <summary>
-        /// A description of the status of the cluster. It includes a code, a message,
-        /// and some extra information.
+        /// A description of the status of the anomaly detector.
+        /// It includes a code, a message, and some extra information.
         /// </summary>
         public Status StatusMessage
         {
