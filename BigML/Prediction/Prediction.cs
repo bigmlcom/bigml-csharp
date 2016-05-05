@@ -87,6 +87,14 @@ namespace BigML
         }
 
         /// <summary>
+        /// Confidence of this prediction
+        /// </summary>
+        public Single Confidence
+        {
+            get { return Object.confidence; }
+        }
+
+        /// <summary>
         /// Objective field with predicted value.
         /// </summary>
         public T GetPredictionOutcome<T>()
