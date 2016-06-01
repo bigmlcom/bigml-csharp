@@ -58,6 +58,13 @@
     <Compile Include="Anomaly\Filterable.cs" />
     <Compile Include="Anomaly\Orderable.cs" />
     <Compile Include="Anomaly\Status.cs" />
+    <Compile Include="Association\Arguments.cs" />
+    <Compile Include="Association\Association.cs" />
+    <Compile Include="Association\AssociationListing.cs" />
+    <Compile Include="Association\BigMLClientAssociation.cs" />
+    <Compile Include="Association\Filterable.cs" />
+    <Compile Include="Association\Orderable.cs" />
+    <Compile Include="Association\Status.cs" />
     <Compile Include="BatchCentroid\BatchCentroid.cs" />
     <Compile Include="BatchCentroid\BatchCentroidListing.cs" />
     <Compile Include="BatchCentroid\Arguments.cs" />
