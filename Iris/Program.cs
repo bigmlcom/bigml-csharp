@@ -35,7 +35,7 @@ namespace Iris
             {
                 Console.WriteLine(src.ToString());
             }
-
+            /*
             // New source from in-memory stream, with separate header. That's the header
             var source = await client.CreateSource(iris, "Iris.csv", "sepal length, sepal width, petal length, petal width, species");
             // No push, so we need to busy wait for the source to be processed.
@@ -50,8 +50,47 @@ namespace Iris
 
             // Default model from dataset
             var model = await client.CreateModel(dataset);
+            */
+            /*
+            Model model;
+            string modelId = "model/575085112275c16672002f5d";
             // No push, so we need to busy wait for the source to be processed.
-            while ((model = await client.Get(model)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
+            while ((model = await client.Get<Model>(modelId)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
+
+            Dictionary<string, dynamic> inputData = new Dictionary<string, dynamic>();
+            inputData.Add("000002", 3);
+            inputData.Add("000003", 1.5);
+
+            var localModel = model.ModelStructure;
+            var nodoResultado = localModel.predict(inputData);
+
+            Console.WriteLine("Predict:\n" + nodoResultado);
+            */
+
+            Ensemble ensemble;
+            string ensembleId = "ensemble/565ecf4d28eb3e62f6000003";
+            // No push, so we need to busy wait for the source to be processed.
+            while ((ensemble = await client.Get<Ensemble>(ensembleId)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
+
+            Dictionary<string, dynamic> inputData = new Dictionary<string, dynamic>();
+            inputData.Add("000002", 3);
+            inputData.Add("000003", 1.5);
+
+            var localEnsemble = ensemble.EnsembleStructure;
+            Model modelInEnsemble;
+            string modelId;
+            for (int i = 0; i < ensemble.Models.Count; i++) {
+                modelId = ensemble.Models[i];
+                while ((modelInEnsemble = await client.Get<Model>(modelId)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
+                localEnsemble.addLocalModel(modelInEnsemble.ModelStructure);
+            }
+            var nodoResultado = localEnsemble.predict(inputData);
+
+            //Console.WriteLine("Predict:\n" + nodoResultado);
+
+
+
+            /*
             Console.WriteLine(model.StatusMessage.ToString());
 
             // The model description is what we are really after
@@ -84,6 +123,7 @@ namespace Iris
             Console.WriteLine("Output = {0}, expected = {1}", resultOutput, "setosa");
             Console.WriteLine("Confidence = {0}", resultConfid);
             Console.WriteLine("Whole node values: {0}", ((Model.ResultNode)resultNode).ToString());
+            */
         }
 
         private static IEnumerable<string> iris = new[]

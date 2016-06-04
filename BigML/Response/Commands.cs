@@ -12,8 +12,8 @@ namespace BigML
         const string BigMLList = "{3}://{4}/{2}andromeda/{5}?{6};username={0};api_key={1}";
 
 
-        //const string BigML = "https://192.168.1.105:1026/{2}andromeda/{3}?username={0};api_key={1}";
-        //const string BigMLList = "https://192.168.1.105:1026/{2}andromeda/{4}?{3};username={0};api_key={1}";
+        ////const string BigML = "https://192.168.1.105:1026/{2}andromeda/{3}?username={0};api_key={1}";
+        ////const string BigMLList = "https://192.168.1.105:1026/{2}andromeda/{4}?{3};username={0};api_key={1}";
 
 
         /// <summary>

@@ -33,6 +33,14 @@ namespace BigML
             }
 
             /// <summary>
+            /// Id of the column if provided in the header of the source or a name generated automatically otherwise.
+            /// </summary>
+            public string Id
+            {
+                get { return _entry.id; }
+            }
+
+            /// <summary>
             /// Specifies the type of the field. It can be numerical, categorical, or text.
             /// </summary>
             public OpType OpType

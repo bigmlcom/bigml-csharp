@@ -41,6 +41,14 @@ namespace BigML
             }
 
             /// <summary>
+            /// id of the field. 
+            /// </summary>
+            public new string Id
+            {
+                get { return base.Id; }
+            }
+
+            /// <summary>
             /// The specific locale for this field. 
             /// </summary>
             public string Locale
