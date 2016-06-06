@@ -51,6 +51,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WhizzML\Library\Arguments.cs" />
+    <Compile Include="WhizzML\Library\BigMLClientLibrary.cs" />
+    <Compile Include="WhizzML\Library\Library.cs" />
+    <Compile Include="WhizzML\Library\LibraryListing.cs" />
+    <Compile Include="WhizzML\Library\Filterable.cs" />
+    <Compile Include="WhizzML\Library\Orderable.cs" />
+    <Compile Include="WhizzML\Library\Status.cs" />
+    <Compile Include="WhizzML\Execution\Arguments.cs" />
+    <Compile Include="WhizzML\Execution\BigMLClientExecution.cs" />
+    <Compile Include="WhizzML\Execution\Filterable.cs" />
+    <Compile Include="WhizzML\Execution\Orderable.cs" />
+    <Compile Include="WhizzML\Execution\Execution.cs" />
+    <Compile Include="WhizzML\Execution\ExecutionListing.cs" />
+    <Compile Include="WhizzML\Execution\Status.cs" />
+    <Compile Include="WhizzML\Script\Arguments.cs" />
+    <Compile Include="WhizzML\Script\BigMLClientScript.cs" />
+    <Compile Include="WhizzML\Script\Script.cs" />
+    <Compile Include="WhizzML\Script\ScriptListing.cs" />
+    <Compile Include="WhizzML\Script\Filterable.cs" />
+    <Compile Include="WhizzML\Script\Orderable.cs" />
+    <Compile Include="WhizzML\Script\Status.cs" />
+
     <Compile Include="Anomaly\Anomaly.cs" />
     <Compile Include="Anomaly\AnomalyListing.cs" />
     <Compile Include="Anomaly\Arguments.cs" />

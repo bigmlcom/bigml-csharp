@@ -5,12 +5,12 @@ namespace BigML.Filterable
     /// </summary>
     public struct Type
     {
-        public static Bool operator ==(Type c1, BigML.SourceType c2)
+        public static Bool operator ==(Type c1, BigML.Source.Type c2)
         {
             return default(Bool);
         }
 
-        public static Bool operator !=(Type c1, BigML.SourceType c2)
+        public static Bool operator !=(Type c1, BigML.Source.Type c2)
         {
             return default(Bool);
         }

@@ -65,7 +65,7 @@ namespace BigML
         public Task<Source> CreateSource(Source.Arguments arguments)
         {
             return arguments.File != null 
-                ? Create(arguments.File, arguments.Name, arguments) 
+                ? CreateSource(arguments.File, arguments.Name, arguments) 
                 : Create<Source>(arguments);
         }
 
