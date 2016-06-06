@@ -52,5 +52,37 @@ namespace BigML
         {
             get { return new Status(Object.status); }
         }
+
+
+        private List<string> _modelIds;
+
+        /// <summary>
+        /// All the information that you need to recreate or use the ensemble on your own. 
+        /// Each model includes a very intuitive description of the tree-like structure that 
+        /// made each model up and the field's dictionary describing the fields and their summaries.
+        /// </summary>
+        public List<string> Models
+        {
+            get {
+                if (this._modelIds == null) { 
+                     this._modelIds = new List<string>();
+                    for (int i = 0; i < Object.models.Count; i++)
+                    {
+                        this._modelIds.Add((string) Object.models[i]);
+                    }
+                }
+                return this._modelIds;
+            }
+        }
+
+        /// <summary>
+        /// All the information that you need to recreate or use the ensemble on your own. 
+        /// Each model includes a very intuitive description of the tree-like structure that 
+        /// made each model up and the field's dictionary describing the fields and their summaries.
+        /// </summary>
+        public LocalEnsemble EnsembleStructure
+        {
+            get { return new LocalEnsemble(Object, Object.models); }
+        }
     }
 }
