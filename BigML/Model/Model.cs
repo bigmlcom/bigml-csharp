@@ -92,6 +92,15 @@ namespace BigML
         }
 
         /// <summary>
+        /// All the information that you need to recreate or use the model on your own. 
+        /// It includes a very intuitive description of the tree-like structure that made the model up and the field's dictionary describing the fields and their summaries.
+        /// </summary>
+        public LocalModel ModelStructure
+        {
+            get { return new LocalModel(Object.model, Object.model.model_fields); }
+        }
+
+        /// <summary>
         /// The name of the model as your provided or based on the name of the dataset by default.
         /// </summary>
         public string Name

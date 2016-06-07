@@ -86,11 +86,11 @@ namespace BigML
             /// <summary>
             /// Distribution of the objective field at this node.
             /// </summary>
-            public JsonArray Distribution
+            public JsonValue Distribution
             {
                 get
                 {
-                    return _node.distribution;
+                    return _node["objective_summary"]["categories"];
                 }
             }
 
@@ -108,6 +108,23 @@ namespace BigML
             public Predicate Predicate
             {
                 get { return new Predicate(_node.predicate); }
+            }
+
+            public Dictionary<object, object> toDictionary()
+            {
+                Dictionary<object, object>  dictionaryResult = new Dictionary<object, object>();
+                dictionaryResult.Add("prediction", this.Output);
+                dictionaryResult.Add("confidence", this.Confidence);
+                dictionaryResult.Add("count", this.Count);
+                dictionaryResult.Add("distribution", this.Distribution);
+
+                return dictionaryResult;
+            }
+
+            public override string ToString()
+            {
+                return Output + " " + Confidence.ToString() +
+                        " Distribution:" + _node.objective_summary.ToString();
             }
         }
     }

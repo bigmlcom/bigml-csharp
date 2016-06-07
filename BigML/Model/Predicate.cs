@@ -32,7 +32,7 @@ namespace BigML
                     if (Double.TryParse(Value, out value)) x = value;
 
                     fieldType = parameters[Field].Type.Name.ToLower();
-                } catch(Exception ex) {
+                } catch { // Exception ex) {
                     x = 0.0;
                     //Console.Out.WriteLine("UnkownType?" + ex.ToString());
                 }
