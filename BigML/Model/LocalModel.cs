@@ -27,12 +27,10 @@ namespace BigML
 
             private Node predictNode(Node currentNode, Dictionary<string, dynamic> inputData)
             {
-                bool isMissingSplit = false;
                 bool missingField;
                 string fieldId;
                 dynamic predicateValue;
                 dynamic inDataValue;
-
 
                 foreach (Node children in currentNode.Children)
                 {
@@ -49,16 +47,9 @@ namespace BigML
                         inDataValue = null;
                     }
 
-                    isMissingSplit = false;
-                    if (children.Predicate.Operator.Contains("*"))
-                    {
-                        // missing operator
-                        isMissingSplit = true;
-
-                    }
                     if (missingField)
                     {
-                        if (isMissingSplit)
+                        if (children.Predicate.MissingOperator)
                         {
                             currentNode = children;
                         }

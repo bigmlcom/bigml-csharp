@@ -13,9 +13,19 @@ namespace BigML
         public class Predicate
         {
             readonly dynamic _predicate;
+            private readonly string comparisonOperator;
+
             internal Predicate(JsonValue json)
             {
                 _predicate = json;
+                if (this.MissingOperator)
+                {
+                    comparisonOperator = this.Operator.Replace("*", "");
+                } else
+                {
+                    comparisonOperator = this.Operator;
+                }
+                
             }
 
             internal LinqExpr.Expression Expression(Dictionary<string, LinqExpr.ParameterExpression> parameters)
@@ -107,6 +117,11 @@ namespace BigML
                 get { return _predicate.JsonType == JsonType.Boolean; }
             }
 
+            public string OpType
+            {
+                get { return _predicate.opType;  }
+            }
+
             public bool Constant
             {
                 get { return _predicate; }
@@ -126,6 +141,29 @@ namespace BigML
             public string Operator
             {
                 get { return _predicate.@operator; }
+            }
+
+            /// <summary>
+            /// Type of test used for this field.
+            /// </summary>
+            public string ComparisonOperator
+            {
+                get { return comparisonOperator; }
+
+            }
+
+            /// <summary>
+            /// Operator allow manage missing value.
+            /// </summary>
+            public bool MissingOperator
+            {
+                get {
+                    bool isMissing;
+                    isMissing = _predicate.@operator != null && ((string) _predicate.@operator).Contains("*");
+
+                    return isMissing;
+                }
+
             }
 
             /// <summary>
