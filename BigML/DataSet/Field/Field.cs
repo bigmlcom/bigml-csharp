@@ -74,7 +74,8 @@ namespace BigML
 
             /// <summary>
             /// Numeric or categorical summary of the field.
-            /// Downcast to appropriate (Summary.Numeric or Summary.Categorical) subtype as needed.
+            /// Downcast to appropriate (Summary.Numeric, Summary.Categorical,
+            /// Summary.Datetime, Summary.Text, Summary.Items) subtype as needed.
             /// </summary>
             public Summary FieldSummary
             {
@@ -86,6 +87,12 @@ namespace BigML
                             return new Summary.Categorical(_field.summary);
                         case OpType.Numeric:
                             return new Summary.Numeric(_field.summary);
+                        case OpType.Datetime:
+                            return new Summary.Datetime(_field.datetime);
+                        case OpType.Text:
+                            return new Summary.Text(_field.summary);
+                        case OpType.Items:
+                            return new Summary.Items(_field.summary);
                         default:
                             return default(Summary);
                     }
