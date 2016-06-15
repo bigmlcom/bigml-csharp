@@ -16,12 +16,13 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -72,7 +73,6 @@
     <Compile Include="WhizzML\Script\Filterable.cs" />
     <Compile Include="WhizzML\Script\Orderable.cs" />
     <Compile Include="WhizzML\Script\Status.cs" />
-
     <Compile Include="Anomaly\Anomaly.cs" />
     <Compile Include="Anomaly\AnomalyListing.cs" />
     <Compile Include="Anomaly\Arguments.cs" />
