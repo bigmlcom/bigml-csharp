@@ -19,16 +19,27 @@ namespace BigML
                     {
                     }
 
-                    /// <summary>
-                    /// A dictionary where the keys are the unique categories found in the field and the values are the count for that category.
-                    /// </summary>
-                    public IDictionary<string, int> Counts
+                    public double AverageLength
                     {
                         get
                         {
-                            var counts = new Dictionary<string, int>();
-                            foreach (var kv in _summary.counts) counts[kv.Key] = kv.Value;
-                            return counts;
+                            return _summary.average_length;
+                        }
+                    }
+
+                    /// <summary>
+                    /// A dictionary where the keys are the unique categories found in the field and the values are the count for that category.
+                    /// </summary>
+                    public List<dynamic[]> ItemsCount
+                    {
+                        get
+                        {
+                            var items = new List<dynamic[]>();
+                            foreach (var l in _summary.items)
+                            {
+                                items.Add(new dynamic[] { l[0], l[1] });
+                            }
+                            return items;
                         }
                     }
                 }
