@@ -173,6 +173,13 @@ namespace BigML
             {
                 get { return _predicate.value; }
             }
+
+
+            public string Term
+            {
+                get { return _predicate.term;  }
+            }
+
         }
     }
 }
