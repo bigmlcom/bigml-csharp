@@ -25,6 +25,17 @@ namespace BigML
             private System.Globalization.NumberStyles style = System.Globalization.NumberStyles.AllowDecimalPoint;
             private System.Globalization.CultureInfo provider = new System.Globalization.CultureInfo("en-US");
 
+
+
+            private int countWords(string inData, string predicateValue)
+            {
+                int inDataLength = inData.Length;
+                int originalLenght = predicateValue.Length;
+                var stringClean = predicateValue.Replace(inData, "");
+                int newLength = stringClean.Length;
+                return (originalLenght - newLength) / inDataLength;
+            }
+
             private Node predictNode(Node currentNode, Dictionary<string, dynamic> inputData)
             {
                 bool missingField;
@@ -59,7 +70,11 @@ namespace BigML
                         }
                     }
 
-                    predicateValue = double.Parse(predicateValue, style, provider);
+                    if (children.Predicate.Term != null && children.Predicate.Term != "")
+                    {
+                        //is a text field
+                        inDataValue = countWords(inDataValue, children.Predicate.Term);
+                    }
 
                     switch (children.Predicate.Operator)
                     {
@@ -93,6 +108,8 @@ namespace BigML
                             break;
                         case "=*":
                         case "==*":
+                        case "=":
+                        case "==":
                             if (inDataValue == predicateValue)
                             {
                                 return predictNode(children, inputData);
