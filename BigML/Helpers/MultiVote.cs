@@ -312,7 +312,6 @@ namespace BigML
                 average["confidence"] = 0.0d;
             }
 
-            //JAVA TO C# CONVERTER TODO TASK: There is no .NET Dictionary equivalent to the Java 'putAll' method:
             //average.putAll(getGroupedDistribution(this));
             Dictionary<string, object> groupedDistribution = getGroupedDistribution(this);
             foreach (var oneKey in groupedDistribution.Keys)
@@ -348,7 +347,7 @@ namespace BigML
 
             foreach (Dictionary<object, object> prediction in multiVoteInstance.Predictions)
             {
-                //            JSONArray predictionDist = (JSONArray) prediction.get("distribution");
+                //JSONArray predictionDist = (JSONArray) prediction.get("distribution");
                 Dictionary<object, double> predictionDist = null;
                 object distribution = prediction["distribution"];
 
@@ -361,7 +360,7 @@ namespace BigML
                     predictionDist = Utils.convertDistributionArrayToMap((JsonArray) distribution);
                 }
 
-                //            joinedDist = Utils.mergeDistributions(joinedDist, Utils.convertDistributionArrayToMap(predictionDist));
+                //joinedDist = Utils.mergeDistributions(joinedDist, Utils.convertDistributionArrayToMap(predictionDist));
                 joinedDist = Utils.mergeDistributions(joinedDist, predictionDist);
 
                 if ("counts".Equals(distributionUnit) && joinedDist.Count > BINS_LIMIT)
@@ -442,7 +441,6 @@ namespace BigML
                 newPrediction["median"] = medianResult / normalization_factor;
             }
 
-            //JAVA TO C# CONVERTER TODO TASK: There is no .NET Dictionary equivalent to the Java 'putAll' method:
             // newPrediction.putAll(getGroupedDistribution(this));
             Dictionary<string, object> groupedDistribution = getGroupedDistribution(this);
             foreach (var oneKey in groupedDistribution.Keys)
@@ -520,15 +518,6 @@ namespace BigML
             IDictionary<object, object> prediction = new Dictionary<object, object>();
             IList<IDictionary<object, object>> predictionsList = new List<IDictionary<object, object>>();
 
-            /*if (LOGGER.DebugEnabled)
-            {
-                LOGGER.debug("Predictions: [");
-                foreach (Dictionary<object, object> curPrediction in predictions)
-                {
-                    LOGGER.debug(string.Format("{0}", curPrediction.ToString()));
-                }
-            }*/
-
             for (index = 0, len = this.predictions.Length; index < len; index++)
             {
                 prediction = this.predictions[index];
@@ -569,7 +558,6 @@ namespace BigML
 
 
 
-
         /// <summary>
         /// Returns the prediction combining votes by using the given weight
         /// </summary>
@@ -580,7 +568,7 @@ namespace BigML
         /// 
         ///        Will also return the combined confidence, as a weighted average of
         ///        the confidences of the votes. </param>
-        public virtual Dictionary<object, object> combineCategorical(string weightLabel, bool? withConfidence = false)
+        public virtual Dictionary<object, object> combineCategorical(string weightLabel, bool withConfidence = false)
         {
 
             int index, len;
@@ -589,16 +577,6 @@ namespace BigML
             Dictionary<object, object> prediction = new Dictionary<object, object>();
             Dictionary<object, object> mode = new Dictionary<object, object>();
             ArrayList tuples = new ArrayList();
-
-            /*if (LOGGER.DebugEnabled)
-            {
-                LOGGER.debug(string.Format("weight: {0:F}", weight));
-                LOGGER.debug("Predictions: [");
-                foreach (Dictionary<object, object> curPrediction in predictions)
-                {
-                    LOGGER.debug(string.Format("{0}", JSONObject.toJSONString(curPrediction)));
-                }
-            }/*/
 
             for (index = 0, len = this.predictions.Length; index < len; index++)
             {
@@ -622,37 +600,30 @@ namespace BigML
 
                 category = prediction["prediction"];
 
-                /*if (LOGGER.DebugEnabled)
+                Dictionary<string, object> categoryDict = new Dictionary<string, object>();
+                if (mode.ContainsKey(category))
                 {
-                    LOGGER.debug(string.Format("weight = {0:F}", weight));
-                    LOGGER.debug(string.Format("category = {0}", category));
-                }*/
-
-                Dictionary<string, object> categoryHash = new Dictionary<string, object>();
-                if (mode[category] != null)
-                {
-                    categoryHash["count"] = ((double?)((Hashtable)mode[category])["count"]) + weight;
-                    categoryHash["order"] = ((Hashtable)mode[category])["order"];
+                    categoryDict["count"] = (double?) ((Dictionary<string, object>) mode[category])["count"] + weight;
+                    categoryDict["order"] = ((Dictionary<string, object>)mode[category])["order"];
                 }
                 else
                 {
-                    categoryHash["count"] = weight;
-                    categoryHash["order"] = prediction["order"];
+                    categoryDict["count"] = weight;
+                    categoryDict["order"] = prediction["order"];
                 }
 
-                mode[category] = categoryHash;
+                mode[category] = categoryDict;
 
-                /*if (LOGGER.DebugEnabled)
-                {
-                    LOGGER.debug(string.Format("mode = {0}", mode));
-                }*/
             }
 
-            foreach (object key in mode.Keys)
+            foreach (string categoryStr in mode.Keys)
             {
-                if (mode[key] != null)
+                dynamic[] oneTuple;
+                if (mode[categoryStr] != null)
                 {
-                    object[] oneTuple = new object[] { key, mode[key] };
+                    oneTuple = new dynamic[2];
+                    oneTuple[0] = categoryStr;
+                    oneTuple[1] = (Dictionary<string, object>) mode[categoryStr];
                     tuples.Add(oneTuple);
                 }
             }
@@ -661,17 +632,17 @@ namespace BigML
             //tuples.Sort(new TupleComparator(this));
             for (int indx = 0; indx < tuples.Count - 1; indx++)
             {
-                Dictionary<string, object> a = (Dictionary < string, object> ) tuples[indx];
-                Dictionary<string, object> b = (Dictionary < string, object> ) tuples[indx + 1];
+                Dictionary<string, object> a = (Dictionary <string, object>) ((object[]) tuples[indx])[1];
+                Dictionary<string, object> b = (Dictionary <string, object>) ((object[])tuples[indx + 1])[1];
                 object weight1, weight2, order1, order2;
                 a.TryGetValue("count", out weight1);
                 b.TryGetValue("count", out weight2);
                 if ((double) weight1 > (double) weight2)
                 {
-                    ;
+                    ;   //TODO
                 } else if ((double) weight1 < (double) weight2) 
                 {
-                    ;
+                    ;   //TODO
                 } else
                 {
                     //counts are equals show order
@@ -680,11 +651,11 @@ namespace BigML
 
                     if ((double) order1 > (double) order2)
                     {
-                        ;   
+                        ;   //TODO
                     } 
                     else if ((double) order1 < (double) order2)
                     {
-                        ;
+                        ;   //TODO
                     }
                 }
                 
@@ -693,15 +664,10 @@ namespace BigML
             object[] tuple = (object[])tuples[0];
             object predictionName = tuple[0];
 
-            /*if (LOGGER.DebugEnabled)
-            {
-                LOGGER.debug(string.Format("prediction = {0}", predictionName));
-            }*/
-
             Dictionary<object, object> result = new Dictionary<object, object>();
             result["prediction"] = predictionName;
 
-            if (withConfidence.Value)
+            if (withConfidence)
             {
                 if (this.predictions[0]["confidence"] != null)
                 {
@@ -771,7 +737,7 @@ namespace BigML
                 {
                     weight = ((double) prediction["confidence"]);
                 }
-                finalConfidence += weight * ((double) prediction["confidence"]);
+                finalConfidence += weight * (float) prediction["confidence"];
                 totalWeight += weight;
             }
 
@@ -843,9 +809,8 @@ namespace BigML
         /// <returns> {{"prediction": prediction}} </returns>
         public virtual Dictionary<object, object> combine()
         {
-            return combine(null,  null, null, null, null, null, null);
+            return combine(PLURALITY_CODE, false, null, null, null, null, null);
         }
-
 
 
 
@@ -859,27 +824,7 @@ namespace BigML
         ///                       (as a weighted of the prediction average of the confidences
         ///                       of votes for the combined prediction) will also be given. </param>
         /// <returns> {{"prediction": prediction, "confidence": combinedConfidence}} </returns>
-        [Obsolete]
-        public virtual Dictionary<object, object> combine(int? method = PLURALITY_CODE, bool? withConfidence= false, 
-                                                        bool? addConfidence = false, bool? addDistribution = false, 
-                                                        bool? addCount = false, bool? addMedian = false, 
-                                                        IDictionary options = null)
-        {
-
-            return combine(method, withConfidence, addConfidence, addDistribution, addCount, addMedian, options);
-        }
-
-        /// <summary>
-        /// Reduces a number of predictions voting for classification and averaging
-        /// predictions for regression.
-        /// </summary>
-        /// <param name="method"> {0|1|2|3} method Code associated to the voting method (plurality,
-        ///        confidence weighted or probability weighted or threshold). </param>
-        /// <param name="withConfidence"> if withConfidence is true, the combined confidence
-        ///                       (as a weighted of the prediction average of the confidences
-        ///                       of votes for the combined prediction) will also be given. </param>
-        /// <returns> {{"prediction": prediction, "confidence": combinedConfidence}} </returns>
-        public virtual Dictionary<object, object> combine(int method = PLURALITY_CODE, bool? withConfidence = false,
+        public virtual Dictionary<object, object> combine(int method = PLURALITY_CODE, bool withConfidence = false,
                                                             bool? addConfidence = false, bool? addDistribution = false, 
                                                             bool? addCount = false, bool? addMedian = false, IDictionary options = null)
         {
@@ -892,17 +837,13 @@ namespace BigML
 
             string[] keys = WEIGHT_KEYS[COMBINER_MAP[method]];
             // and all predictions should have the weight-related keys
-            if (keys.Length > 0)
+            if (keys !=  null && keys.Length > 0)
             {
                 checkKeys(this.predictions, keys);
             }
 
             if (this.is_regression())
             {
-                /*if (LOGGER.DebugEnabled)
-                {
-                    LOGGER.debug("Is regression");
-                }*/
                 foreach (Dictionary<object, object> prediction in predictions)
                 {
                     if (!prediction.ContainsKey("confidence"))
@@ -918,19 +859,9 @@ namespace BigML
                 return this.avg(withConfidence, addConfidence, addDistribution, addCount, addMedian);
             }
 
-            /*if (LOGGER.DebugEnabled)
-            {
-                LOGGER.debug("Is classification");
-            }*/
-
             MultiVote multiVote = null;
             if (method == THRESHOLD_CODE)
             {
-                /*if (LOGGER.DebugEnabled)
-                {
-                    LOGGER.debug("Method THRESHOLD");
-                }*/
-
                 int? threshold = (int?)options["threshold"];
                 string category = (string)options["category"];
 
@@ -938,25 +869,12 @@ namespace BigML
             }
             else if (method == PROBABILITY_CODE)
             {
-                /*if (LOGGER.DebugEnabled)
-                {
-                    LOGGER.debug("Method PROBABILITY");
-                }*/
                 multiVote = new MultiVote(this.probabilityWeight());
             }
             else
             {
-                /*if (LOGGER.DebugEnabled)
-                {
-                    LOGGER.debug("Method PLURALITY");
-                }*/
                 multiVote = this;
             }
-
-            /*if (LOGGER.DebugEnabled)
-            {
-                LOGGER.debug("Calling combine_categorical");
-            }*/
             return multiVote.combineCategorical(COMBINATION_WEIGHTS[COMBINER_MAP[method]], withConfidence);
         }
 
@@ -1088,7 +1006,6 @@ namespace BigML
         /// <returns> the this instance </returns>
         public virtual MultiVote appendRow(IList<object> predictionRow, IList<string> predictionHeaders)
         {
-
             if (predictionHeaders == null)
             {
                 predictionHeaders = PREDICTION_HEADERS;
