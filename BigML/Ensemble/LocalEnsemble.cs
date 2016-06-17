@@ -29,11 +29,11 @@ namespace BigML
             }
 
         
-            public Dictionary<string, object> predict(Dictionary<string, dynamic> inputData, bool byName = true, int missing_strategy = 0)
+            public Dictionary<object, object> predict(Dictionary<string, dynamic> inputData, bool byName = true, int missing_strategy = 0)
             {
                 IList<Prediction> outputs = new List<Prediction>();
  
-                Dictionary<string, dynamic> dataById = new Dictionary <string, dynamic>();
+                Dictionary<object, dynamic> dataById = new Dictionary <object, dynamic>();
                 var mv = new MultiVote();
 
                 for (int i = 0; i < this._models.Count; i++)
@@ -41,8 +41,9 @@ namespace BigML
                     _modelsPredictions[i] = this._models[i].predict(inputData);
                     mv.append(_modelsPredictions[i].toDictionary());
                 }
+                return mv.combine(0, true);
 
-                return mv.getGroupedDistribution(mv);
+                //return mv.getGroupedDistribution(mv);
             }
         }
     }
