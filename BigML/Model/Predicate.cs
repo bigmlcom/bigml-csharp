@@ -169,11 +169,20 @@ namespace BigML
             /// <summary>
             /// Value of the field to make this node decision (number or string)
             /// </summary>
-            public string Value
+            public dynamic Value
             {
-                get { return _predicate.value; }
+                get
+                {
+                    if (((JsonPrimitive)_predicate.value).JsonType == JsonType.Number)
+                    {
+                        return (float)_predicate.value;
+                    }
+                    else
+                    {
+                        return (string)_predicate.value;
+                    }
+                }
             }
-
 
             public string Term
             {
