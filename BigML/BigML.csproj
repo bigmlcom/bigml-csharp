@@ -52,6 +52,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataSet\Field\Items.cs" />
+    <Compile Include="DataSet\Field\Datetime.cs" />
+    <Compile Include="DataSet\Field\Text.cs" />
     <Compile Include="WhizzML\Library\Arguments.cs" />
     <Compile Include="WhizzML\Library\BigMLClientLibrary.cs" />
     <Compile Include="WhizzML\Library\Library.cs" />
