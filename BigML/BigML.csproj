@@ -55,6 +55,7 @@
     <Compile Include="DataSet\Field\Items.cs" />
     <Compile Include="DataSet\Field\Datetime.cs" />
     <Compile Include="DataSet\Field\Text.cs" />
+    <Compile Include="Helpers\Constants.cs" />
     <Compile Include="WhizzML\Library\Arguments.cs" />
     <Compile Include="WhizzML\Library\BigMLClientLibrary.cs" />
     <Compile Include="WhizzML\Library\Library.cs" />
@@ -274,6 +275,7 @@
   <ItemGroup>
     <Folder Include="Query\Object\" />
     <Folder Include="_dataFiles\" />
+    <Folder Include="_doc\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
