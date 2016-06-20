@@ -58,11 +58,11 @@ namespace BigML
 
             /// <summary>
             /// Specifies the type of the field. 
-            /// It can be numerical, categorical, or text.
+            /// It can be numerical, categorical, datatime, text or items.
             /// </summary>
             public new OpType OpType
             {
-                get { return base.OpType; }
+                get { return Constants.getOpType((string) _field.optype); }
                 set { _field.optype = value.ToString().ToLower(); }
             }
 
@@ -98,6 +98,27 @@ namespace BigML
                     }
                 }
             }
+
+
+            public Dictionary<string, dynamic> TermAnalysis
+            {
+                get
+                {
+                    if (OpType != OpType.Text)
+                    {
+                        return null;
+                    }
+
+                    var _termAnalysis = new Dictionary<string, dynamic>();
+                    foreach (var kv in _field.term_analysis)
+                    {
+                        _termAnalysis.Add(kv.Key, kv.Value);
+                    }
+                    return _termAnalysis;
+                }
+            }
+
+
 
             public JsonValue ToJson()
             {
