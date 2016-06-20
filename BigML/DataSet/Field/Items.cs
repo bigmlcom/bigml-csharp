@@ -28,7 +28,7 @@ namespace BigML
                     }
 
                     /// <summary>
-                    /// A dictionary where the keys are the unique categories found in the field and the values are the count for that category.
+                    /// A list of pairs where the first one is an item and the second is the number of times that appears in the dataset
                     /// </summary>
                     public List<dynamic[]> ItemsCount
                     {

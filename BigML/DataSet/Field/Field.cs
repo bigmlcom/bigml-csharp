@@ -119,6 +119,24 @@ namespace BigML
             }
 
 
+            public Dictionary<string, dynamic> ItemAnalysis
+            {
+                get
+                {
+                    if (OpType != OpType.Items)
+                    {
+                        return null;
+                    }
+
+                    var _itemAnalysis = new Dictionary<string, dynamic>();
+                    foreach (var kv in _field.item_analysis)
+                    {
+                        _itemAnalysis.Add(kv.Key, kv.Value);
+                    }
+                    return _itemAnalysis;
+                }
+            }
+
 
             public JsonValue ToJson()
             {
