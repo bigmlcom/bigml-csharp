@@ -42,6 +42,7 @@ namespace BigML
         /// <summary>
         /// The holdout size used to build the model.
         /// </summary>
+        [System.Obsolete("This property was removed", false)]
         public double Holdout
         {
             get { return Object.holdout; }
@@ -97,7 +98,7 @@ namespace BigML
         /// </summary>
         public LocalModel ModelStructure
         {
-            get { return new LocalModel(Object.model, Object.model.model_fields); }
+            get { return new LocalModel(Object.model, Object.model.fields); }
         }
 
         /// <summary>
