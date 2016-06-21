@@ -57,9 +57,7 @@ namespace BigML
         private List<string> _modelIds;
 
         /// <summary>
-        /// All the information that you need to recreate or use the ensemble on your own. 
-        /// Each model includes a very intuitive description of the tree-like structure that 
-        /// made each model up and the field's dictionary describing the fields and their summaries.
+        /// List of model IDs.
         /// </summary>
         public List<string> Models
         {
