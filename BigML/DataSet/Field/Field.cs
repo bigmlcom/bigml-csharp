@@ -60,7 +60,7 @@ namespace BigML
             /// Specifies the type of the field. 
             /// It can be numerical, categorical, datatime, text or items.
             /// </summary>
-            public new OpType OpType
+            public OpType Optype
             {
                 get { return Constants.getOpType((string) _field.optype); }
                 set { _field.optype = value.ToString().ToLower(); }
@@ -81,7 +81,7 @@ namespace BigML
             {
                 get
                 {
-                    switch(OpType)
+                    switch(Optype)
                     {
                         case OpType.Categorical:
                             return new Summary.Categorical(_field.summary);
@@ -104,7 +104,7 @@ namespace BigML
             {
                 get
                 {
-                    if (OpType != OpType.Text)
+                    if (Optype != OpType.Text)
                     {
                         return null;
                     }
@@ -123,7 +123,7 @@ namespace BigML
             {
                 get
                 {
-                    if (OpType != OpType.Items)
+                    if (this.Optype != OpType.Items)
                     {
                         return null;
                     }
@@ -144,7 +144,7 @@ namespace BigML
 
                 if (!string.IsNullOrWhiteSpace(Name)) copy.name = Name;
                 if (!string.IsNullOrWhiteSpace(Locale)) copy.locale = Locale;
-                if (OpType != OpType.Error) copy.optype = OpType.ToString().ToLower();
+                if (this.Optype != OpType.Error) copy.optype = OpType.ToString().ToLower();
                 if (MissingTokens.Count > 0) copy.missing_tokens = new JsonArray(MissingTokens.Select(t => (JsonValue)t));
 
                 return copy;
