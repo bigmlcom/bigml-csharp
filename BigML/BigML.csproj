@@ -55,7 +55,11 @@
     <Compile Include="DataSet\Field\Items.cs" />
     <Compile Include="DataSet\Field\Datetime.cs" />
     <Compile Include="DataSet\Field\Text.cs" />
+    <Compile Include="Helpers\WhizzMLCategories.cs" />
+    <Compile Include="Helpers\Categories.cs" />
+    <Compile Include="Helpers\MissingStrategy.cs" />
     <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="Helpers\Combiner.cs" />
     <Compile Include="WhizzML\Library\Arguments.cs" />
     <Compile Include="WhizzML\Library\BigMLClientLibrary.cs" />
     <Compile Include="WhizzML\Library\Library.cs" />
@@ -274,7 +278,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Query\Object\" />
-    <Folder Include="_dataFiles\" />
     <Folder Include="_doc\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
