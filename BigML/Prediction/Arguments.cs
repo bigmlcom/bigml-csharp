@@ -29,13 +29,43 @@ namespace BigML
                 get;
                 set;
             }
-            
+
+            /// <summary>
+            /// A valid ensemble/id.
+            /// </summary>
+            public string Ensemble
+            {
+                get;
+                set;
+            }
+
+            /// <summary>
+            /// A valid logisticregression/id.
+            /// </summary>
+            public string LogisticRegression
+            {
+                get;
+                set;
+            }
+
             public override JsonValue ToJson()
             {
                 dynamic json = base.ToJson();
 
-                json.model = Model;
-                if(InputData.Count > 0)
+                if (Ensemble.Length > 32)
+                {
+                    json.ensemble = Ensemble;
+                }
+                if (LogisticRegression.Length > 32)
+                {
+                    json.logisticregression = LogisticRegression;
+                }
+                if (Model.Length > 32)
+                {
+                    json.model = Model;
+                }
+
+                if (InputData.Count > 0)
                 {
                     var input_data = new JsonObject();
                     foreach(var kv in InputData)
