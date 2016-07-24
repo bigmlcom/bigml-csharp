@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Json;
 using System.Text.RegularExpressions;
 
@@ -14,6 +15,8 @@ namespace BigML
             readonly Dictionary<string, bool> _caseSensitive;
             readonly Dictionary<string, Dictionary<string, string>> _termForms;
 
+            Dictionary<string, string> nameToIdDict = new Dictionary<string, string>();
+
             internal LocalModel(JsonValue jsonObject, JsonValue fields)
             {
                 Dictionary<string, bool> caseSensitive = new Dictionary<string, bool>();
@@ -26,6 +29,7 @@ namespace BigML
                 {
                     string fieldId = kv.Key;
                     _fields[fieldId] = new DataSet.Field(kv.Value);
+                    nameToIdDict.Add(_fields[fieldId].Name, fieldId);
 
                     //text analysis initialization
                     Dictionary<string, string> options = new Dictionary<string, string>();
@@ -184,7 +188,7 @@ namespace BigML
                             break;
 
                         default:
-                            throw new System.Exception();
+                            throw new System.Exception(children.Predicate.Operator + " is not recognized");
                     }
                 }
                 return currentNode;
@@ -195,11 +199,22 @@ namespace BigML
                 IList<Prediction> outputs = new List<Prediction>();
  
                 Dictionary<string, dynamic> dataById = new Dictionary <string, dynamic>();
+                string[] fieldsNames = new string[nameToIdDict.Keys.Count];
+                nameToIdDict.Keys.CopyTo(fieldsNames, 0);
+                foreach (string key in inputData.Keys)
+                {
+                    if (Array.IndexOf(fieldsNames, key) > -1) {
+                        dataById[nameToIdDict[key]] = inputData[key];
+                    }
+                    else {
+                        dataById[key] = inputData[key];
+                    }
+                }
 
                 var root = this._jsonObject["root"];
                 Node rootNode = new Node(root);
 
-                return predictNode(rootNode, inputData);
+                return predictNode(rootNode, dataById);
             }
         }
     }
