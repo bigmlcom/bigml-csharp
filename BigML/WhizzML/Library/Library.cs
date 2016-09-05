@@ -3,10 +3,11 @@ using System.Collections.Generic;
 namespace BigML
 {
     /// <summary>
-    /// A dataset is a structured version of a source where each field has been
-    /// processed and serialized according to its type.
+    /// A library is a special kind of compiled WhizzML source code that only
+    /// defines functions and constants. It is intended as an import for
+    /// executable scripts.
     /// The complete and updated reference with all available parameters is in
-    /// our <a href="https://bigml.com/developers/libraries">developers</a>
+    /// our <a href="https://bigml.com/api/libraries">documentation</a>
     /// website.
     /// </summary>
     public partial class Library : Response

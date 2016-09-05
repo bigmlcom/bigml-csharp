@@ -13,8 +13,8 @@ namespace BigML
     /// differ from some distribution patterns. Statistical test are useful in
     /// tasks such as fraud, normality, or outlier detection.
     /// The complete and updated reference with all available parameters is in
-    /// our <a href="https://bigml.com/developers/statisticaltest">
-    /// developers</a> website.
+    /// our <a href="https://bigml.com/api/statisticaltest">
+    /// documentation</a> website.
     /// </summary>
     public partial class StatisticalTest : Response
     {

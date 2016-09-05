@@ -11,7 +11,7 @@ namespace BigML
     /// predictive model. To create a new evaluation you need a model/id or an
     /// ensemble/id and a dataset/id.
     /// The complete and updated reference with all available parameters is in
-    /// our <a href="https://bigml.com/developers/evaluations">developers</a>
+    /// our <a href="https://bigml.com/api/evaluations">documentation</a>
     /// website.
     /// </summary>
     public partial class Evaluation : Response

@@ -13,7 +13,7 @@ namespace BigML
     /// instances, or, given a new data point, deciding whether a model is
     /// competent to make a prediction or not.
     /// The complete and updated reference with all available parameters is in
-    /// our <a href="https://bigml.com/developers/anomalies">developers</a>
+    /// our <a href="https://bigml.com/api/anomalies">documentation</a>
     /// website.
     /// </summary>
     public partial class Anomaly : Response

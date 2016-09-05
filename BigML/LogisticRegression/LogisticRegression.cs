@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace BigML
 {
     /// <summary>
-    /// A logistic regression is a supervised machine learning method for solving
-    /// classification problems. The probability of the objective being a particular
-    /// class is modeled as the value of a logistic function, whose argument is a
-    /// linear combination of feature values.
+    /// A logistic regression is a supervised machine learning method for
+    /// solving classification problems. The probability of the objective being
+    /// a particular class is modeled as the value of a logistic function,
+    /// whose argument is a linear combination of feature values.
     /// The complete and updated reference with all available parameters is in
-    /// our <a href="https://bigml.com/developers/logisticregressions">developers</a>
-    /// website.
+    /// our <a href="https://bigml.com/api/logisticregressions">
+    /// documentation</a> website.
     /// </summary>
     public partial class LogisticRegression : Response
     {

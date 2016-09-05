@@ -3,11 +3,12 @@ using System.Collections.Generic;
 namespace BigML
 {
     /// <summary>
-    /// A dataset is a structured version of a source where each field has been
-    /// processed and serialized according to its type.
+    /// A script is compiled source code written in WhizzML, BigML's custom
+    /// scripting language for automating Machine Learning workflows.
+    /// Once a script has been created and compiled, it can be used as an input
+    /// for an execution resource.
     /// The complete and updated reference with all available parameters is in
-    /// our <a href="https://bigml.com/developers/datasets">developers</a>
-    /// website.
+    /// our <a href="https://bigml.com/api/scripts">documentation</a> website.
     /// </summary>
     public partial class Script : Response
     {

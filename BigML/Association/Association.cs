@@ -17,7 +17,7 @@ namespace BigML
     /// incident detection, web usage analysis, or software intrusion detection.
     /// 
     /// The complete and updated reference with all available parameters is in
-    /// our <a href="https://bigml.com/developers/associations">developers</a>
+    /// our <a href="https://bigml.com/api/associations">documentation</a>
     /// website.
     /// </summary>
     public partial class Association : Response

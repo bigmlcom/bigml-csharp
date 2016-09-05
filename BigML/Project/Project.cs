@@ -11,7 +11,7 @@ namespace BigML
     /// resources together. A project must have a name and optionally a
     /// category, description, and tags to help you organize and retrieve it.
     /// The complete and updated reference with all available parameters is in
-    /// our <a href="https://bigml.com/developers/projects">developers</a>
+    /// our <a href="https://bigml.com/api/projects">documentation</a>
     /// website.
     /// </summary>
     public partial class Project : Response

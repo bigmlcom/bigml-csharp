@@ -11,8 +11,8 @@ namespace BigML
     /// each instance in a dataset in only one request. To create a new batch
     /// prediction you need a model/id or an ensemble/id and a dataset/id.
     /// The complete and updated reference with all available parameters is in
-    /// our <a href="https://bigml.com/developers/batch_predictions">
-    /// developers</a> website.
+    /// our <a href="https://bigml.com/api/batch_predictions">
+    /// documentation</a> website.
     /// </summary>
     public partial class BatchPrediction : Response
     {

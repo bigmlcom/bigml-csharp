@@ -10,7 +10,7 @@ namespace BigML
     /// A sample provides fast-access to the raw data of a dataset on an
     /// on-demand basis.
     /// The complete and updated reference with all available parameters is in
-    /// our <a href="https://bigml.com/developers/samples">developers</a>
+    /// our <a href="https://bigml.com/api/samples">documentation</a>
     /// website.
     /// </summary>
     public partial class Sample : Response

@@ -10,7 +10,7 @@ namespace BigML
     /// An ensemble is a number of models grouped together to create a stronger
     /// model with better predictive performance.
     /// The complete and updated reference with all available parameters is in
-    /// our <a href="https://bigml.com/developers/ensembles">developers</a>
+    /// our <a href="https://bigml.com/api/ensembles">documentation</a>
     /// website.
     /// </summary>
     public partial class Ensemble : Response

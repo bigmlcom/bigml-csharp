@@ -11,7 +11,7 @@ namespace BigML
     /// which you wish to create an anomaly score. New anomaly score will be
     /// between 0 and 1.
     /// The complete and updated reference with all available parameters is in
-    /// our <a href="https://bigml.com/developers/anomalyscores">developers</a>
+    /// our <a href="https://bigml.com/api/anomalyscores">documentation</a>
     /// website.
     /// </summary>
     public partial class AnomalyScore : Response

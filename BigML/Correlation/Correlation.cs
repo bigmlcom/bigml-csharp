@@ -12,8 +12,8 @@ namespace BigML
     /// analysis techniques to compare the distributions of the fields in your
     /// dataset against an objective_field.
     /// The complete and updated reference with all available parameters is in
-    /// our <a href="https://bigml.com/developers/correlations">
-    /// developers</a> website.
+    /// our <a href="https://bigml.com/api/correlations">documentation</a>
+    /// website.
     /// </summary>
     public partial class Correlation : Response
     {

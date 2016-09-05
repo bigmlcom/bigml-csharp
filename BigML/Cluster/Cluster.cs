@@ -13,7 +13,7 @@ namespace BigML
     /// represented by a centroid or center that is computed using the mean for
     /// each numeric field and the mode for each categorical field.
     /// The complete and updated reference with all available parameters is in
-    /// our <a href="https://bigml.com/developers/clusters">developers</a>
+    /// our <a href="https://bigml.com/api/clusters">documentation</a>
     /// website.
     /// </summary>
     public partial class Cluster : Response

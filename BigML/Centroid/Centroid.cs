@@ -10,7 +10,7 @@ namespace BigML
     /// A centroid is created using a cluster/id and the new instance (input_data)
     /// for which you wish to create a centroid.
     /// The complete and updated reference with all available parameters is in
-    /// our <a href="https://bigml.com/developers/centroids">developers</a>
+    /// our <a href="https://bigml.com/api/centroids">documentation</a>
     /// website.
     /// </summary>
     public partial class Centroid : Response

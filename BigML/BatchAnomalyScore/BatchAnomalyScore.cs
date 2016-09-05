@@ -11,8 +11,8 @@ namespace BigML
     /// for each instance in a dataset in only one request. To create a new
     /// batch anomaly score you need an anomaly/id and a dataset/id.
     /// The complete and updated reference with all available parameters is in
-    /// our <a href="https://bigml.com/developers/batch_anomalyscores">
-    /// developers</a> website.
+    /// our <a href="https://bigml.com/api/batch_anomalyscores">
+    /// documentation</a> website.
     /// </summary>
     public partial class BatchAnomalyScore : Response
     {
