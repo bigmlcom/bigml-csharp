@@ -9,7 +9,8 @@ namespace BigML
     /// <summary>
     /// A batch prediction provides an easy way to compute a prediction for
     /// each instance in a dataset in only one request. To create a new batch
-    /// prediction you need a model/id or an ensemble/id and a dataset/id.
+    /// prediction you need a model/id or an ensemble/id or a
+    /// logisticregression/id and a dataset/id.
     /// The complete and updated reference with all available parameters is in
     /// our <a href="https://bigml.com/api/batch_predictions">
     /// documentation</a> website.
@@ -54,5 +55,16 @@ namespace BigML
         {
             get { return new Status(Object.status); }
         }
+
+
+        /// <summary>
+        /// A description of the status of the model. It includes a code, a message,
+        /// and some extra information.
+        /// </summary>
+        public string OutputDatasetResource
+        {
+            get { return Object.output_dataset_resource; }
+        }
+
     }
 }
