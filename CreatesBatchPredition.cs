@@ -2,12 +2,15 @@
 using System;
 using System.Threading.Tasks;
 
-/*
- * See complete BatchPredictions documentation at
- * https://bigml.com/api/batch_predictions
- */
 namespace Demo
 {
+    /// <summary>
+    /// Creates a batch prediction using a dataset and an ensemble stored
+    /// in BigML.
+    /// 
+    /// See complete BatchPredictions documentation at
+    /// https://bigml.com/api/batch_predictions
+    /// </summary>
     class CreatesBatchPrediction
     {
         static async void Main()
