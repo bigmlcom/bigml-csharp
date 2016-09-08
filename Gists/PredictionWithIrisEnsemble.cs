@@ -19,9 +19,8 @@ namespace Demo
             parameters.InputData.Add("000001", 3.8);
             parameters.InputData.Add("000002", 6.4);
             parameters.InputData.Add("000003", 2);
-            Prediction ensemblePrediction;
-            while ((ensemblePrediction = await client.CreatePrediction(parameters)).StatusMessage.NotSuccessOrFail()) await Task.Delay(5);
-            Console.WriteLine(ensemblePrediction.GetPredictionOutcome<string>().ToString());  //output is string for categorical models
+            Prediction ensemblePrediction = await client.CreatePrediction(parameters);
+            Console.WriteLine(ensemblePrediction.GetPredictionOutcome<string>()); //output is an string for categorical models
         }
     }
 }

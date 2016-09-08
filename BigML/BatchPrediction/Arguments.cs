@@ -40,6 +40,14 @@ namespace BigML
                 set;
             }
 
+            /// <summary>
+            /// A valid logisticregression/id.
+            /// </summary>
+            public string LogisticRegression
+            {
+                get;
+                set;
+            }
 
             public override JsonValue ToJson()
             {

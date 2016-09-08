@@ -22,7 +22,8 @@ namespace Iris
             // New BigML client with username and API key
             Console.Write("user: "); var User = Console.ReadLine();
             Console.Write("key: "); var ApiKey = Console.ReadLine();
-            var client = new Client(User, ApiKey);
+
+            var client = new Client("jribes", "effecfb98e49e6518393a6e9044d79bf67e4755c");
 
             Ordered<Source.Filterable, Source.Orderable, Source> result
                 = (from s in client.ListSources()
@@ -67,28 +68,89 @@ namespace Iris
             Console.WriteLine("Predict:\n" + nodoResultado);
             */
 
-            Ensemble ensemble;
-            string ensembleId = "ensemble/565ecf4d28eb3e62f6000003";
-            // No push, so we need to busy wait for the source to be processed.
-            while ((ensemble = await client.Get<Ensemble>(ensembleId)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
-
+            /*
+            //MODELO CON campo de TEXTO
+            Model model;
+            string modelId = "model/5767b5963bbd213cac004a8d";
+            while ((model = await client.Get<Model>(modelId)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
+            Model.LocalModel localModel = model.ModelStructure;
             Dictionary<string, dynamic> inputData = new Dictionary<string, dynamic>();
-            inputData.Add("000002", 3);
-            inputData.Add("000003", 1.5);
+            inputData.Add("000000", "");
+            inputData.Add("000002", "salt in a recipe");
+            inputData.Add("00000d", 0.1);
+            Model.Node prediction = localModel.predict(inputData);
+            */
 
+            /*
+            // modelo con items
+            Model model;
+            string modelId = "model/5767b5963bbd213cac004a8d";
+            while ((model = await client.Get<Model>(modelId)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
+            Model.LocalModel localModel = model.ModelStructure;
+            Dictionary<string, dynamic> inputData = new Dictionary<string, dynamic>();
+            inputData.Add("000000", "");
+            inputData.Add("000002", "salt in a recipe");
+            inputData.Add("00000d", 0.1);
+            Model.Node prediction = localModel.predict(inputData);
+            */
+
+
+            
+            //Ensemble ensemble;
+            string modelId = "ensemble/5761a7fe3bbd210c6400a60a";
+            string datasetId = "dataset/5761a4d73bbd210c6b005816";
+
+            /*
+            var parameters = new BatchPrediction.Arguments();
+            // "model" parameter can be a model, an ensemble or a logisticregression
+            parameters.Add("model", modelId);
+            parameters.Add("dataset", datasetId);
+            parameters.Add("output_dataset", true);
+            BatchPrediction batchPrediction;
+            batchPrediction = await client.CreateBatchPrediction(parameters);
+            string batchPredictionId = batchPrediction.Resource;
+            // wait for finish
+            while ((batchPrediction = await client.Get<BatchPrediction>(batchPredictionId)).StatusMessage.NotSuccessOrFail()) await Task.Delay(10);
+            Console.WriteLine(batchPrediction.OutputDatasetResource);
+            */
+
+            string ensembleId = "ensemble/565ecf4d28eb3e62f6000003"; //put your Id here
+            var parameters = new Prediction.Arguments();
+            parameters.Add("ensemble", ensembleId);
+            parameters.InputData.Add("000000", 7.9);
+            parameters.InputData.Add("000001", 3.8);
+            parameters.InputData.Add("000002", 6.4);
+            parameters.InputData.Add("000003", 2);
+            Prediction ensemblePrediction = await client.CreatePrediction(parameters);
+            Console.WriteLine(ensemblePrediction.GetPredictionOutcome<string>().ToString()); //output is string for categorical models
+
+
+            // No push, so we need to busy wait for the source to be processed.
+            /*while ((ensemble = await client.Get<Ensemble>(ensembleId)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
             var localEnsemble = ensemble.EnsembleStructure;
             Model modelInEnsemble;
             string modelId;
-            for (int i = 0; i < ensemble.Models.Count; i++) {
+            for (int i = 0; i < ensemble.Models.Count; i++)
+            {
                 modelId = ensemble.Models[i];
                 while ((modelInEnsemble = await client.Get<Model>(modelId)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
                 localEnsemble.addLocalModel(modelInEnsemble.ModelStructure);
             }
-            var nodoResultado = localEnsemble.predict(inputData);
 
-            //Console.WriteLine("Predict:\n" + nodoResultado);
+            Dictionary<string, dynamic> inputData = new Dictionary<string, dynamic>();
+            //inputData.Add("100000", 37);
+            inputData.Add("Age", 37);
+            inputData.Add("100001", "3rd Class");
+            inputData.Add("100002", 7060);
+            inputData.Add("100004", "servant");
+            inputData.Add("100007", "1");
 
+            var results = localEnsemble.predict(inputData);
+            
+            Console.WriteLine(results);
+            */
 
+            //Console.WriteLine("Predict:\n" + prediction);
 
             /*
             Console.WriteLine(model.StatusMessage.ToString());

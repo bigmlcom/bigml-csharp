@@ -52,15 +52,15 @@ namespace BigML
             {
                 dynamic json = base.ToJson();
 
-                if (Ensemble.Length > 32)
+                if (Ensemble != null)
                 {
                     json.ensemble = Ensemble;
                 }
-                if (LogisticRegression.Length > 32)
+                if (LogisticRegression != null)
                 {
                     json.logisticregression = LogisticRegression;
                 }
-                if (Model.Length > 32)
+                if (Model != null)
                 {
                     json.model = Model;
                 }
