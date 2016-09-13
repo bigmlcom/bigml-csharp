@@ -628,13 +628,13 @@ namespace BigML
                 }
             }
 
-            
-            //tuples.Sort(new TupleComparator(this));
+
+            object weight1, weight2, order1, order2;
             for (int indx = 0; indx < tuples.Count - 1; indx++)
             {
                 Dictionary<string, object> a = (Dictionary <string, object>) ((object[]) tuples[indx])[1];
-                Dictionary<string, object> b = (Dictionary <string, object>) ((object[])tuples[indx + 1])[1];
-                object weight1, weight2, order1, order2;
+                Dictionary<string, object> b = (Dictionary <string, object>) ((object[]) tuples[indx + 1])[1];
+                
                 a.TryGetValue("count", out weight1);
                 b.TryGetValue("count", out weight2);
                 if ((double) weight1 > (double) weight2)
@@ -649,11 +649,11 @@ namespace BigML
                     a.TryGetValue("order", out order1);
                     b.TryGetValue("order", out order2);
 
-                    if ((double) order1 > (double) order2)
+                    if (Convert.ToDouble(order1) > Convert.ToDouble(order2))
                     {
                         ;   //TODO
                     } 
-                    else if ((double) order1 < (double) order2)
+                    else if (Convert.ToDouble(order1) < Convert.ToDouble(order2))
                     {
                         ;   //TODO
                     }
