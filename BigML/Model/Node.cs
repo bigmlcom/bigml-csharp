@@ -97,9 +97,9 @@ namespace BigML
             /// <summary>
             /// Prediction at this node (number or string)
             /// </summary>
-            public string Output
+            public dynamic Output
             {
-                get { return _node.output; }
+                get { return _node.output.Value; }
             }
 
             /// <summary>

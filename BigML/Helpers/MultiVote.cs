@@ -45,7 +45,7 @@ namespace BigML
 
         readonly Dictionary<String, String> COMBINATION_WEIGHTS = new Dictionary<String, String>(){
             { PLURALITY, null } ,
-            { CONFIDENCE, "confidnce" },
+            { CONFIDENCE, "confidence" },
             { PROBABILITY, "probability" },
             { THRESHOLD, null }
         };
@@ -289,16 +289,16 @@ namespace BigML
 
             for (i = 0, len = this.predictions.Length; i < len; i++)
             {
-                result += ((double) this.predictions[i]["prediction"]);
+                result += Convert.ToDouble(this.predictions[i]["prediction"]);
 
                 if (addMedian.Value)
                 {
-                    medianResult += ((double) this.predictions[i]["median"]);
+                    medianResult += Convert.ToDouble(this.predictions[i]["median"]);
                 }
 
-                confidence += ((double) this.predictions[i]["confidence"]);
+                confidence += Convert.ToDouble(this.predictions[i]["confidence"]);
 
-                instances += ((long) this.predictions[i]["count"]);
+                instances += Convert.ToInt64(this.predictions[i]["count"]);
             }
 
             if (total > 0)
@@ -312,7 +312,7 @@ namespace BigML
                 average["confidence"] = 0.0d;
             }
 
-            //average.putAll(getGroupedDistribution(this));
+            // putAll average (getGroupedDistribution(this));
             Dictionary<string, object> groupedDistribution = getGroupedDistribution(this);
             foreach (var oneKey in groupedDistribution.Keys)
             {

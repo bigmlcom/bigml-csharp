@@ -135,7 +135,6 @@ namespace BigML
                     {
                         //is a text field
                         inDataValue = termMatches(inDataValue, fieldId, children.Predicate.Term);
-                        //inDataValue = countWords(inDataValue, children.Predicate.Term);
                     }
 
                     switch (children.Predicate.Operator)
