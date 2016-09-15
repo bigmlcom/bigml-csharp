@@ -192,6 +192,7 @@ namespace BigML
             }
         }
 
+
         /// <summary>
         /// Checks the presence of each of the keys in each of the predictions
         /// </summary>
@@ -216,7 +217,6 @@ namespace BigML
             }
             return true;
         }
-
 
 
         /// Wilson score interval computation of the distribution for the prediction
@@ -311,8 +311,8 @@ namespace BigML
                 average["prediction"] = Double.NaN;
                 average["confidence"] = 0.0d;
             }
-
-            // putAll average (getGroupedDistribution(this));
+            // Equivalent to:
+            //  average.putAll(getGroupedDistribution(this));
             Dictionary<string, object> groupedDistribution = getGroupedDistribution(this);
             foreach (var oneKey in groupedDistribution.Keys)
             {
@@ -336,7 +336,6 @@ namespace BigML
         }
 
 
-
         /// <summary>
         /// Returns a distribution formed by grouping the distributions of each predicted node.
         /// </summary>
@@ -347,7 +346,9 @@ namespace BigML
 
             foreach (Dictionary<object, object> prediction in multiVoteInstance.Predictions)
             {
-                //JSONArray predictionDist = (JSONArray) prediction.get("distribution");
+                
+                // Equivalent to:
+                //  JSONArray predictionDist = (JSONArray) prediction.get("distribution");
                 Dictionary<object, double> predictionDist = null;
                 object distribution = prediction["distribution"];
 
@@ -355,12 +356,17 @@ namespace BigML
                 {
                     predictionDist = (Dictionary<object, double>) distribution;
                 }
+                else if (distribution == null)
+                {
+                    predictionDist = new Dictionary<object, double>();
+                }
                 else
                 {
                     predictionDist = Utils.convertDistributionArrayToMap((JsonArray) distribution);
                 }
 
-                //joinedDist = Utils.mergeDistributions(joinedDist, Utils.convertDistributionArrayToMap(predictionDist));
+                // Equivalent to:
+                //  joinedDist = Utils.mergeDistributions(joinedDist, Utils.convertDistributionArrayToMap(predictionDist));
                 joinedDist = Utils.mergeDistributions(joinedDist, predictionDist);
 
                 if ("counts".Equals(distributionUnit) && joinedDist.Count > BINS_LIMIT)
@@ -391,8 +397,6 @@ namespace BigML
             }
             return false;
         }
-
-
 
 
         /// <summary>
@@ -441,7 +445,8 @@ namespace BigML
                 newPrediction["median"] = medianResult / normalization_factor;
             }
 
-            // newPrediction.putAll(getGroupedDistribution(this));
+            // Equivalent to:
+            //  newPrediction.putAll(getGroupedDistribution(this));
             Dictionary<string, object> groupedDistribution = getGroupedDistribution(this);
             foreach (var oneKey in groupedDistribution.Keys)
             {
@@ -450,8 +455,6 @@ namespace BigML
 
             return newPrediction;
         }
-
-
 
 
         /// <summary>
@@ -758,7 +761,6 @@ namespace BigML
         }
 
 
-
         /// <summary>
         /// Builds a distribution based on the predictions of the MultiVote
         /// </summary>
@@ -811,7 +813,6 @@ namespace BigML
         {
             return combine(PLURALITY_CODE, false, null, null, null, null, null);
         }
-
 
 
         /// <summary>
@@ -879,8 +880,6 @@ namespace BigML
         }
 
 
-
-
         /// <summary>
         /// Adds a new prediction into a list of predictions
         /// 
@@ -923,6 +922,7 @@ namespace BigML
 
             return this;
         }
+
 
         /// <summary>
         /// Singles out the votes for a chosen category and returns a prediction

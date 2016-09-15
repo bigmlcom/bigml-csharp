@@ -90,7 +90,18 @@ namespace BigML
             {
                 get
                 {
-                    return _node["objective_summary"]["categories"];
+                    if (_node["objective_summary"].ContainsKey("categories"))
+                    {
+                        return _node["objective_summary"]["categories"];
+                    }
+                    else if (_node["objective_summary"].ContainsKey("counts"))
+                    {
+                        return _node["objective_summary"]["counts"];
+                    }
+                    else
+                    {
+                        return _node["objective_summary"]["counts"];
+                    }
                 }
             }
 
