@@ -19,8 +19,8 @@ namespace BigML
     {
 
         /// <summary>
-        /// The name of the BatchPrediction as your provided or based on the name
-        /// of the dataset and the model/ensemble by default.
+        /// The name of the Correlation as your provided or based on the name
+        /// of the dataset by default.
         /// </summary>
         public string Name
         {
@@ -37,7 +37,6 @@ namespace BigML
         }
 
 
-
         /// <summary>
         /// Whether the dataset is still available or has been deleted.
         /// </summary>
@@ -48,8 +47,8 @@ namespace BigML
 
 
         /// <summary>
-        /// A description of the status of the correlation. It includes a code, a message,
-        /// and some extra information.
+        /// A description of the status of the correlation.
+        /// It includes a code, a message, and some extra information.
         /// </summary>
         public Status StatusMessage
         {

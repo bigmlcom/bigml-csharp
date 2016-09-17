@@ -15,7 +15,7 @@ namespace BigML
         
         
         /// <summary>
-        /// The name of the dataset as your provided or based on the name of the source by default.
+        /// The name of the library as your provided or the default one.
         /// </summary>
         public string Name
         {
@@ -23,7 +23,7 @@ namespace BigML
         }
 
         /// <summary>
-        /// The number of bytes of the source that were used to create this dataset.
+        /// The number of bytes of the source code that were used to create this library.
         /// </summary>
         public int Size
         {
@@ -31,16 +31,16 @@ namespace BigML
         }
 
         /// <summary>
-        /// The source/id that was used to build the dataset.
+        /// The source code that was used to build the library.
         /// </summary>
         public string SourceCode
         {
-            get { return Object.sourceCode; }
+            get { return Object.source_code; }
         }
 
 
         /// <summary>
-        /// A description of the status of the dataset.
+        /// A description of the status of the library.
         /// </summary>
         public Status StatusMessage
         {

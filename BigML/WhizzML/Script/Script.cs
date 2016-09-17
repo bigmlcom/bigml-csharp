@@ -12,17 +12,9 @@ namespace BigML
     /// </summary>
     public partial class Script : Response
     {
-        /// <summary>
-        /// The number of fields in the dataset.
-        /// </summary>
-        public int Columns
-        {
-            get { return Object.columns; }
-        }
-
         
         /// <summary>
-        /// The name of the dataset as your provided or based on the name of the source by default.
+        /// The name of the script as your provided or the default one.
         /// </summary>
         public string Name
         {
@@ -39,19 +31,11 @@ namespace BigML
 
      
         /// <summary>
-        /// The number of bytes of the source that were used to create this dataset.
-        /// </summary>
-        public int Size
-        {
-            get { return Object.size; }
-        }
-
-        /// <summary>
-        /// The source/id that was used to build the dataset.
+        /// The source code that was used to build the script.
         /// </summary>
         public string SourceCode
         {
-            get { return Object.sourceCode; }
+            get { return Object.source_code; }
         }
 
 
