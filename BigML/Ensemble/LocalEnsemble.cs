@@ -17,7 +17,6 @@ namespace BigML
             {
                 _jsonObject = jsonObject;
                 _modelResourcesIds = modelIds;
-                //_models = new Model.LocalModel[_modelResourcesIds.Count];
                 _modelsPredictions = new Model.Node[_modelResourcesIds.Count];
             }
 
@@ -43,7 +42,6 @@ namespace BigML
                 }
                 return mv.combine(0, true);
 
-                //return mv.getGroupedDistribution(mv);
             }
         }
     }

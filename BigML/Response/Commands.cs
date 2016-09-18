@@ -8,13 +8,9 @@ namespace BigML
 {
     public partial class Client
     {
+
         const string BigML = "{3}://{4}/{2}andromeda/{5}?username={0};api_key={1}";
         const string BigMLList = "{3}://{4}/{2}andromeda/{5}?{6};username={0};api_key={1}";
-
-
-        ////const string BigML = "https://192.168.1.105:1026/{2}andromeda/{3}?username={0};api_key={1}";
-        ////const string BigMLList = "https://192.168.1.105:1026/{2}andromeda/{4}?{3};username={0};api_key={1}";
-
 
         /// <summary>
         /// Map type name to resource type name (Source --> source, ...)
@@ -197,6 +193,7 @@ namespace BigML
             switch (response.StatusCode)
             {
                 case HttpStatusCode.OK:
+                case HttpStatusCode.Accepted:
                     return new T { Object = resource };
 
                 case HttpStatusCode.BadRequest:
@@ -209,6 +206,7 @@ namespace BigML
                     return new T();
             }
         }
+
         /// <summary>
         /// Update a resource.
         /// </summary>
