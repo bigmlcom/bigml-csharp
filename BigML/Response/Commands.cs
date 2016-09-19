@@ -42,6 +42,7 @@ namespace BigML
             switch (response.StatusCode)
             {
                 case HttpStatusCode.Created:
+                case HttpStatusCode.Accepted:
                     return new T {Object = resource, Location = response.Headers.Location };
 
                 case HttpStatusCode.BadRequest:

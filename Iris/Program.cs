@@ -23,7 +23,6 @@ namespace Iris
             Console.Write("user: "); var User = Console.ReadLine();
             Console.Write("key: "); var ApiKey = Console.ReadLine();
 
-            var client = new Client("jribes", "effecfb98e49e6518393a6e9044d79bf67e4755c");
 
             Ordered<Source.Filterable, Source.Orderable, Source> result
                 = (from s in client.ListSources()
