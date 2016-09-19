@@ -113,6 +113,7 @@ namespace BigML
             switch (response.StatusCode)
             {
                 case HttpStatusCode.OK:
+                case HttpStatusCode.Accepted:
                     return new T { Object = resource };
 
                 case HttpStatusCode.BadRequest:
