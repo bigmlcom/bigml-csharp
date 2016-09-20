@@ -33,5 +33,4 @@ exArgs.Add("name", "my script execution");
 Execution exec = await client.CreateExecution(exArgs);
 ```
 
-That’s all! will create the execution, as per our request, and
-automatically list it in the Dashboard.
+That’s all! BigML will create the execution, as per our request, and automatically list it in the BigML Dashboard.
