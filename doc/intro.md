@@ -1,7 +1,7 @@
 Introduction
 ============
 
-Requirements and installation {#sec:install}
+Requirements and installation
 -----------------------------
 
 BigML C# bindings use the `System.Json` DLL that was released as part of .NET Silverlight Framework, and you will need to explicitly install it in your system, if you have not already.
@@ -61,7 +61,7 @@ var client = new Client(userName, apiKey, vpcDomain: "yourVPC.vpc.bigml.io");
 
 BigML VPC provides transparent, exclusive access to resizable computing and data storage capacity in the cloud without needing to install or configure any hardware or software.
 
-Getting started {#cha:quickstart}
+Getting started
 ===============
 
 This chapter shows how to create a model from a remote CSV file and use it to make a prediction for a new single instance.
