@@ -73,7 +73,8 @@ namespace BigML
                 throw new ArgumentNullException("resourceId");
 
             var client = new HttpClient();
-            var response = await client.DeleteAsync(string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId));
+            var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId);
+            var response = await client.DeleteAsync(url);
 
             switch (response.StatusCode)
             {
@@ -108,7 +109,8 @@ namespace BigML
                 throw new ArgumentNullException("resourceId");
 
             var client = new HttpClient();
-            var response = await client.GetAsync(string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId));
+            var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId);
+            var response = await client.GetAsync(url);
             var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync());
 
             switch (response.StatusCode)
@@ -143,7 +145,7 @@ namespace BigML
         {
             var response = await Get<Response>(resourceId);
             return response.Code == HttpStatusCode.OK
-                && (Code)(int)response.Object.status.code == Code.Finished;
+                    && (Code)(int)response.Object.status.code == Code.Finished;
         }
 
         /// <summary>
@@ -152,7 +154,8 @@ namespace BigML
         public async Task<Listing<T>> List<T>(string query) where T : Response, new()
         {
             var client = new HttpClient();
-            var response = await client.GetAsync(string.Format(BigMLList, _username, _apiKey, _dev, _protocol, _VpcDomain, ResourceTypeName<T>(), query));
+            var url = string.Format(BigMLList, _username, _apiKey, _dev, _protocol, _VpcDomain, ResourceTypeName<T>(), query);
+            var response = await client.GetAsync(url);
             var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync());
 
             switch (response.StatusCode)
@@ -189,12 +192,13 @@ namespace BigML
 
             var client = new HttpClient();
             var content = new JsonContent(changes);
-            var response = await client.PutAsync(string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId), content);
+            var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId);
+            var response = await client.PutAsync(url, content);
             var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync());
 
             switch (response.StatusCode)
             {
-                case HttpStatusCode.OK:
+                // case HttpStatusCode.OK:
                 case HttpStatusCode.Accepted:
                     return new T { Object = resource };
 
