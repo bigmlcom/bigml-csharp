@@ -10,6 +10,7 @@ namespace BigML
     {
 
         const string BigML = "{3}://{4}/{2}andromeda/{5}?username={0};api_key={1}";
+        const string BigMLOp = "{3}://{4}/{2}andromeda/{5}/{6}?username={0};api_key={1}";
         const string BigMLList = "{3}://{4}/{2}andromeda/{5}?{6};username={0};api_key={1}";
 
         /// <summary>
@@ -173,6 +174,35 @@ namespace BigML
                     return new Listing<T>();
             }
         }
+
+        /// <summary>
+        /// List all resources
+        /// </summary>
+        private async Task<T> Operation<T>(string operation_name) where T : Response, new()
+        {
+            var client = new HttpClient();
+            var url = string.Format(BigMLOp, _username, _apiKey, _dev, _protocol, _VpcDomain, ResourceTypeName<T>(), operation_name);
+            var response = await client.GetAsync(url);
+            var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync());
+
+            switch (response.StatusCode)
+            {
+                case HttpStatusCode.OK:
+                case HttpStatusCode.Accepted:
+                    return new T { Object = resource };
+
+                case HttpStatusCode.BadRequest:
+                case HttpStatusCode.Unauthorized:
+                case HttpStatusCode.PaymentRequired:
+                case HttpStatusCode.NotFound:
+                    return new T { Object = resource };
+
+                default:
+                    return new T();
+            }
+        }
+
+
 
         /// <summary>
         /// Update a resource.
