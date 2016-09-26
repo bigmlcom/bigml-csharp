@@ -41,7 +41,10 @@ namespace BigML
             request.Headers.ContentType = customContentType;
 
             request.Add(File.OpenRead(path), fileName);
-            if (arguments != null) request.Add(arguments.ToJson() as JsonObject);
+            if (arguments != null)
+            {
+                request.Add(arguments.ToJson() as JsonObject);
+            }
 
             return Create<Source>(request);
         }
