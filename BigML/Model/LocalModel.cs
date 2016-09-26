@@ -65,6 +65,23 @@ namespace BigML
             private System.Globalization.NumberStyles style = System.Globalization.NumberStyles.AllowDecimalPoint;
             private System.Globalization.CultureInfo provider = new System.Globalization.CultureInfo("en-US");
 
+            private DataSet.Field getFieldInfo(string fieldId)
+            {
+                if (_fields.ContainsKey(fieldId)) { 
+                    return _fields[fieldId];
+                }
+                return null;
+            }
+
+            public DataSet.Field getFieldByName(string fieldName)
+            {
+                return getFieldInfo(nameToIdDict[fieldName]);
+            }
+
+            public DataSet.Field getFieldById(string fieldId)
+            {
+                return getFieldInfo(fieldId);
+            }
 
             private int termMatches(string text, string fieldLabel, string term)
             {
