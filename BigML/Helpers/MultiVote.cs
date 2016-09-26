@@ -356,7 +356,7 @@ namespace BigML
                 {
                     predictionDist = (Dictionary<object, double>) distribution;
                 }
-                else if (distribution == null)
+                else if ((distribution == null) || (!(distribution is JsonArray)))
                 {
                     predictionDist = new Dictionary<object, double>();
                 }
@@ -425,7 +425,7 @@ namespace BigML
             {
                 Dictionary<object, object> prediction = this.predictions[index];
 
-                result += ((double)prediction["prediction"]) * ((double) prediction["errorWeight"]);
+                result += ((double)prediction["prediction"]) * ((double)prediction["errorWeight"]);
 
                 if (addMedian.Value)
                 {
@@ -919,7 +919,6 @@ namespace BigML
             Array.Copy(temp, 0, predictions, 0, temp.Length);
             predictions[order] = predictionInfo;
 
-
             return this;
         }
 
@@ -976,7 +975,6 @@ namespace BigML
                 return new MultiVote((Dictionary<object, object>[]) restOfPredictions.ToArray(typeof(Dictionary<object, object>)));
             }
         }
-
 
 
         /// <summary>
