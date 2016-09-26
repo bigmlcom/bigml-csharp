@@ -176,7 +176,7 @@ namespace BigML
         }
 
         /// <summary>
-        /// List all resources
+        /// Extra operation on a resurce. I.e. download
         /// </summary>
         private async Task<T> Operation<T>(string operation_name) where T : Response, new()
         {
@@ -228,7 +228,7 @@ namespace BigML
 
             switch (response.StatusCode)
             {
-                // case HttpStatusCode.OK:
+                // HttpStatusCode.OK is never returned in Update op.
                 case HttpStatusCode.Accepted:
                     return new T { Object = resource };
 

@@ -62,12 +62,11 @@ namespace BigML
             }
 
 
-            private System.Globalization.NumberStyles style = System.Globalization.NumberStyles.AllowDecimalPoint;
             private System.Globalization.CultureInfo provider = new System.Globalization.CultureInfo("en-US");
 
             private DataSet.Field getFieldInfo(string fieldId)
             {
-                if (_fields.ContainsKey(fieldId)) { 
+                if (_fields.ContainsKey(fieldId)) {
                     return _fields[fieldId];
                 }
                 return null;
@@ -233,7 +232,7 @@ namespace BigML
                     fieldInfo = getFieldById(fieldId);
 
                     // remove empty numbers or categoricals
-                    if (fieldInfo != null && 
+                    if (fieldInfo != null &&
                             (!fieldInfo.Optype.Equals(OpType.Text) ||
                             !fieldInfo.Optype.Equals(OpType.Items)) &&
                             inputDataByFieldId[fieldId].ToString() == "")

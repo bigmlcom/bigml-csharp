@@ -26,7 +26,7 @@ namespace Iris
             var ApiKey = Console.ReadLine();
 
             var client = new Client(User, ApiKey);
-            
+
             // New source from in-memory stream, with separate header. That's the header
             var source = await client.CreateSource(iris, "Iris.csv", "sepal length, sepal width, petal length, petal width, species");
             // No push, so we need to busy wait for the source to be processed.

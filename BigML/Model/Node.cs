@@ -104,7 +104,7 @@ namespace BigML
                     }
                     else
                     {
-                        // Old splits summary
+                        // Old splits summary case
                         return new JsonArray();
                     }
                 }
