@@ -27,8 +27,11 @@ namespace BigML
                 return this._models.Count;
             }
 
-        
-            public Dictionary<object, object> predict(Dictionary<string, dynamic> inputData, bool byName = true, int missing_strategy = 0)
+
+            public Dictionary<object, object> predict(Dictionary<string, dynamic> inputData,
+                                                      bool byName = true,
+                                                      Combiner combiner = Combiner.Plurality,
+                                                      int missing_strategy = 0)
             {
                 IList<Prediction> outputs = new List<Prediction>();
  
@@ -40,8 +43,7 @@ namespace BigML
                     _modelsPredictions[i] = this._models[i].predict(inputData);
                     mv.append(_modelsPredictions[i].toDictionary());
                 }
-                return mv.combine(0, true);
-
+                return mv.combine((int)combiner, true);
             }
         }
     }
