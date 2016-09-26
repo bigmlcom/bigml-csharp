@@ -98,9 +98,14 @@ namespace BigML
                     {
                         return _node["objective_summary"]["counts"];
                     }
+                    else if (_node["objective_summary"].ContainsKey("bins"))
+                    {
+                        return _node["objective_summary"]["bins"];
+                    }
                     else
                     {
-                        return _node["objective_summary"]["counts"];
+                        // Old splits summary
+                        return new JsonArray();
                     }
                 }
             }
