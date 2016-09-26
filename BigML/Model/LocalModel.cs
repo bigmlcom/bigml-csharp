@@ -214,23 +214,38 @@ namespace BigML
             {
                 IList<Prediction> outputs = new List<Prediction>();
  
-                Dictionary<string, dynamic> dataById = new Dictionary <string, dynamic>();
+                Dictionary<string, dynamic> inputDataByFieldId = new Dictionary <string, dynamic>();
                 string[] fieldsNames = new string[nameToIdDict.Keys.Count];
                 nameToIdDict.Keys.CopyTo(fieldsNames, 0);
+                DataSet.Field fieldInfo;
+
+                string fieldId;
                 foreach (string key in inputData.Keys)
                 {
                     if (Array.IndexOf(fieldsNames, key) > -1) {
-                        dataById[nameToIdDict[key]] = inputData[key];
+                        fieldId = nameToIdDict[key];
+                        inputDataByFieldId[fieldId] = inputData[key];
                     }
                     else {
-                        dataById[key] = inputData[key];
+                        fieldId = key;
+                        inputDataByFieldId[key] = inputData[key];
+                    }
+                    fieldInfo = getFieldById(fieldId);
+
+                    // remove empty numbers or categoricals
+                    if (fieldInfo != null && 
+                            (!fieldInfo.Optype.Equals(OpType.Text) ||
+                            !fieldInfo.Optype.Equals(OpType.Items)) &&
+                            inputDataByFieldId[fieldId].ToString() == "")
+                    {
+                        inputDataByFieldId.Remove(fieldId);
                     }
                 }
 
                 var root = this._jsonObject["root"];
                 Node rootNode = new Node(root);
 
-                return predictNode(rootNode, dataById);
+                return predictNode(rootNode, inputDataByFieldId);
             }
         }
     }
