@@ -24,7 +24,6 @@ namespace Iris
             var User = Console.ReadLine();
             Console.Write("key: ");
             var ApiKey = Console.ReadLine();
-            
 
             var client = new Client(User, ApiKey);
             
