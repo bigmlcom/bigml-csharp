@@ -80,7 +80,9 @@ namespace BigML
         /// </summary>
         public LocalEnsemble EnsembleStructure
         {
-            get { return new LocalEnsemble(Object, Object.models); }
+            get {
+                return new LocalEnsemble(Object, Object.models);
+            }
         }
     }
 }
