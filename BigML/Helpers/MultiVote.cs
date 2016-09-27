@@ -827,7 +827,8 @@ namespace BigML
         /// <returns> {{"prediction": prediction, "confidence": combinedConfidence}} </returns>
         public virtual Dictionary<object, object> combine(int method = PLURALITY_CODE, bool withConfidence = false,
                                                             bool? addConfidence = false, bool? addDistribution = false, 
-                                                            bool? addCount = false, bool? addMedian = false, IDictionary options = null)
+                                                            bool? addCount = false, bool? addMedian = false,
+                                                            IDictionary options = null)
         {
 
             // there must be at least one prediction to be combined
@@ -853,13 +854,14 @@ namespace BigML
                     }
                 }
 
-                if (method ==  CONFIDENCE_CODE)
+                if (method == CONFIDENCE_CODE)
                 {
                     return this.errorWeighted(withConfidence, addConfidence, addDistribution, addCount, addMedian);
                 }
                 return this.avg(withConfidence, addConfidence, addDistribution, addCount, addMedian);
             }
 
+            // Categorical ensemble
             MultiVote multiVote = null;
             if (method == THRESHOLD_CODE)
             {
@@ -1083,7 +1085,6 @@ namespace BigML
         }
 
 
-
         /// <summary>
 		/// Given a list of predictions, extends the list with another list of
 		///  predictions and adds the order information. For instance,
@@ -1144,7 +1145,6 @@ namespace BigML
             {
                 this.outerInstance = outerInstance;
             }
-
 
             public virtual int Compare(object[] o1, object[] o2)
             {

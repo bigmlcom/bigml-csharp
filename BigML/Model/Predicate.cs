@@ -175,7 +175,7 @@ namespace BigML
                 {
                     if (((JsonPrimitive)_predicate.value).JsonType == JsonType.Number)
                     {
-                        return (float)_predicate.value;
+                        return (double)_predicate.value;
                     }
                     else
                     {
