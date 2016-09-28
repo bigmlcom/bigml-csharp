@@ -60,7 +60,7 @@ namespace BigML
             }
 
             /// <summary>
-            /// The current number of predictions that use this source.
+            /// The current number of predictions that use this model.
             /// </summary>
             public Int NumberOfPredictions
             {

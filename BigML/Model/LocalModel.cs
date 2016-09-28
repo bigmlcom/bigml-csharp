@@ -208,7 +208,7 @@ namespace BigML
                 }
                 return currentNode;
             }
-        
+
             public Node predict(Dictionary<string, dynamic> inputData, bool byName = true, int missing_strategy = 0)
             {
                 IList<Prediction> outputs = new List<Prediction>();
