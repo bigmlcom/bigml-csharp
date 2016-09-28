@@ -72,6 +72,21 @@ namespace BigML
         }
 
         /// <summary>
+        /// The id of this resource without the resource type
+        /// </summary>
+        public string Id
+        {
+            get {
+                string[] splits = Resource.Split('/');
+                if (splits.Length > 1)
+                {
+                    return splits[1];
+                }
+                return Resource;
+            }
+        }
+
+        /// <summary>
         /// This is the date and time in which the resource was last updated with microsecond precision.
         /// </summary>
         public DateTimeOffset Updated
