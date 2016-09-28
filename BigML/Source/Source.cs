@@ -144,6 +144,9 @@ namespace BigML
             get { return (Type)(int)Object.type; }
         }
 
+        /// <summary>
+        /// A summary of the source in a string. Include name and status
+        /// </summary>
         public override string ToString()
         {
             return "{Name: " + this.Name + ", Status: " + this.StatusMessage.StatusCode + "}";

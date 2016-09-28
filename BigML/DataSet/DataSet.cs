@@ -61,6 +61,46 @@ namespace BigML
         }
 
         /// <summary>
+        /// The current number of ensembles that use this dataset.
+        /// </summary>
+        public int NumberOfEnsembles
+        {
+            get { return Object.number_of_ensembles; }
+        }
+
+        /// <summary>
+        /// The current number of clusters that use this dataset.
+        /// </summary>
+        public int NumberOfClusters
+        {
+            get { return Object.number_of_clusters; }
+        }
+
+        /// <summary>
+        /// The current number of anomaly detectors (anomalies) that use this dataset.
+        /// </summary>
+        public int NumberOfAnomalies
+        {
+            get { return Object.number_of_anomalies; }
+        }
+
+        /// <summary>
+        /// The current number of association discoveries (associations) that use this dataset.
+        /// </summary>
+        public int NumberOfAssociations
+        {
+            get { return Object.number_of_associations; }
+        }
+
+        /// <summary>
+        /// The current number of logistic regresssions that use this dataset.
+        /// </summary>
+        public int NumberOfLogisticRegressions
+        {
+            get { return Object.number_of_logisticregressions; }
+        }
+
+        /// <summary>
         /// The current number of predictions that use this dataset.
         /// </summary>
         public int NumberOfPredictions

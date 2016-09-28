@@ -28,7 +28,7 @@ namespace BigML
             }
 
             /// <summary>
-            /// The current number of predictions that use this source.
+            /// The current number of predictions that use this logistic regression.
             /// </summary>
             public Int NumberOfPredictions
             {
