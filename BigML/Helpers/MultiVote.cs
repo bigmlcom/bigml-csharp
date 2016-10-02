@@ -23,9 +23,9 @@ namespace BigML
 {
 
     /// A multiple vote prediction
-    /// 
+    ///
     /// Uses a number of predictions to generate a combined prediction.
-    /// 
+    ///
     public class MultiVote
     {
 
@@ -143,7 +143,7 @@ namespace BigML
 
         /// <summary>
         /// Return the next order to be assigned to a prediction
-        /// 
+        ///
         /// Predictions in MultiVote are ordered in arrival sequence when
         /// added using the constructor or the append and extend methods.
         /// This order is used to break even cases in combination
@@ -164,12 +164,12 @@ namespace BigML
         /// <summary>
         /// Given a multi vote instance (alist of predictions), extends the list
         /// with another list of predictions and adds the order information.
-        /// 
+        ///
         /// For instance, predictions_info could be:
-        /// 
+        ///
         ///  [{'prediction': 'Iris-virginica', 'confidence': 0.3},
         ///      {'prediction': 'Iris-versicolor', 'confidence': 0.8}]
-        /// 
+        ///
         ///  where the expected prediction keys are: prediction (compulsory),
         ///  confidence, distribution and count.
         /// </summary>
@@ -203,6 +203,7 @@ namespace BigML
             Dictionary<object, object> prediction;
             string key;
             int index, kindex, len;
+
             for (index = 0, len = predictions.Length; index < len; index++)
             {
                 prediction = predictions[index];
@@ -233,7 +234,7 @@ namespace BigML
             double? ws_p;
             double ws_norm, ws_z2, ws_factor, ws_sqrt;
             distribution.TryGetValue(prediction, out ws_p);
-            
+
             if (ws_p < 0)
             {
                 throw new Exception("The distribution weight must be a positive value");
@@ -275,7 +276,7 @@ namespace BigML
 
         /// <summary>
 		/// Average for regression models' predictions
-		/// 
+		///
 		/// </summary>
 		private Dictionary<object, object> avg(bool? withConfidence = false, bool? addConfidence = false,
                                                 bool? addDistribution = false, bool? addCount = false,
@@ -568,7 +569,7 @@ namespace BigML
         ///        plurality (1 vote per prediction) 'confidence': confidence
         ///        weighted (confidence as a vote value) 'probability': probability
         ///        weighted (probability as a vote value)
-        /// 
+        ///
         ///        Will also return the combined confidence, as a weighted average of
         ///        the confidences of the votes. </param>
         public virtual Dictionary<object, object> combineCategorical(string weightLabel, bool withConfidence = false)
@@ -637,13 +638,14 @@ namespace BigML
             {
                 Dictionary<string, object> a = (Dictionary <string, object>) ((object[]) tuples[indx])[1];
                 Dictionary<string, object> b = (Dictionary <string, object>) ((object[]) tuples[indx + 1])[1];
-                
+
                 a.TryGetValue("count", out weight1);
                 b.TryGetValue("count", out weight2);
                 if ((double) weight1 > (double) weight2)
                 {
                     ;   //TODO
                 } else if ((double) weight1 < (double) weight2) 
+                } else if ((double) weight1 < (double) weight2)
                 {
                     ;   //TODO
                 } else
@@ -655,13 +657,13 @@ namespace BigML
                     if (Convert.ToDouble(order1) > Convert.ToDouble(order2))
                     {
                         ;   //TODO
-                    } 
+                    }
                     else if (Convert.ToDouble(order1) < Convert.ToDouble(order2))
                     {
                         ;   //TODO
                     }
                 }
-                
+
             }
 
             object[] tuple = (object[])tuples[0];
@@ -826,7 +828,7 @@ namespace BigML
         ///                       of votes for the combined prediction) will also be given. </param>
         /// <returns> {{"prediction": prediction, "confidence": combinedConfidence}} </returns>
         public virtual Dictionary<object, object> combine(int method = PLURALITY_CODE, bool withConfidence = false,
-                                                            bool? addConfidence = false, bool? addDistribution = false, 
+                                                            bool? addConfidence = false, bool? addDistribution = false,
                                                             bool? addCount = false, bool? addMedian = false,
                                                             IDictionary options = null)
         {
@@ -844,6 +846,7 @@ namespace BigML
                 checkKeys(this.predictions, keys);
             }
 
+            // Regression ensemble
             if (this.is_regression())
             {
                 foreach (Dictionary<object, object> prediction in predictions)
@@ -884,13 +887,13 @@ namespace BigML
 
         /// <summary>
         /// Adds a new prediction into a list of predictions
-        /// 
+        ///
         /// prediction_info should contain at least:
         ///      - prediction: whose value is the predicted category or value
-        /// 
+        ///
         /// for instance:
         ///      {'prediction': 'Iris-virginica'}
-        /// 
+        ///
         /// it may also contain the keys:
         ///      - confidence: whose value is the confidence/error of the prediction
         ///      - distribution: a list of [category/value, instances] pairs
@@ -938,7 +941,7 @@ namespace BigML
         {
             if (threshold == null || string.ReferenceEquals(category, null) || category.Length == 0)
             {
-                throw new System.ArgumentException("No category and threshold information was found. Add threshold and category info." + 
+                throw new System.ArgumentException("No category and threshold information was found. Add threshold and category info." +
                                         " E.g. {\"threshold\": 6, \"category\": \"Iris-virginica\"}.");
             }
 
@@ -981,18 +984,18 @@ namespace BigML
 
         /// <summary>
         /// Adds a new prediction into a list of predictions
-        /// 
+        ///
         /// predictionHeaders should contain the labels for the predictionRow
         ///  values in the same order.
-        /// 
+        ///
         /// predictionHeaders should contain at least the following string
         ///      - 'prediction': whose associated value in predictionRow
         ///                      is the predicted category or value
-        /// 
+        ///
         /// for instance:
         ///      predictionRow = ['Iris-virginica']
         ///      predictionHeaders = ['prediction']
-        /// 
+        ///
         /// it may also contain the following headers and values:
         ///      - 'confidence': whose associated value in prediction_row
         ///                      is the confidence/error of the prediction
@@ -1055,10 +1058,10 @@ namespace BigML
         /// Given a list of predictions, extends the list with another list of
         ///  predictions and adds the order information. For instance,
         ///  predictionsInfo could be:
-        /// 
+        ///
         ///      [{'prediction': 'Iris-virginica', 'confidence': 0.3},
         ///       {'prediction': 'Iris-versicolor', 'confidence': 0.8}]
-        /// 
+        ///
         /// where the expected prediction keys are: prediction (compulsory),
         /// confidence, distribution and count.
         /// </summary>
@@ -1069,7 +1072,7 @@ namespace BigML
 
             if (predictionsInfo == null || predictionsInfo.Count == 0)
             {
-                throw new System.ArgumentException("WARNING: failed to add the predictions.\\n" + 
+                throw new System.ArgumentException("WARNING: failed to add the predictions.\\n" +
                                                     "No predictions informed.");
             }
 
@@ -1089,10 +1092,10 @@ namespace BigML
 		/// Given a list of predictions, extends the list with another list of
 		///  predictions and adds the order information. For instance,
 		///  predictionsInfo could be:
-		/// 
+		///
 		///      [{'prediction': 'Iris-virginica', 'confidence': 0.3},
 		///       {'prediction': 'Iris-versicolor', 'confidence': 0.8}]
-		/// 
+		///
 		/// where the expected prediction keys are: prediction (compulsory),
 		/// confidence, distribution and count.
 		/// </summary>

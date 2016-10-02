@@ -56,6 +56,7 @@ namespace BigML
                                               current));
             }
 
+
             /// <summary>
             /// Array of child Node Objects.
             /// </summary>
@@ -64,6 +65,7 @@ namespace BigML
                 get
                 {
                     return (_node.children as JsonValue).Select(child => new Node(child));
+
                 }
             }
 
@@ -82,6 +84,7 @@ namespace BigML
             {
                 get { return _node.count; }
             }
+
 
             /// <summary>
             /// Distribution of the objective field at this node.

@@ -16,7 +16,7 @@ namespace BigML
     public partial class Ensemble : Response
     {
         /// <summary>
-        /// The name of the ensemble as your provided or based on the name 
+        /// The name of the ensemble as your provided or based on the name
         /// of the dataset by default.
         /// </summary>
         public string Name
@@ -62,7 +62,7 @@ namespace BigML
         public List<string> Models
         {
             get {
-                if (this._modelIds == null) { 
+                if (this._modelIds == null) {
                      this._modelIds = new List<string>();
                     for (int i = 0; i < Object.models.Count; i++)
                     {
@@ -74,8 +74,8 @@ namespace BigML
         }
 
         /// <summary>
-        /// All the information that you need to recreate or use the ensemble on your own. 
-        /// Each model includes a very intuitive description of the tree-like structure that 
+        /// All the information that you need to recreate or use the ensemble on your own.
+        /// Each model includes a very intuitive description of the tree-like structure that
         /// made each model up and the field's dictionary describing the fields and their summaries.
         /// </summary>
         public LocalEnsemble EnsembleStructure

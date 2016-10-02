@@ -55,7 +55,6 @@ namespace BigML
             return Create<Model>(arguments);
         }
 
-
         /// <summary>
         /// List all models
         /// </summary>

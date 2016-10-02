@@ -18,7 +18,7 @@ namespace BigML
     {
 
         /// <summary>
-        /// The name of the batch centroid as your provided or based on the name 
+        /// The name of the batch centroid as your provided or based on the name
         /// of the cluster and dataset by default.
         /// </summary>
         public string Name
@@ -65,7 +65,7 @@ namespace BigML
         }
 
         /// <summary>
-        /// A description of the status of the BatchCentroid. 
+        /// A description of the status of the BatchCentroid.
         /// It includes a code, a message, and some extra information.
         /// </summary>
         public Status StatusMessage

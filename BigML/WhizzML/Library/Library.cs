@@ -12,8 +12,8 @@ namespace BigML
     /// </summary>
     public partial class Library : Response
     {
-        
-        
+
+
         /// <summary>
         /// The name of the library as your provided or the default one.
         /// </summary>

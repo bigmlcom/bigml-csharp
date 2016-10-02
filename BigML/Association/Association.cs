@@ -15,7 +15,7 @@ namespace BigML
     /// insights to make decisions on promotions and product placements.
     /// Association Discovery can also be used for other purposes such as early
     /// incident detection, web usage analysis, or software intrusion detection.
-    /// 
+    ///
     /// The complete and updated reference with all available parameters is in
     /// our <a href="https://bigml.com/api/associations">documentation</a>
     /// website.

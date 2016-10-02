@@ -18,7 +18,7 @@ namespace BigML
     {
 
         /// <summary>
-        /// The name of the project as your provided or based on the default 
+        /// The name of the project as your provided or based on the default
         /// name.
         /// </summary>
         public string Name
@@ -27,7 +27,7 @@ namespace BigML
         }
 
         /// <summary>
-        /// A description of the status of the project. 
+        /// A description of the status of the project.
         /// It includes a code, a message, and some extra information.
         /// </summary>
         public Status StatusMessage

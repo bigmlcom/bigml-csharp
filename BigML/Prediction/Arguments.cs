@@ -13,7 +13,7 @@ namespace BigML
             }
 
             /// <summary>
-            /// An object with field's id/value pairs representing the instance you want to create a prediction for.  
+            /// An object with field's id/value pairs representing the instance you want to create a prediction for.
             /// </summary>
             public IDictionary<string,object> InputData
             {
@@ -76,7 +76,7 @@ namespace BigML
                     }
                     json.input_data = input_data;
                 }
-                   
+
                 return json;
             }
         }

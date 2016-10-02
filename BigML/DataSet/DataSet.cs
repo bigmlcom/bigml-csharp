@@ -20,7 +20,7 @@ namespace BigML
         }
 
         /// <summary>
-        /// A dictionary with an entry per field (column) in your data. 
+        /// A dictionary with an entry per field (column) in your data.
         /// Each entry includes the column number, the name of the field, the type of the field, and the summary.
         /// </summary>
         public IDictionary<string, Field> Fields

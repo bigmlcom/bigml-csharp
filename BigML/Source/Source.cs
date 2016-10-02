@@ -12,8 +12,8 @@ namespace BigML
     public partial class Source : Response
     {
         /// <summary>
-        /// The MIME content-type as provided by your HTTP client. 
-        /// The content-type can help BigML.io to better parse your file. 
+        /// The MIME content-type as provided by your HTTP client.
+        /// The content-type can help BigML.io to better parse your file.
         /// </summary>
         public string ContentType
         {
@@ -21,7 +21,7 @@ namespace BigML
         }
 
         /// <summary>
-        /// A dictionary with an entry per field (column) in your data. 
+        /// A dictionary with an entry per field (column) in your data.
         /// Each entry includes the column number, the name of the field, and the type of the field.
         /// </summary>
         public IDictionary<string, Field> Fields
@@ -126,8 +126,8 @@ namespace BigML
         }
 
         /// <summary>
-        /// A description of the status of the source. 
-        /// It includes a code, a message, and some extra information. 
+        /// A description of the status of the source.
+        /// It includes a code, a message, and some extra information.
         /// </summary>
         public Status StatusMessage
         {
@@ -135,7 +135,7 @@ namespace BigML
         }
 
         /// <summary>
-        /// The type of source. 
+        /// The type of source.
         /// By now, this number defaults to 0. In a future version,
         /// this code will help you identify if this source was created through a file upload, URL, streaming data, etc.
         /// </summary>

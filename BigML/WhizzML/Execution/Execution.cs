@@ -14,8 +14,8 @@ namespace BigML
     /// </summary>
     public partial class Execution : Response
     {
-        
-        
+
+
         /// <summary>
         /// The name of the execution as your provided or based on the name of the script by default.
         /// </summary>

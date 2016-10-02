@@ -30,7 +30,7 @@ namespace BigML
         }
 
         /// <summary>
-        /// A dictionary with an entry per field in the input_data or prediction_path. 
+        /// A dictionary with an entry per field in the input_data or prediction_path.
         /// Each entry includes the column number in original source, the name of the field, the type of the field, and the specific datatype.
         /// </summary>
         public JsonValue Fields
@@ -79,7 +79,7 @@ namespace BigML
         }
 
         /// <summary>
-        /// Specifies the id of the field that the model predicts. 
+        /// Specifies the id of the field that the model predicts.
         /// </summary>
         public string ObjectiveField
         {
@@ -130,7 +130,7 @@ namespace BigML
         }
 
         /// <summary>
-        /// A description of the status of the prediction. 
+        /// A description of the status of the prediction.
         /// It includes a code, a message, and some extra information.
         /// </summary>
         public Status StatusMessage

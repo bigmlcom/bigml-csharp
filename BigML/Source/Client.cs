@@ -18,7 +18,7 @@ namespace BigML
         /// <param name="fileName">name to use</param>
         /// <param name="arguments">Additional parameters</param>
         [System.Obsolete("Create is deprecated, use CreateSource instead.")]
-        public Task<Source> Create(string path, string fileName = null, Source.Arguments arguments = null) 
+        public Task<Source> Create(string path, string fileName = null, Source.Arguments arguments = null)
         {
             return CreateSource(path, fileName, arguments);
         }
@@ -67,8 +67,8 @@ namespace BigML
         /// <returns></returns>
         public Task<Source> CreateSource(Source.Arguments arguments)
         {
-            return arguments.File != null 
-                ? CreateSource(arguments.File, arguments.Name, arguments) 
+            return arguments.File != null
+                ? CreateSource(arguments.File, arguments.Name, arguments)
                 : Create<Source>(arguments);
         }
 

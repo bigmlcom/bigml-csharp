@@ -70,7 +70,7 @@ namespace BigML
         /// </summary>
         public async Task<Response> Delete(string resourceId)
         {
-            if (resourceId == null) 
+            if (resourceId == null)
                 throw new ArgumentNullException("resourceId");
 
             var client = new HttpClient();
@@ -142,7 +142,7 @@ namespace BigML
         /// <summary>
         /// Check whether a resource's status is FINISHED.
         /// </summary>
-        public async Task<bool> IsReady(string resourceId) 
+        public async Task<bool> IsReady(string resourceId)
         {
             var response = await Get<Response>(resourceId);
             return response.Code == HttpStatusCode.OK

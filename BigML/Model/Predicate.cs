@@ -25,7 +25,7 @@ namespace BigML
                 {
                     comparisonOperator = this.Operator;
                 }
-                
+
             }
 
             internal LinqExpr.Expression Expression(Dictionary<string, LinqExpr.ParameterExpression> parameters)
@@ -77,7 +77,7 @@ namespace BigML
                                                                                Expression.
                                                                                Constant(x));
                         }
-                        
+
                     case "<":
                     case "<*":
                         return LinqExpr.Expression.LessThan(parameters[Field],
@@ -102,7 +102,7 @@ namespace BigML
                                                                         System.Linq.Expressions.Expression.
                                                                             Constant(x));
                         }
-                        
+
                     default:
                         throw new Exception("Unknown operator '" + Operator + "'");
                 }

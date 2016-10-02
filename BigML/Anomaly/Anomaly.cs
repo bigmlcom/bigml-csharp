@@ -20,7 +20,7 @@ namespace BigML
     {
 
         /// <summary>
-        /// The name of the anomaly detection as your provided or based on the name 
+        /// The name of the anomaly detection as your provided or based on the name
         /// of the dataset by default.
         /// </summary>
         public string Name

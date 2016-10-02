@@ -17,8 +17,8 @@ namespace BigML
             get
             {
                 var code = Object.code;
-                return code is JsonPrimitive 
-                    ? (HttpStatusCode)(int)code 
+                return code is JsonPrimitive
+                    ? (HttpStatusCode)(int)code
                     : HttpStatusCode.InternalServerError;
             }
         }
@@ -29,10 +29,10 @@ namespace BigML
         public Uri Location
         {
             get; internal set;
-        } 
+        }
 
         /// <summary>
-        /// Payload (strongly typed access in derived types), only exposed for debugging. 
+        /// Payload (strongly typed access in derived types), only exposed for debugging.
         /// </summary>
         public dynamic Object
         {
@@ -66,7 +66,7 @@ namespace BigML
         /// <summary>
         /// The resource id
         /// </summary>
-        public string Resource 
+        public string Resource
         {
             get { return Object.resource; }
         }

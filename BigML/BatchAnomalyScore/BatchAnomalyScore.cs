@@ -18,7 +18,7 @@ namespace BigML
     {
 
         /// <summary>
-        /// The name of the batch score as your provided or based on the name 
+        /// The name of the batch score as your provided or based on the name
         /// of the anomaly by default.
         /// </summary>
         public string Name
@@ -47,7 +47,7 @@ namespace BigML
 
 
         /// <summary>
-        /// A description of the status of the Batch Score. 
+        /// A description of the status of the Batch Score.
         /// It includes a code, a message, and some extra information.
         /// </summary>
         public Status StatusMessage

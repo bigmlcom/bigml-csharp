@@ -12,7 +12,7 @@ namespace BigML
     /// </summary>
     public partial class Script : Response
     {
-        
+
         /// <summary>
         /// The name of the script as your provided or the default one.
         /// </summary>
@@ -29,7 +29,7 @@ namespace BigML
             get { return Object.number_of_models; }
         }
 
-     
+
         /// <summary>
         /// The source code that was used to build the script.
         /// </summary>

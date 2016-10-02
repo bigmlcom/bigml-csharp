@@ -13,6 +13,7 @@ namespace BigML
             return CreateDataset(arguments);
         }
 
+
         /// <summary>
         ///  Create a dataset using the supplied arguments.
         /// </summary>
@@ -20,6 +21,7 @@ namespace BigML
         {
             return Create<DataSet>(arguments);
         }
+
 
         /// <summary>
         /// Create a dataset.
@@ -31,6 +33,7 @@ namespace BigML
         {
             return CreateDataset(source, name, arguments);
         }
+
 
         /// <summary>
         /// Create a dataset.
@@ -44,7 +47,6 @@ namespace BigML
             arguments.Source = source.Resource;
             return Create<DataSet>(arguments);
         }
-
 
 
         /// <summary>

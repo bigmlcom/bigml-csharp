@@ -34,7 +34,7 @@ namespace BigML
         /// <summary>
         /// Whether the dataset is still available or has been deleted.
         /// </summary>
-        public bool DataSetStatus 
+        public bool DataSetStatus
         {
             get { return Object.dataset_status;  }
         }
@@ -67,13 +67,15 @@ namespace BigML
             get { return Object.locale;  }
         }
 
+
         /// <summary>
         /// The total number of fields in the dataset used to build the model.
         /// </summary>
-        public int MaxColumns 
+        public int MaxColumns
         {
             get { return Object.max_columns; }
         }
+
 
         /// <summary>
         /// The total number of instances in the dataset used to build the model.
@@ -83,9 +85,11 @@ namespace BigML
             get { return Object.max_rows; }
         }
 
+
         /// <summary>
-        /// All the information that you need to recreate or use the model on your own. 
-        /// It includes a very intuitive description of the tree-like structure that made the model up and the field's dictionary describing the fields and their summaries.
+        /// All the information that you need to recreate or use the model on your own.
+        /// It includes a very intuitive description of the tree-like structure that made
+        /// the model up and the field's dictionary describing the fields and their summaries.
         /// </summary>
         public Description ModelDescription
         {
@@ -93,8 +97,9 @@ namespace BigML
         }
 
         /// <summary>
-        /// All the information that you need to recreate or use the model on your own. 
-        /// It includes a very intuitive description of the tree-like structure that made the model up and the field's dictionary describing the fields and their summaries.
+        /// All the information that you need to recreate or use the model on your own.
+        /// It includes a very intuitive description of the tree-like structure that made
+        /// the model up and the field's dictionary describing the fields and their summaries.
         /// </summary>
         public LocalModel ModelStructure
         {
@@ -128,10 +133,10 @@ namespace BigML
         /// <summary>
         /// The range of instances used to build the model.
         /// </summary>
-        public IEnumerable<int> Range 
-        { 
+        public IEnumerable<int> Range
+        {
             get
-            { 
+            {
                 return (Object.range as JsonValue).Select(r => (int)r);
             }
         }
@@ -139,8 +144,8 @@ namespace BigML
         /// <summary>
         /// The total number of instances used to build the model.
         /// </summary>
-        public int Rows 
-        { 
+        public int Rows
+        {
             get { return Object.rows; }
         }
 
