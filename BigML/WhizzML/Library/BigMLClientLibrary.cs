@@ -25,7 +25,7 @@ namespace BigML
         }
 
 
-        public Query<Library.Filterable, Library.Orderable, Library> ListLibrarys()
+        public Query<Library.Filterable, Library.Orderable, Library> ListLibraries()
         {
             return new LibraryListing(List<Library>);
         }
