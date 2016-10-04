@@ -123,7 +123,7 @@ namespace BigML
         }
 
         /// <summary>
-        /// Specifies the id of the field that the model predicts. 
+        /// Specifies the id of the field that the model predicts.
         /// </summary>
         public string ObjectiveField
         {

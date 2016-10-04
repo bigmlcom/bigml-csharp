@@ -122,7 +122,7 @@ namespace BigML
         public Listing<S> Result
         {
             get
-            {
+            {   
                 return Do<Listing<S>>(async delegate{return await this;}).Result;
             }
         }

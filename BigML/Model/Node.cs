@@ -129,13 +129,20 @@ namespace BigML
                 get { return new Predicate(_node.predicate); }
             }
 
-            public Dictionary<object, object> toDictionary()
+            public Dictionary<object, object> toDictionary(bool withDistribution = true)
             {
-                Dictionary<object, object>  dictionaryResult = new Dictionary<object, object>();
+                Dictionary<object, object> dictionaryResult = new Dictionary<object, object>();
                 dictionaryResult.Add("prediction", this.Output);
                 dictionaryResult.Add("confidence", this.Confidence);
                 dictionaryResult.Add("count", this.Count);
-                dictionaryResult.Add("distribution", this.Distribution);
+
+                if (withDistribution) { 
+                    dictionaryResult.Add("distribution", this.Distribution);
+                }
+                else
+                {
+                    dictionaryResult.Add("distribution", new JsonObject());
+                }
 
                 return dictionaryResult;
             }
