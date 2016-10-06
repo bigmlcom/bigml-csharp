@@ -56,6 +56,7 @@ namespace BigML
                                               current));
             }
 
+            IEnumerable<Node> _children;
 
             /// <summary>
             /// Array of child Node Objects.
@@ -64,7 +65,12 @@ namespace BigML
             {
                 get
                 {
-                    return (_node.children as JsonValue).Select(child => new Node(child));
+                    if (_children == null)
+                    {
+                        _children = (_node.children as JsonValue).Select(child => new Node(child));
+
+                    }
+                    return _children;
 
                 }
             }
@@ -121,12 +127,21 @@ namespace BigML
                 get { return _node.output.Value; }
             }
 
+
+            private Predicate _predicate;
             /// <summary>
             /// Predicate structure to make a decision at this node.
             /// </summary>
+            /// 
             public Predicate Predicate
             {
-                get { return new Predicate(_node.predicate); }
+                get {
+                    if (_predicate == null)
+                    {
+                        _predicate = new Predicate(_node.predicate);
+                    }
+                    return _predicate;
+                }
             }
 
             public Dictionary<object, object> toDictionary(bool withDistribution = true)
