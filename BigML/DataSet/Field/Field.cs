@@ -30,6 +30,7 @@ namespace BigML
             /// </summary>
             public Field(): this(new JsonObject())
             {
+
             }
 
             /// <summary>
@@ -56,13 +57,22 @@ namespace BigML
                 get { return _field.locale; }
             }
 
+
+            private OpType? _optype;
+
             /// <summary>
             /// Specifies the type of the field.
             /// It can be numerical, categorical, datatime, text or items.
             /// </summary>
             public OpType Optype
             {
-                get { return Constants.getOpType((string) _field.optype); }
+                get {
+                    if (_optype == null)
+                    {
+                        _optype = Constants.getOpType((string)_field.optype);
+                    }
+                    return (OpType) _optype;
+                }
                 set { _field.optype = value.ToString().ToLower(); }
             }
 
@@ -71,6 +81,9 @@ namespace BigML
                 get;
                 private set;
             }
+
+
+            private Summary _fieldSummary;
 
             /// <summary>
             /// Numeric or categorical summary of the field.
@@ -81,24 +94,35 @@ namespace BigML
             {
                 get
                 {
-                    switch(Optype)
+                    if (_fieldSummary == null)
                     {
-                        case OpType.Categorical:
-                            return new Summary.Categorical(_field.summary);
-                        case OpType.Numeric:
-                            return new Summary.Numeric(_field.summary);
-                        case OpType.Datetime:
-                            return new Summary.Datetime(_field.datetime);
-                        case OpType.Text:
-                            return new Summary.Text(_field.summary);
-                        case OpType.Items:
-                            return new Summary.Items(_field.summary);
-                        default:
-                            return default(Summary);
+                        switch (Optype)
+                        {
+                            case OpType.Categorical:
+                                _fieldSummary = new Summary.Categorical(_field.summary);
+                                break;
+                            case OpType.Numeric:
+                                _fieldSummary = new Summary.Numeric(_field.summary);
+                                break;
+                            case OpType.Datetime:
+                                _fieldSummary = new Summary.Datetime(_field.datetime);
+                                break;
+                            case OpType.Text:
+                                _fieldSummary = new Summary.Text(_field.summary);
+                                break;
+                            case OpType.Items:
+                                _fieldSummary = new Summary.Items(_field.summary);
+                                break;
+                            default:
+                                _fieldSummary = default(Summary);
+                                break;
+                        }
                     }
+                    return _fieldSummary;
                 }
             }
 
+            private Dictionary<string, dynamic> _termAnalysis;
 
             public Dictionary<string, dynamic> TermAnalysis
             {
@@ -109,15 +133,20 @@ namespace BigML
                         return null;
                     }
 
-                    var _termAnalysis = new Dictionary<string, dynamic>();
-                    foreach (var kv in _field.term_analysis)
+                    if (_termAnalysis == null)
                     {
-                        _termAnalysis.Add(kv.Key, kv.Value);
+                        _termAnalysis = new Dictionary<string, dynamic>();
+                        foreach (var kv in _field.term_analysis)
+                        {
+                            _termAnalysis.Add(kv.Key, kv.Value);
+                        }
                     }
                     return _termAnalysis;
                 }
             }
 
+
+            private Dictionary<string, dynamic> _itemAnalysis;
 
             public Dictionary<string, dynamic> ItemAnalysis
             {
@@ -128,10 +157,12 @@ namespace BigML
                         return null;
                     }
 
-                    var _itemAnalysis = new Dictionary<string, dynamic>();
-                    foreach (var kv in _field.item_analysis)
-                    {
-                        _itemAnalysis.Add(kv.Key, kv.Value);
+                    if (_itemAnalysis == null) { 
+                        _itemAnalysis = new Dictionary<string, dynamic>();
+                        foreach (var kv in _field.item_analysis)
+                        {
+                            _itemAnalysis.Add(kv.Key, kv.Value);
+                        }
                     }
                     return _itemAnalysis;
                 }
