@@ -67,6 +67,13 @@
     <Compile Include="BatchTopicDistribution\Orderable.cs" />
     <Compile Include="BatchTopicDistribution\Status.cs" />
     <Compile Include="Client\Debug.cs" />
+    <Compile Include="Configuration\Arguments.cs" />
+    <Compile Include="Configuration\BigMLClientConfiguration.cs" />
+    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Configuration\ConfigurationListing.cs" />
+    <Compile Include="Configuration\Filterable.cs" />
+    <Compile Include="Configuration\Orderable.cs" />
+    <Compile Include="Configuration\Status.cs" />
     <Compile Include="DataSet\Field\Items.cs" />
     <Compile Include="DataSet\Field\Datetime.cs" />
     <Compile Include="DataSet\Field\Text.cs" />
