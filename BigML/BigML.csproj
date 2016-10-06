@@ -52,6 +52,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BatchTopicDistribution\Arguments.cs" />
+    <Compile Include="BatchTopicDistribution\BatchTopicDistribution.cs" />
+    <Compile Include="BatchTopicDistribution\BatchTopicDistributionListing.cs" />
+    <Compile Include="BatchTopicDistribution\BigMLClientBatchTopicDistributions.cs" />
+    <Compile Include="BatchTopicDistribution\Filterable.cs" />
+    <Compile Include="BatchTopicDistribution\Orderable.cs" />
+    <Compile Include="BatchTopicDistribution\Status.cs" />
     <Compile Include="Client\Debug.cs" />
     <Compile Include="DataSet\Field\Items.cs" />
     <Compile Include="DataSet\Field\Datetime.cs" />
@@ -61,6 +68,20 @@
     <Compile Include="Helpers\MissingStrategy.cs" />
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\Combiner.cs" />
+    <Compile Include="TopicDistribution\Arguments.cs" />
+    <Compile Include="TopicDistribution\BigMLClientTopicDistribution.cs" />
+    <Compile Include="TopicDistribution\Filterable.cs" />
+    <Compile Include="TopicDistribution\Orderable.cs" />
+    <Compile Include="TopicDistribution\Status.cs" />
+    <Compile Include="TopicDistribution\TopicDistribution.cs" />
+    <Compile Include="TopicDistribution\TopicDistributionListing.cs" />
+    <Compile Include="TopicModel\Arguments.cs" />
+    <Compile Include="TopicModel\BigMLClientTopicModel.cs" />
+    <Compile Include="TopicModel\Filterable.cs" />
+    <Compile Include="TopicModel\Orderable.cs" />
+    <Compile Include="TopicModel\Status.cs" />
+    <Compile Include="TopicModel\TopicModel.cs" />
+    <Compile Include="TopicModel\TopicModelListing.cs" />
     <Compile Include="WhizzML\Library\Arguments.cs" />
     <Compile Include="WhizzML\Library\BigMLClientLibrary.cs" />
     <Compile Include="WhizzML\Library\Library.cs" />

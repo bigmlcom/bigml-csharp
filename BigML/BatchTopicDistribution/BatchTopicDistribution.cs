@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 namespace BigML
 {
     /// <summary>
-    /// A batch prediction provides an easy way to compute a prediction for
-    /// each instance in a dataset in only one request. To create a new batch
-    /// prediction you need a model/id or an ensemble/id or a
-    /// logisticregression/id and a dataset/id.
+    /// A batch Topic Distribution provides an easy way to compute a Topic 
+    /// Distribution for each instance in a dataset in only one request. To 
+    /// create a new batch Topic Distribution you need a topicmodel/id
+    /// and a dataset/id.
     /// The complete and updated reference with all available parameters is in
-    /// our <a href="https://bigml.com/api/batch_predictions">
+    /// our <a href="https://bigml.com/api/batch_topicdistributions">
     /// documentation</a> website.
     /// </summary>
-    public partial class BatchPrediction : Response
+    public partial class BatchTopicDistribution : Response
     {
 
         /// <summary>
-        /// The name of the BatchPrediction as your provided or based on the name
+        /// The name of the BatchTopicDistribution as your provided or based on the name
         /// of the dataset and the model/ensemble by default.
         /// </summary>
         public string Name
@@ -35,6 +35,7 @@ namespace BigML
         {
             get { return Object.dataset; }
         }
+
 
 
         /// <summary>
@@ -53,15 +54,6 @@ namespace BigML
         public Status StatusMessage
         {
             get { return new Status(Object.status); }
-        }
-
-
-        /// <summary>
-        /// The dataset/ID that contains the batch prediction in the BigML platform.
-        /// </summary>
-        public string OutputDatasetResource
-        {
-            get { return Object.output_dataset_resource; }
         }
 
     }
