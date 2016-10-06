@@ -57,6 +57,7 @@ namespace BigML
                     }
                     termForms[fieldId] = options;
                 }
+                
                 _caseSensitive = caseSensitive;
                 _termForms = termForms;
             }
@@ -103,7 +104,6 @@ namespace BigML
                 return 0;
             }
 
-
             private int countWords(string inData, string predicateValue)
             {
                 int inDataLength = inData.Length;
@@ -147,7 +147,7 @@ namespace BigML
                         }
                     }
 
-                    if (children.Predicate.Term != null && children.Predicate.Term != "")
+                    if (children.Predicate.hasTerm)
                     {
                         //is a text field
                         inDataValue = termMatches(inDataValue, fieldId, children.Predicate.Term);
@@ -217,7 +217,6 @@ namespace BigML
                 string[] fieldsNames = new string[nameToIdDict.Keys.Count];
                 nameToIdDict.Keys.CopyTo(fieldsNames, 0);
                 DataSet.Field fieldInfo;
-
                 string fieldId;
                 foreach (string key in inputData.Keys)
                 {

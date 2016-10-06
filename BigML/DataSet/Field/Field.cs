@@ -19,7 +19,7 @@ namespace BigML
             internal Field(JsonValue json): base(json)
             {
                 _field = json;
-              
+
                 MissingTokens = json.ContainsKey("missing_tokens")
                                     ? new HashSet<string>(json["missing_tokens"].Select(x => (string)x))
                                     : new HashSet<string>();
@@ -33,7 +33,7 @@ namespace BigML
             }
 
             /// <summary>
-            /// Name of the field. 
+            /// Name of the field.
             /// </summary>
             public new string Name
             {
@@ -41,7 +41,7 @@ namespace BigML
             }
 
             /// <summary>
-            /// id of the field. 
+            /// id of the field.
             /// </summary>
             public new string Id
             {
@@ -49,7 +49,7 @@ namespace BigML
             }
 
             /// <summary>
-            /// The specific locale for this field. 
+            /// The specific locale for this field.
             /// </summary>
             public string Locale
             {
@@ -57,7 +57,7 @@ namespace BigML
             }
 
             /// <summary>
-            /// Specifies the type of the field. 
+            /// Specifies the type of the field.
             /// It can be numerical, categorical, datatime, text or items.
             /// </summary>
             public OpType Optype
@@ -68,7 +68,7 @@ namespace BigML
 
             public ISet<string> MissingTokens
             {
-                get; 
+                get;
                 private set;
             }
 

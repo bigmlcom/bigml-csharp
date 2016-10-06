@@ -347,7 +347,7 @@ namespace BigML
 
             foreach (Dictionary<object, object> prediction in multiVoteInstance.Predictions)
             {
-                
+
                 // Equivalent to:
                 //  JSONArray predictionDist = (JSONArray) prediction.get("distribution");
                 Dictionary<object, double> predictionDist = null;
@@ -644,7 +644,6 @@ namespace BigML
                 if ((double) weight1 > (double) weight2)
                 {
                     ;   //TODO
-                } else if ((double) weight1 < (double) weight2) 
                 } else if ((double) weight1 < (double) weight2)
                 {
                     ;   //TODO

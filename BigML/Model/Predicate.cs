@@ -52,54 +52,51 @@ namespace BigML
                     case ">":
                     case ">*":
                         return LinqExpr.Expression.GreaterThan(parameters[Field],
-                                                                              LinqExpr.Expression.
-                                                                                  Constant(x));
+                                                                        LinqExpr.Expression.
+                                                                             Constant(x));
                     case ">=":
                     case ">=*":
                         return LinqExpr.Expression.GreaterThanOrEqual(parameters[Field],
-
-                                                                                     LinqExpr.
-                                                                                         Expression.
-                                                                                         Constant(x));
+                                                                        LinqExpr.Expression.
+                                                                             Constant(x));
                     case "<>":
                     case "!=":
                     case "!=*":
                         if (fieldType == "string")
                         {
                             return LinqExpr.Expression.NotEqual(parameters[Field],
-                                                                        System.Linq.Expressions.Expression.
+                                                                        LinqExpr.Expression.
                                                                             Constant(Value));
                         }
                         else
                         {
                             return LinqExpr.Expression.NotEqual(parameters[Field],
-                                                                           LinqExpr.
-                                                                               Expression.
-                                                                               Constant(x));
+                                                                        LinqExpr.Expression.
+                                                                            Constant(x));
                         }
 
                     case "<":
                     case "<*":
                         return LinqExpr.Expression.LessThan(parameters[Field],
-                                                                           System.Linq.Expressions.Expression.
-                                                                               Constant(Value));
+                                                                        LinqExpr.Expression.
+                                                                            Constant(Value));
                     case "<=":
                     case "<=*":
                         return LinqExpr.Expression.LessThanOrEqual(parameters[Field],
-                                                                                  System.Linq.Expressions.Expression.
-                                                                                      Constant(x));
+                                                                        LinqExpr.Expression.
+                                                                            Constant(x));
                     case "=":
                     case "=*":
                         if (fieldType == "string")
                         {
                             return LinqExpr.Expression.Equal(parameters[Field],
-                                                                        System.Linq.Expressions.Expression.
+                                                                        LinqExpr.Expression.
                                                                             Constant(Value));
                         }
                         else
                         {
                             return LinqExpr.Expression.Equal(parameters[Field],
-                                                                        System.Linq.Expressions.Expression.
+                                                                        LinqExpr.Expression.
                                                                             Constant(x));
                         }
 
@@ -152,19 +149,26 @@ namespace BigML
 
             }
 
+
+            private bool? _missingOperator;
+
             /// <summary>
             /// Operator allow manage missing value.
             /// </summary>
             public bool MissingOperator
             {
-                get {
-                    bool isMissing;
-                    isMissing = _predicate.@operator != null && ((string) _predicate.@operator).Contains("*");
-
-                    return isMissing;
+                get
+                {
+                    if (_missingOperator == null) {
+                        _missingOperator = _predicate.@operator != null && ((string) _predicate.@operator).Contains("*");
+                    }
+                    return (bool) _missingOperator;
                 }
 
             }
+
+
+            private dynamic _parsedValue;
 
             /// <summary>
             /// Value of the field to make this node decision (number or string)
@@ -173,14 +177,36 @@ namespace BigML
             {
                 get
                 {
-                    if (((JsonPrimitive)_predicate.value).JsonType == JsonType.Number)
+                    if (_parsedValue == null)
                     {
-                        return (double)_predicate.value;
+                        if (((JsonPrimitive)_predicate.value).JsonType == JsonType.Number)
+                        {
+                            _parsedValue = (double)_predicate.value;
+                        }
+                        else
+                        {
+                            _parsedValue = (string)_predicate.value;
+                        }
                     }
-                    else
-                    {
-                        return (string)_predicate.value;
+
+                    return _parsedValue;
+                }
+            }
+
+
+            private bool? _hasTerm;
+
+            /// <summary>
+            /// Determines when a predicate contains a term or not
+            /// </summary>
+            public bool HasTerm
+            {
+                get
+                {
+                    if (_hasTerm == null) {
+                        _hasTerm = this.Term != null && this.Term != "";
                     }
+                    return (bool) _hasTerm;
                 }
             }
 
@@ -188,7 +214,6 @@ namespace BigML
             {
                 get { return _predicate.term;  }
             }
-
         }
     }
 }
