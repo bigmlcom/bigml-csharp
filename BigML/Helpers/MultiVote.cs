@@ -58,12 +58,11 @@ namespace BigML
         };
 
         readonly Dictionary<string, String[]> WEIGHT_KEYS = new Dictionary<string, String[]>() {
-                { PLURALITY, null },
-                { CONFIDENCE,  new String[]{"confidence" } },
-                { PROBABILITY, new String[]{"distribution", "count" } },
-                { THRESHOLD, null}
-            };
-
+            { PLURALITY, null },
+            { CONFIDENCE,  new String[]{"confidence" } },
+            { PROBABILITY, new String[]{"distribution", "count" } },
+            { THRESHOLD, null}
+        };
 
 
         const int DEFAULT_METHOD = 0;
@@ -71,12 +70,14 @@ namespace BigML
 
 
         public Dictionary<object, object>[] predictions;
+        Dictionary<object, object>[] temp;
 
         /// <summary>
 		/// MultiVote: combiner class for ensembles voting predictions.
 		/// </summary>
 		public MultiVote() : this(null)
         {
+
         }
 
         /// <summary>
@@ -110,6 +111,7 @@ namespace BigML
             }
         }
 
+        
         public virtual Dictionary<object, object>[] Predictions
         {
             get
@@ -117,8 +119,6 @@ namespace BigML
                 return predictions;
             }
         }
-
-
 
 
         /// <summary>
@@ -129,6 +129,7 @@ namespace BigML
         {
             int index, len;
             Dictionary<object, object> prediction;
+
             for (index = 0, len = this.predictions.Length; index < len; index++)
             {
                 prediction = this.predictions[index];
@@ -344,14 +345,16 @@ namespace BigML
         {
             Dictionary<object, double> joinedDist = new Dictionary<object, double>();
             string distributionUnit = "counts";
+            Dictionary<object, double> predictionDist;
+            object distribution;
 
             foreach (Dictionary<object, object> prediction in multiVoteInstance.Predictions)
             {
 
                 // Equivalent to:
                 //  JSONArray predictionDist = (JSONArray) prediction.get("distribution");
-                Dictionary<object, double> predictionDist = null;
-                object distribution = prediction["distribution"];
+                predictionDist = null;
+                distribution = prediction["distribution"];
 
                 if (distribution is IDictionary)
                 {
@@ -914,8 +917,9 @@ namespace BigML
 
             int order = nextOrder();
             predictionInfo["order"] = order;
-            //Dictionary<object, object>[] temp = predictions.Clone();
-            Dictionary<object, object>[] temp = new Dictionary<object, object>[predictions.Length];
+            // equals to:
+            //   Dictionary<object, object>[] temp = predictions.Clone();
+            temp = new Dictionary<object, object>[predictions.Length];
             Array.Copy(predictions, 0, temp, 0, temp.Length);
 
             predictions = new Dictionary<object, object>[predictions.Length + 1];

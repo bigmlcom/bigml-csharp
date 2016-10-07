@@ -96,14 +96,22 @@ namespace BigML
             get { return new Description(Object.model, InputFields); }
         }
 
+
+        LocalModel _modelStruture;
         /// <summary>
         /// All the information that you need to recreate or use the model on your own.
         /// It includes a very intuitive description of the tree-like structure that made
         /// the model up and the field's dictionary describing the fields and their summaries.
         /// </summary>
-        public LocalModel ModelStructure
+        
+        public LocalModel ModelStructure(Dictionary<string, DataSet.Field> fields)
         {
-            get { return new LocalModel(Object.model, Object.model.fields); }
+            if (_modelStruture == null)
+            {
+                _modelStruture = new LocalModel(Object.model, fields);
+            }
+            return _modelStruture;
+        }
         }
 
         /// <summary>

@@ -4,6 +4,7 @@ namespace BigML.Meta
     {
         DateTimeOffset(string name) : base(name)
         {
+
         }
 
         public static Bool operator ==(DateTimeOffset c1, System.DateTimeOffset c2)

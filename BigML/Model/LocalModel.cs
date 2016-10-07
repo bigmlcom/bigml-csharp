@@ -15,55 +15,111 @@ namespace BigML
             readonly Dictionary<string, bool> _caseSensitive;
             readonly Dictionary<string, Dictionary<string, string>> _termForms;
 
-            Dictionary<string, string> nameToIdDict = new Dictionary<string, string>();
+            private Dictionary<string, string> nameToIdDict = new Dictionary<string, string>();
+            private Node rootNode;
 
-            internal LocalModel(JsonValue jsonObject, JsonValue fields)
+            private System.Globalization.CultureInfo provider = new System.Globalization.CultureInfo("en-US");
+
+
+            public Dictionary<string, DataSet.Field> Fields
             {
-                Dictionary<string, bool> caseSensitive = new Dictionary<string, bool>();
+                get { return _fields; }
+            }
+
+
+            private Dictionary<string, string> getFieldTermAnalysis(DataSet.Field currentField)
+            {
+                Dictionary<string, string> options = new Dictionary<string, string>();
+                DataSet.Field.Summary.Text textSummary;
+                string fieldId, regex;
+                int i, totalOptions;
+
+                fieldId = currentField.Id;
+                textSummary = (DataSet.Field.Summary.Text)currentField.FieldSummary;
+
+                //term options per field
+                regex = "";
+                foreach (KeyValuePair<string, string[]> termOptions in textSummary.TermForms)
+                {
+                    regex = "(\b|_)" + termOptions.Key + "(\b|_)";
+                    totalOptions = termOptions.Value.Length;
+                    for (i = 0; i < totalOptions; i++)
+                    {
+                        regex += "|(\b|_)" + termOptions.Value[i] + "(\b|_)";
+                    }
+                    options.Add(termOptions.Key, regex);
+                }
+
+                return options;
+            }
+
+            internal LocalModel(JsonValue jsonObject, Dictionary<string, DataSet.Field> fields)
+            {
                 Dictionary<string, Dictionary<string, string>> termForms = new Dictionary<string, Dictionary<string, string>>();
+                Dictionary<string, string> options;
+                Dictionary<string, bool> caseSensitive = new Dictionary<string, bool>();
+                string fieldId;
+                DataSet.Field currentField;
 
                 _jsonObject = jsonObject;
-                _fields = new Dictionary<string, DataSet.Field>();
 
-                foreach (var kv in fields)
-                {
-                    string fieldId = kv.Key;
-                    _fields[fieldId] = new DataSet.Field(kv.Value);
-                    nameToIdDict.Add(_fields[fieldId].Name, fieldId);
+                // parse or fill the Fields information
+                if (fields != null) {
+                    _fields = fields;
 
-                    //text analysis initialization
-                    Dictionary<string, string> options = new Dictionary<string, string>();
-
-                    if (_fields[fieldId].OpType == OpType.Text)
+                    // populate nameToIdDict from 'fields' param
+                    foreach (var kv in fields)
                     {
-                        DataSet.Field currentField = _fields[kv.Key];
-                        DataSet.Field.Summary.Text textSummary = (DataSet.Field.Summary.Text)currentField.FieldSummary;
+                        fieldId = kv.Key;
+                        nameToIdDict.Add(_fields[fieldId].Name, fieldId);
 
-                        //case sensitive per field
-                        caseSensitive.Add(fieldId, (bool) currentField.TermAnalysis["case_sensitive"]);
+                        //text analysis initialization
+                        options = new Dictionary<string, string>();
 
-                        //term options per field
-                        string regex = "";
-                        foreach (KeyValuePair<string, string[]> termOptions in textSummary.TermForms)
+                        if (_fields[fieldId].OpType == OpType.Text)
                         {
-                            regex = "(\b|_)" + termOptions.Key + "(\b|_)";
-                            int totalOptions = termOptions.Value.Length;
-                            for (int i = 0; i < totalOptions; i++)
-                            {
-                                regex += "|(\b|_)" + termOptions.Value[i] + "(\b|_)";
-                            }
-                            options.Add(termOptions.Key, regex);
+                            currentField = fields[kv.Key];
+
+                            //case sensitive per field
+                            caseSensitive.Add(fieldId, (bool)currentField.TermAnalysis["case_sensitive"]);
+
+                            //text analysis initialization
+                            options = getFieldTermAnalysis(currentField);
                         }
+                        termForms[fieldId] = options;
                     }
-                    termForms[fieldId] = options;
+                }
+                else {
+                    _fields = new Dictionary<string, DataSet.Field>();
+
+                    // process each 'field' properties and 
+                    // populate nameToIdDict from 'fields' param
+                    foreach (var kv in _jsonObject["fields"])
+                    {
+                        fieldId = kv.Key;
+                        _fields[fieldId] = new DataSet.Field(kv.Value);
+                        nameToIdDict.Add(_fields[fieldId].Name, fieldId);
+
+                        //text analysis initialization
+                        options = new Dictionary<string, string>();
+
+                        if (_fields[fieldId].OpType == OpType.Text)
+                        {
+                            currentField = fields[kv.Key];
+
+                            //case sensitive per field
+                            caseSensitive.Add(fieldId, (bool)currentField.TermAnalysis["case_sensitive"]);
+
+                            options = getFieldTermAnalysis(currentField);
+                        }
+                        termForms[fieldId] = options;
+                    }
                 }
                 
                 _caseSensitive = caseSensitive;
                 _termForms = termForms;
             }
 
-
-            private System.Globalization.CultureInfo provider = new System.Globalization.CultureInfo("en-US");
 
             private DataSet.Field getFieldInfo(string fieldId)
             {
@@ -73,15 +129,18 @@ namespace BigML
                 return null;
             }
 
+
             public DataSet.Field getFieldByName(string fieldName)
             {
                 return getFieldInfo(nameToIdDict[fieldName]);
             }
 
+
             public DataSet.Field getFieldById(string fieldId)
             {
                 return getFieldInfo(fieldId);
             }
+
 
             private int termMatches(string text, string fieldLabel, string term)
             {
@@ -104,6 +163,7 @@ namespace BigML
                 return 0;
             }
 
+
             private int countWords(string inData, string predicateValue)
             {
                 int inDataLength = inData.Length;
@@ -112,6 +172,7 @@ namespace BigML
                 int newLength = stringClean.Length;
                 return (originalLenght - newLength) / inDataLength;
             }
+
 
             private Node predictNode(Node currentNode, Dictionary<string, dynamic> inputData)
             {
@@ -147,7 +208,7 @@ namespace BigML
                         }
                     }
 
-                    if (children.Predicate.hasTerm)
+                    if (children.Predicate.HasTerm)
                     {
                         //is a text field
                         inDataValue = termMatches(inDataValue, fieldId, children.Predicate.Term);
@@ -209,22 +270,30 @@ namespace BigML
                 return currentNode;
             }
 
-            public Node predict(Dictionary<string, dynamic> inputData, bool byName = true, int missing_strategy = 0)
+            /// <summary>
+            /// Clean input data introduced for a prediction removing fields 
+            /// without valid value and populates the result's Dictionary
+            /// by fieldID
+            /// </summary>
+            /// <param name="inputData">Original input data</param>
+            /// <returns>A map by field ID and clean values</returns>
+            public Dictionary<string, dynamic> prepareInputData(Dictionary<string, dynamic> inputData)
             {
-                IList<Prediction> outputs = new List<Prediction>();
- 
-                Dictionary<string, dynamic> inputDataByFieldId = new Dictionary <string, dynamic>();
+                Dictionary<string, dynamic> inputDataByFieldId = new Dictionary<string, dynamic>();
                 string[] fieldsNames = new string[nameToIdDict.Keys.Count];
                 nameToIdDict.Keys.CopyTo(fieldsNames, 0);
                 DataSet.Field fieldInfo;
                 string fieldId;
+
                 foreach (string key in inputData.Keys)
                 {
-                    if (Array.IndexOf(fieldsNames, key) > -1) {
+                    if (Array.IndexOf(fieldsNames, key) > -1)
+                    {
                         fieldId = nameToIdDict[key];
                         inputDataByFieldId[fieldId] = inputData[key];
                     }
-                    else {
+                    else
+                    {
                         fieldId = key;
                         inputDataByFieldId[key] = inputData[key];
                     }
@@ -239,11 +308,32 @@ namespace BigML
                         inputDataByFieldId.Remove(fieldId);
                     }
                 }
+                return inputDataByFieldId;
+            }
 
-                var root = this._jsonObject["root"];
-                Node rootNode = new Node(root);
+            
+            /// <summary>
+            /// Generates a prediction based on this Model
+            /// </summary>
+            /// <param name="inputData">Map with the ID or name of each field and its value</param>
+            /// <param name="byName">Flag for the inputData key: 
+            ///                         * true if fieldName is the key,
+            ///                         * false if the key is the field ID</param>
+            /// <param name="missing_strategy">Which strategy should use the prediction</param>
+            /// <returns>The Node where Model's navigation has stopped</returns>
+            public Node predict(Dictionary<string, dynamic> inputData, bool byName = true, int missing_strategy = 0)
+            {
+                if (byName)
+                {
+                    inputData = prepareInputData(inputData);
+                }
 
-                return predictNode(rootNode, inputDataByFieldId);
+                // if Model was not processed before => creates root Node
+                if (rootNode == null) { 
+                    rootNode = new Node(this._jsonObject["root"]);
+                }
+
+                return predictNode(rootNode, inputData);
             }
         }
     }

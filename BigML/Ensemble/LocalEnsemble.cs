@@ -10,8 +10,10 @@ namespace BigML
         {
             readonly JsonValue _jsonObject;
             readonly JsonArray _modelResourcesIds;
-            List<Model.LocalModel> _models = new List<Model.LocalModel>();
+            public List<Model.LocalModel> _models = new List<Model.LocalModel>();
             Model.Node[] _modelsPredictions;
+            MultiVote mv;
+            int i;
 
             internal LocalEnsemble(JsonValue jsonObject, JsonArray modelIds)
             {
@@ -31,19 +33,21 @@ namespace BigML
             public Dictionary<object, object> predict(Dictionary<string, dynamic> inputData,
                                                       bool byName = true,
                                                       Combiner combiner = Combiner.Plurality,
-                                                      int missing_strategy = 0)
+                                                      int missing_strategy = 0,
+                                                      bool addDistribution=true)
             {
-                IList<Prediction> outputs = new List<Prediction>();
- 
-                Dictionary<object, dynamic> dataById = new Dictionary <object, dynamic>();
-                var mv = new MultiVote();
+                mv = new MultiVote();
 
-                for (int i = 0; i < this._models.Count; i++)
-                {
-                    _modelsPredictions[i] = this._models[i].predict(inputData);
-                    mv.append(_modelsPredictions[i].toDictionary());
+                if (_models.Count > 1) { 
+                    inputData = _models[0].prepareInputData(inputData);
                 }
-                return mv.combine((int)combiner, true);
+
+                for (i = 0; i < this._models.Count; i++)
+                {
+                    _modelsPredictions[i] = this._models[i].predict(inputData, byName);
+                    mv.append(_modelsPredictions[i].toDictionary(addDistribution));
+                }
+                return mv.combine((int)combiner, addDistribution: addDistribution);
             }
         }
     }
