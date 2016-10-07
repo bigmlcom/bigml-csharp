@@ -112,7 +112,6 @@ namespace BigML
             }
             return _modelStruture;
         }
-        }
 
         /// <summary>
         /// The name of the model as your provided or based on the name of the dataset by default.

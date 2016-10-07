@@ -20,6 +20,8 @@ namespace BigML
 
             private System.Globalization.CultureInfo provider = new System.Globalization.CultureInfo("en-US");
 
+            private string[] modelFieldsNames;
+            private Dictionary<string, bool> fieldAllowEmpty = new Dictionary<string, bool>();
 
             public Dictionary<string, DataSet.Field> Fields
             {
@@ -86,6 +88,7 @@ namespace BigML
                             //text analysis initialization
                             options = getFieldTermAnalysis(currentField);
                         }
+                        fieldAllowEmpty[fieldId] = _fields[fieldId].OpType.Equals(OpType.Text) || _fields[fieldId].OpType.Equals(OpType.Items);
                         termForms[fieldId] = options;
                     }
                 }
@@ -112,10 +115,16 @@ namespace BigML
 
                             options = getFieldTermAnalysis(currentField);
                         }
+
+                        fieldAllowEmpty[fieldId] = _fields[fieldId].OpType.Equals(OpType.Text) || _fields[fieldId].OpType.Equals(OpType.Items);
                         termForms[fieldId] = options;
                     }
                 }
-                
+
+                // fill the array with all the fields' names
+                modelFieldsNames = new string[nameToIdDict.Keys.Count];
+                nameToIdDict.Keys.CopyTo(modelFieldsNames, 0);
+
                 _caseSensitive = caseSensitive;
                 _termForms = termForms;
             }
@@ -168,8 +177,9 @@ namespace BigML
             {
                 int inDataLength = inData.Length;
                 int originalLenght = predicateValue.Length;
-                var stringClean = predicateValue.Replace(inData, "");
+                string stringClean = predicateValue.Replace(inData, "");
                 int newLength = stringClean.Length;
+
                 return (originalLenght - newLength) / inDataLength;
             }
 
@@ -184,92 +194,83 @@ namespace BigML
                 foreach (Node children in currentNode.Children)
                 {
                     fieldId = children.Predicate.Field;
-                    predicateValue = children.Predicate.Value;
-
                     missingField = !inputData.ContainsKey(fieldId);
-                    if (!missingField)
+
+                    if ((missingField) && (children.Predicate.MissingOperator))
                     {
-                        inDataValue = inputData[fieldId];
+                        predictNode(children, inputData);
                     }
                     else
                     {
-                        inDataValue = null;
-                    }
+                        inDataValue = inputData[fieldId];
+                        predicateValue = children.Predicate.Value;
 
-                    if (missingField)
-                    {
-                        if (children.Predicate.MissingOperator)
+                        //is a text field or items
+                        if (children.Predicate.HasTerm)
                         {
-                            currentNode = children;
+                            inDataValue = termMatches(inDataValue, fieldId, children.Predicate.Term);
                         }
-                        else
+
+                        switch (children.Predicate.Operator)
                         {
-                            return currentNode;
+                            case "<":
+                            case "<*":
+                                if (inDataValue < predicateValue)
+                                {
+                                    return predictNode(children, inputData);
+                                }
+                                break;
+                            case "<=":
+                            case "<=*":
+                                if (inDataValue <= predicateValue)
+                                {
+                                    return predictNode(children, inputData);
+                                }
+                                break;
+                            case ">":
+                            case ">*":
+                                if (inDataValue > predicateValue)
+                                {
+                                    return predictNode(children, inputData);
+                                }
+                                break;
+                            case ">=*":
+                            case ">=":
+                                if (inDataValue >= predicateValue)
+                                {
+                                    return predictNode(children, inputData);
+                                }
+                                break;
+                            case "=*":
+                            case "==*":
+                            case "=":
+                            case "==":
+                                if (inDataValue == predicateValue)
+                                {
+                                    return predictNode(children, inputData);
+                                }
+                                break;
+                            case "!=*":
+                            case "!=":
+                            case "<>*":
+                            case "<>":
+                                if (inDataValue != predicateValue)
+                                {
+                                    return predictNode(children, inputData);
+                                }
+                                break;
+
+                            default:
+                                throw new System.Exception(children.Predicate.Operator + " is not recognized");
                         }
-                    }
-
-                    if (children.Predicate.HasTerm)
-                    {
-                        //is a text field
-                        inDataValue = termMatches(inDataValue, fieldId, children.Predicate.Term);
-                    }
-
-                    switch (children.Predicate.Operator)
-                    {
-                        case "<":
-                        case "<*":
-                            if (inDataValue < predicateValue)
-                            {
-                                return predictNode(children, inputData);
-                            }
-                            break;
-                        case "<=":
-                        case "<=*":
-                            if (inDataValue <= predicateValue)
-                            {
-                                return predictNode(children, inputData);
-                            }
-                            break;
-                        case ">":
-                        case ">*":
-                            if (inDataValue > predicateValue)
-                            {
-                                return predictNode(children, inputData);
-                            }
-                            break;
-                        case ">=*":
-                        case ">=":
-                            if (inDataValue >= predicateValue)
-                            {
-                                return predictNode(children, inputData);
-                            }
-                            break;
-                        case "=*":
-                        case "==*":
-                        case "=":
-                        case "==":
-                            if (inDataValue == predicateValue)
-                            {
-                                return predictNode(children, inputData);
-                            }
-                            break;
-                        case "!=*":
-                        case "!=":
-                        case "<>*":
-                        case "<>":
-                            if (inDataValue != predicateValue)
-                            {
-                                return predictNode(children, inputData);
-                            }
-                            break;
-
-                        default:
-                            throw new System.Exception(children.Predicate.Operator + " is not recognized");
                     }
                 }
                 return currentNode;
             }
 
+
+            string fieldId;
+            Dictionary<string, dynamic> inputDataByFieldId;
             /// <summary>
             /// Clean input data introduced for a prediction removing fields 
             /// without valid value and populates the result's Dictionary
@@ -277,17 +278,12 @@ namespace BigML
             /// </summary>
             /// <param name="inputData">Original input data</param>
             /// <returns>A map by field ID and clean values</returns>
-            public Dictionary<string, dynamic> prepareInputData(Dictionary<string, dynamic> inputData)
+            public Dictionary<string, dynamic> prepareInputData(Dictionary<string, dynamic> inputData, bool byName=true)
             {
-                Dictionary<string, dynamic> inputDataByFieldId = new Dictionary<string, dynamic>();
-                string[] fieldsNames = new string[nameToIdDict.Keys.Count];
-                nameToIdDict.Keys.CopyTo(fieldsNames, 0);
-                DataSet.Field fieldInfo;
-                string fieldId;
-
+                inputDataByFieldId = new Dictionary<string, dynamic>();
                 foreach (string key in inputData.Keys)
                 {
-                    if (Array.IndexOf(fieldsNames, key) > -1)
+                    if (nameToIdDict.ContainsKey(key) && byName)
                     {
                         fieldId = nameToIdDict[key];
                         inputDataByFieldId[fieldId] = inputData[key];
@@ -297,12 +293,9 @@ namespace BigML
                         fieldId = key;
                         inputDataByFieldId[key] = inputData[key];
                     }
-                    fieldInfo = getFieldById(fieldId);
 
                     // remove empty numbers or categoricals
-                    if (fieldInfo != null &&
-                            (!fieldInfo.Optype.Equals(OpType.Text) ||
-                            !fieldInfo.Optype.Equals(OpType.Items)) &&
+                    if (!fieldAllowEmpty[fieldId] &&
                             inputDataByFieldId[fieldId].ToString() == "")
                     {
                         inputDataByFieldId.Remove(fieldId);
@@ -321,11 +314,11 @@ namespace BigML
             ///                         * false if the key is the field ID</param>
             /// <param name="missing_strategy">Which strategy should use the prediction</param>
             /// <returns>The Node where Model's navigation has stopped</returns>
-            public Node predict(Dictionary<string, dynamic> inputData, bool byName = true, int missing_strategy = 0)
+            public Node predict(Dictionary<string, dynamic> inputData, bool byName=true, int missing_strategy=0)
             {
                 if (byName)
                 {
-                    inputData = prepareInputData(inputData);
+                    inputData = prepareInputData(inputData, byName);
                 }
 
                 // if Model was not processed before => creates root Node
