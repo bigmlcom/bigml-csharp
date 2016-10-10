@@ -100,6 +100,7 @@ namespace BigML
                     foreach (var kv in _jsonObject["fields"])
                     {
                         fieldId = kv.Key;
+                        kv.Value["id"] = fieldId;
                         _fields[fieldId] = new DataSet.Field(kv.Value);
                         nameToIdDict.Add(_fields[fieldId].Name, fieldId);
 

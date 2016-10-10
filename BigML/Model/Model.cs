@@ -104,7 +104,7 @@ namespace BigML
         /// the model up and the field's dictionary describing the fields and their summaries.
         /// </summary>
         
-        public LocalModel ModelStructure(Dictionary<string, DataSet.Field> fields)
+        public LocalModel ModelStructure(Dictionary<string, DataSet.Field> fields=null)
         {
             if (_modelStruture == null)
             {
