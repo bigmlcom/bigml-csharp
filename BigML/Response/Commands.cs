@@ -38,7 +38,7 @@ namespace BigML
             var client = new HttpClient();
             var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, ResourceTypeName<T>());
             var response =  await client.PostAsync(url, request);
-            var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync());
+            var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
 
             switch (response.StatusCode)
             {
@@ -75,7 +75,7 @@ namespace BigML
 
             var client = new HttpClient();
             var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId);
-            var response = await client.DeleteAsync(url);
+            var response = await client.DeleteAsync(url).ConfigureAwait(_useContextInAwaits);
 
             switch (response.StatusCode)
             {
@@ -86,7 +86,7 @@ namespace BigML
                 case HttpStatusCode.Unauthorized:
                 case HttpStatusCode.PaymentRequired:
                 case HttpStatusCode.NotFound:
-                    return new Response { Object = JsonValue.Parse(await response.Content.ReadAsStringAsync()) };
+                    return new Response { Object = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits)) };
 
                 default:
                     return new Response();
@@ -112,7 +112,7 @@ namespace BigML
             var client = new HttpClient();
             var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId);
             var response = await client.GetAsync(url);
-            var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync());
+            var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
 
             switch (response.StatusCode)
             {
@@ -156,8 +156,8 @@ namespace BigML
         {
             var client = new HttpClient();
             var url = string.Format(BigMLList, _username, _apiKey, _dev, _protocol, _VpcDomain, ResourceTypeName<T>(), query);
-            var response = await client.GetAsync(url);
-            var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync());
+            var response = await client.GetAsync(url).ConfigureAwait(_useContextInAwaits);
+            var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
 
             switch (response.StatusCode)
             {
@@ -182,8 +182,8 @@ namespace BigML
         {
             var client = new HttpClient();
             var url = string.Format(BigMLOp, _username, _apiKey, _dev, _protocol, _VpcDomain, ResourceTypeName<T>(), operation_name);
-            var response = await client.GetAsync(url);
-            var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync());
+            var response = await client.GetAsync(url).ConfigureAwait(_useContextInAwaits);
+            var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
 
             switch (response.StatusCode)
             {
@@ -223,8 +223,8 @@ namespace BigML
             var client = new HttpClient();
             var content = new JsonContent(changes);
             var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId);
-            var response = await client.PutAsync(url, content);
-            var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync());
+            var response = await client.PutAsync(url, content).ConfigureAwait(_useContextInAwaits);
+            var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
 
             switch (response.StatusCode)
             {
