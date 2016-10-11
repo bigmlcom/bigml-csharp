@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gists", "Gists", "{4E11D293
 		Gists\ScoreAfterRetrieveAnomaly.cs = Gists\ScoreAfterRetrieveAnomaly.cs
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WFormApp", "WFormApp\WFormApp.csproj", "{3B347C65-E620-40D4-BD55-3DD85182DADD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +66,18 @@ Global
 		{BADEF19D-9587-48D2-ACAB-0B16C650B063}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{BADEF19D-9587-48D2-ACAB-0B16C650B063}.Release|x86.ActiveCfg = Release|x86
 		{BADEF19D-9587-48D2-ACAB-0B16C650B063}.Release|x86.Build.0 = Release|x86
+		{3B347C65-E620-40D4-BD55-3DD85182DADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B347C65-E620-40D4-BD55-3DD85182DADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B347C65-E620-40D4-BD55-3DD85182DADD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3B347C65-E620-40D4-BD55-3DD85182DADD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3B347C65-E620-40D4-BD55-3DD85182DADD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3B347C65-E620-40D4-BD55-3DD85182DADD}.Debug|x86.Build.0 = Debug|Any CPU
+		{3B347C65-E620-40D4-BD55-3DD85182DADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B347C65-E620-40D4-BD55-3DD85182DADD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B347C65-E620-40D4-BD55-3DD85182DADD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3B347C65-E620-40D4-BD55-3DD85182DADD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3B347C65-E620-40D4-BD55-3DD85182DADD}.Release|x86.ActiveCfg = Release|Any CPU
+		{3B347C65-E620-40D4-BD55-3DD85182DADD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
