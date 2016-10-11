@@ -119,6 +119,14 @@ namespace BigML
             return _client(query).GetAwaiter();
         }
 
+        public Task<Listing<S>> InternalTask
+        {
+            get
+            {
+                return Do<Listing<S>>(async delegate { return await this; });
+            }
+        }
+
         public Listing<S> Result
         {
             get
