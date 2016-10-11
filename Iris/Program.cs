@@ -30,19 +30,28 @@ namespace Iris
             // New source from in-memory stream, with separate header. That's the header
             var source = await client.CreateSource(iris, "Iris.csv", "sepal length, sepal width, petal length, petal width, species");
             // No push, so we need to busy wait for the source to be processed.
-            while ((source = await client.Get(source)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
+            while ((source = await client.Get(source)).StatusMessage.NotSuccessOrFail())
+            {
+                await Task.Delay(10);
+            }
             Console.WriteLine(source.StatusMessage.ToString());
 
             // Default dataset from source
             var dataset = await client.CreateDataset(source);
             // No push, so we need to busy wait for the dataset to be processed.
-            while ((dataset = await client.Get(dataset)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
+            while ((dataset = await client.Get(dataset)).StatusMessage.NotSuccessOrFail())
+            {
+                await Task.Delay(10);
+            }
             Console.WriteLine(dataset.StatusMessage.ToString());
 
             // Default model from dataset
             var model = await client.CreateModel(dataset);
             // No push, so we need to busy wait for the source to be processed.
-            while ((model = await client.Get(model)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
+            while ((model = await client.Get(model)).StatusMessage.NotSuccessOrFail())
+            {
+                await Task.Delay(10);
+            }
             Console.WriteLine(model.StatusMessage.ToString());
 
             Console.WriteLine("Creating local model");
@@ -50,7 +59,7 @@ namespace Iris
             inputData.Add("000002", 3);
             inputData.Add("000003", 1.5);
 
-            var localModel = model.ModelStructure;
+            var localModel = model.ModelStructure();
             var nodeResult = localModel.predict(inputData);
 
             Console.WriteLine("Predict:\n" + nodeResult);
