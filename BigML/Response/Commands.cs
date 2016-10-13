@@ -3,6 +3,7 @@ using System.Json;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace BigML
 {
@@ -175,15 +176,19 @@ namespace BigML
             }
         }
 
+
         /// <summary>
-        /// Extra operation on a resurce. I.e. download
+        /// Extra operation on a resource.
         /// </summary>
-        private async Task<T> Operation<T>(string operation_name) where T : Response, new()
+        public async Task<T> Operation<T>(string resourceId, string operation_name) where T: Response, new()
         {
+            if (resourceId == null)
+                throw new ArgumentNullException("resourceId");
+
             var client = new HttpClient();
-            var url = string.Format(BigMLOp, _username, _apiKey, _dev, _protocol, _VpcDomain, ResourceTypeName<T>(), operation_name);
+            var url = string.Format(BigMLOp, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId, operation_name);
             var response = await client.GetAsync(url).ConfigureAwait(_useContextInAwaits);
-            var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
+            var resource = await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits);
 
             switch (response.StatusCode)
             {
