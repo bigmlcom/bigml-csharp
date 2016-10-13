@@ -208,6 +208,39 @@ namespace BigML
         }
 
 
+        /// <summary>
+        /// Extra operation on a resurce. I.e. download
+        /// </summary>
+        public async Task<bool> Download(string resourceId, FileStream file)
+        {
+            if (resourceId == null)
+                throw new ArgumentNullException("resourceId");
+
+            var client = new HttpClient();
+            var url = string.Format(BigMLOp, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId, "download");
+            var response = await client.GetAsync(url).ConfigureAwait(_useContextInAwaits);
+            await response.Content.CopyToAsync(file).ConfigureAwait(_useContextInAwaits);
+
+            file.Flush();
+            file.Close();
+            switch (response.StatusCode)
+            {
+                case HttpStatusCode.OK:
+                case HttpStatusCode.Accepted:
+                    return true;
+
+                case HttpStatusCode.BadRequest:
+                case HttpStatusCode.Unauthorized:
+                case HttpStatusCode.PaymentRequired:
+                case HttpStatusCode.NotFound:
+                    return false;
+
+                default:
+                    return false;
+            }
+        }
+
+
 
         /// <summary>
         /// Update a resource.
