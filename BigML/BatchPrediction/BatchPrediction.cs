@@ -58,8 +58,7 @@ namespace BigML
 
 
         /// <summary>
-        /// A description of the status of the model. It includes a code, a message,
-        /// and some extra information.
+        /// The dataSet ID with predition result
         /// </summary>
         public string OutputDatasetResource
         {
