@@ -61,7 +61,6 @@ namespace BigML
             return Create<DataSet>(arguments);
         }
 
-
         public Query<DataSet.Filterable, DataSet.Orderable, DataSet> ListDataSets()
         {
             return new DataSetListing(List<DataSet>);

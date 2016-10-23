@@ -37,7 +37,6 @@ namespace BigML
         }
 
 
-
         /// <summary>
         /// Whether the dataset is still available or has been deleted.
         /// </summary>

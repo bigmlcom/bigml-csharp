@@ -18,9 +18,9 @@ namespace BigML
         /// <param name="fileName">name to use</param>
         /// <param name="arguments">Additional parameters</param>
         [System.Obsolete("Create is deprecated, use CreateSource instead.")]
-        public Task<Source> Create(string path, string fileName = null, Source.Arguments arguments = null)
+        public Task<Source> Create(string path, string fileName = null)
         {
-            return CreateSource(path, fileName, arguments);
+            return CreateSource(path, fileName);
         }
 
         /// <summary>
@@ -28,8 +28,7 @@ namespace BigML
         /// </summary>
         /// <param name="path">path to local file</param>
         /// <param name="fileName">name to use</param>
-        /// <param name="arguments">Additional parameters</param>
-        public Task<Source> CreateSource(string path, string fileName = null, Source.Arguments arguments = null)
+        public Task<Source> CreateSource(string path, string fileName = null)
         {
             fileName = fileName ?? Path.GetFileName(path);
 
@@ -41,10 +40,6 @@ namespace BigML
             request.Headers.ContentType = customContentType;
 
             request.Add(File.OpenRead(path), fileName);
-            if (arguments != null)
-            {
-                request.Add(arguments.ToJson() as JsonObject);
-            }
 
             return Create<Source>(request);
         }
@@ -68,7 +63,7 @@ namespace BigML
         public Task<Source> CreateSource(Source.Arguments arguments)
         {
             return arguments.File != null
-                ? CreateSource(arguments.File, arguments.Name, arguments)
+                ? CreateSource(arguments.File, arguments.Name)
                 : Create<Source>(arguments);
         }
 
@@ -93,6 +88,7 @@ namespace BigML
             });
         }
 
+
         /// <summary>
         /// Update a source.
         /// </summary>
@@ -103,6 +99,7 @@ namespace BigML
         {
             return Update(source.Resource, name, parser);
         }
+
 
         /// <summary>
         /// Update a source.

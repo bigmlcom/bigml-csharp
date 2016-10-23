@@ -1,7 +1,8 @@
 namespace BigML
 {
     /// <summary>
-    /// A category is useful to group your resources under the same domain of application if you plan to use BigML in more than one domain. 
+    /// A category is useful to group your resources under the same domain of
+    /// application if you plan to use BigML in more than one domain. 
     /// </summary>
     public enum Category
     {
