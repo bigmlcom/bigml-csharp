@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using System.IO;
 
 namespace BigML
 {
@@ -60,6 +61,13 @@ namespace BigML
             if (!string.IsNullOrWhiteSpace(name)) arguments.Name = name;
             return Create<DataSet>(arguments);
         }
+
+
+        public Task<bool> Download(DataSet dataset, FileStream f)
+        {
+            return Download(dataset.Resource, f);
+        }
+
 
         public Query<DataSet.Filterable, DataSet.Orderable, DataSet> ListDataSets()
         {

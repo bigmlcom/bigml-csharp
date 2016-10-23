@@ -209,9 +209,9 @@ namespace BigML
 
 
         /// <summary>
-        /// Extra operation on a resurce. I.e. download
+        /// Download resource content, no its JSON
         /// </summary>
-        public async Task<bool> Download(string resourceId, FileStream file)
+        private async Task<bool> Download(string resourceId, FileStream file)
         {
             if (resourceId == null)
                 throw new ArgumentNullException("resourceId");
