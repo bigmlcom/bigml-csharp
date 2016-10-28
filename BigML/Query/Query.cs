@@ -5,7 +5,6 @@ using BigML.Meta;
 
 namespace BigML
 {
-   
     public abstract class Query<F, O, S> 
         where F : Filterable<S>
         where O : Orderable<S>

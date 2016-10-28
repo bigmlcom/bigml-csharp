@@ -91,7 +91,8 @@ namespace BigML
             _descending = @descending;
         }
 
-        internal Ordered(Ordered<F,O,S> child, Expression<Func<O, Meta.Key.Object>> keySelector, bool @descending = false)
+        internal Ordered(Ordered<F,O,S> child, Expression<Func<O, Meta.Key.Object>> keySelector,
+                         bool @descending = false)
         {
             _client = child._client;
             _child = child;

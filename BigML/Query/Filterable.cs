@@ -36,6 +36,17 @@ namespace BigML.Meta
         public Int Size { get { return Object.size; } }
 
         /// <summary>
+        /// The position of element in the list.
+        /// </summary>
+        public Int Offset { get { return Object.offset; } }
+
+        /// <summary>
+        /// The maximum resources in the response
+        /// </summary>
+        public Int Limit { get { return Object.limit; } }
+
+
+        /// <summary>
         /// This is the date and time in which the source was last updated with microsecond precision.
         /// </summary>
         public DateTimeOffset Updated { get { return Object.updated; } }
