@@ -1,8 +1,13 @@
 namespace BigML
 {
-    public enum MissingStrategy
+    public static class MissingStrategy
     {
-        LastPrediction = 0,
-        Proportional = 1
+        public static int LastPrediction {
+            get { return 0; }
+        }
+        public static int Proportional
+        {
+            get { return 1; }
+        }
     }
 }
