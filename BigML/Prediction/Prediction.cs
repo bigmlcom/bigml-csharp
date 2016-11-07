@@ -31,7 +31,8 @@ namespace BigML
 
         /// <summary>
         /// A dictionary with an entry per field in the input_data or prediction_path.
-        /// Each entry includes the column number in original source, the name of the field, the type of the field, and the specific datatype.
+        /// Each entry includes the column number in original source, the name of the
+        /// field, the type of the field, and the specific datatype.
         /// </summary>
         public JsonValue Fields
         {
@@ -103,6 +104,24 @@ namespace BigML
             var key = prediction.Keys.First();
             var value = Convert.ChangeType((string)prediction[key],typeof(T));
             return (T)value;
+        }
+
+        /// <summary>
+        /// the predicted value in the objective/target field.
+        /// </summary>
+        public dynamic Output
+        {
+            get {
+                try {
+                    // for regressional models
+                    // (or categoricals with numeric classes)
+                    return (double) Object.output;
+                } catch
+                {
+                    // for categorical models
+                    return (string) Object.output;
+                }
+            }
         }
 
         /// <summary>
