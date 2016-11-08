@@ -1,7 +1,7 @@
 Introduction
 ============
 
-Requirements and installation
+## Requirements and installation
 -----------------------------
 
 BigML C# bindings use the `System.Json` DLL that was released as part of .NET Silverlight Framework, and you will need to explicitly install it in your system, if you have not already.
@@ -150,10 +150,7 @@ The steps described above define a generic pattern of how to create the resource
 }
 ```
 
-After this quick introduction, it should be now easy to follow and
-understand the full code that is required to create a prediction
-starting from a data file. Make sure you have properly installed
-BigML C# bindings as detailed in .
+After this quick introduction, it should be now easy to follow and understand the full code that is required to create a prediction starting from a data file. Make sure you have properly installed BigML C# bindings as detailed in [Requirements and installation](#requirements-and-installation).
 
 ``` {.csharp}
 using BigML;
@@ -238,9 +235,9 @@ namespace Demo
       parameters.Add("name", "my new prediction");
       // using the model ID as argument
       parameters.Add("model", model.Resource);
-      // asking for the prediction for {'sepal length': 5, 'sepal width': 2.5}
-      parameters.InputData.Add("sepal length", 5);
-      parameters.InputData.Add("sepal width"; 2.5);
+      // asking for the prediction for {'petal length': 5, 'sepal width': 2.5}
+      parameters.InputData.Add("petal length", 5);
+      parameters.InputData.Add("sepal width", 2.5);
       // Prediction object which will encapsulate the prediction information
       Prediction prediction = await client.CreatePrediction(parameters);
       // checking the prediction status
@@ -251,7 +248,8 @@ namespace Demo
         await Task.Delay(10);
       }
       Console.Write("Prediction: ");
-      Console.WriteLine(prediction.Output);
+      // get the string of the class predicted
+      Console.WriteLine(prediction.GetPredictionOutcome<string>());
       Console.Write("Confidence: ");
       Console.WriteLine(prediction.Confidence);
     }

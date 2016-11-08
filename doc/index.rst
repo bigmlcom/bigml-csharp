@@ -14,5 +14,7 @@ For additional information about the API, see the
 	intro
 	update_source_and_dataset
 	batch_and_local_prediction
+	list_filter_and_update
+	projects
 	whizzml
 	contribute
