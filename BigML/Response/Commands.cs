@@ -22,6 +22,7 @@ namespace BigML
             return typeof(T).Name.ToLower();
         }
 
+
         /// <summary>
         /// Create a new resource using supplied arguments
         /// </summary>
@@ -45,18 +46,19 @@ namespace BigML
             {
                 case HttpStatusCode.Created:
                 case HttpStatusCode.Accepted:
-                    return new T {Object = resource, Location = response.Headers.Location };
+                    return new T { Object = resource, Location = response.Headers.Location };
 
                 case HttpStatusCode.BadRequest:
                 case HttpStatusCode.Unauthorized:
                 case HttpStatusCode.PaymentRequired:
                 case HttpStatusCode.NotFound:
-                    return new T {Object = resource};
+                    return new T { Object = resource };
 
                 default:
                     return new T();
             }
         }
+
 
         /// <summary>
         /// Delete a resource.
@@ -69,7 +71,6 @@ namespace BigML
         /// <summary>
         /// Delete a resource.
         /// </summary>
-        public async Task<Response> Delete(string resourceId)
         public async Task<Response> Delete(string resourceId, String query = "")
         {
             if (resourceId == null)
@@ -94,6 +95,7 @@ namespace BigML
                     return new Response();
             }
         }
+
 
         /// <summary>
         /// Retrieve a resource.
@@ -132,6 +134,7 @@ namespace BigML
                     return new T();
             }
         }
+
 
         /// <summary>
         /// Check whether a resource's status is FINISHED.
@@ -211,6 +214,7 @@ namespace BigML
 
         /// <summary>
         /// Download resource content, no its JSON
+        /// Available operation for datasets
         /// </summary>
         private async Task<bool> Download(string resourceId, FileStream file)
         {
@@ -240,7 +244,6 @@ namespace BigML
                     return false;
             }
         }
-
 
 
         /// <summary>
