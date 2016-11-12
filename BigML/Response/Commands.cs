@@ -10,7 +10,7 @@ namespace BigML
     public partial class Client
     {
 
-        const string BigML = "{3}://{4}/{2}andromeda/{5}?username={0};api_key={1}";
+        const string BigML = "{3}://{4}/{2}andromeda/{5}?username={0};api_key={1};{6}";
         const string BigMLOp = "{3}://{4}/{2}andromeda/{5}/{6}?username={0};api_key={1}";
         const string BigMLList = "{3}://{4}/{2}andromeda/{5}?{6};username={0};api_key={1}";
 
@@ -37,8 +37,8 @@ namespace BigML
         private async Task<T> Create<T>(HttpContent request) where T : Response, new()
         {
             var client = new HttpClient();
-            var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, ResourceTypeName<T>());
-            var response =  await client.PostAsync(url, request);
+            var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, ResourceTypeName<T>(), "");
+            var response = await client.PostAsync(url, request);
             var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
 
             switch (response.StatusCode)
@@ -61,21 +61,22 @@ namespace BigML
         /// <summary>
         /// Delete a resource.
         /// </summary>
-        public Task<Response> Delete<T>(T resource) where T : Response
+        public Task<Response> Delete<T>(T resource, string query = "") where T : Response
         {
-            return Delete(resource.Resource);
+            return Delete(resource.Resource, query);
         }
 
         /// <summary>
         /// Delete a resource.
         /// </summary>
         public async Task<Response> Delete(string resourceId)
+        public async Task<Response> Delete(string resourceId, String query = "")
         {
             if (resourceId == null)
                 throw new ArgumentNullException("resourceId");
 
             var client = new HttpClient();
-            var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId);
+            var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId, query);
             var response = await client.DeleteAsync(url).ConfigureAwait(_useContextInAwaits);
 
             switch (response.StatusCode)
@@ -111,7 +112,7 @@ namespace BigML
                 throw new ArgumentNullException("resourceId");
 
             var client = new HttpClient();
-            var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId);
+            var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId, "");
             var response = await client.GetAsync(url);
             var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
 
@@ -260,7 +261,7 @@ namespace BigML
 
             var client = new HttpClient();
             var content = new JsonContent(changes);
-            var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId);
+            var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId, "");
             var response = await client.PutAsync(url, content).ConfigureAwait(_useContextInAwaits);
             var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
 
