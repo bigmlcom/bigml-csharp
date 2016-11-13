@@ -29,6 +29,7 @@ namespace BigML
         public Task<T> Create<T>(Response.Arguments<T> arguments) where T : Response, new()
         {
             var content = new JsonContent(arguments.ToJson());
+            this._requestContent = arguments.ToJson();
             return Create<T>(content);
         }
 
@@ -39,8 +40,10 @@ namespace BigML
         {
             var client = new HttpClient();
             var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, ResourceTypeName<T>(), "");
+            printRequestDebug(url, this._requestContent);
             var response = await client.PostAsync(url, request);
             var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
+            printResponseDebug(response.StatusCode, resource);
 
             switch (response.StatusCode)
             {
@@ -78,8 +81,9 @@ namespace BigML
 
             var client = new HttpClient();
             var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId, query);
+            printRequestDebug(url, null);
             var response = await client.DeleteAsync(url).ConfigureAwait(_useContextInAwaits);
-
+            printResponseDebug(response.StatusCode, response.Content);
             switch (response.StatusCode)
             {
                 case HttpStatusCode.NoContent:
@@ -115,8 +119,10 @@ namespace BigML
 
             var client = new HttpClient();
             var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId, "");
+            printRequestDebug(url, null);
             var response = await client.GetAsync(url);
             var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
+            printResponseDebug(response.StatusCode, resource);
 
             switch (response.StatusCode)
             {
@@ -161,8 +167,10 @@ namespace BigML
         {
             var client = new HttpClient();
             var url = string.Format(BigMLList, _username, _apiKey, _dev, _protocol, _VpcDomain, ResourceTypeName<T>(), query);
+            printRequestDebug(url, null);
             var response = await client.GetAsync(url).ConfigureAwait(_useContextInAwaits);
             var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
+            printResponseDebug(response.StatusCode, resource);
 
             switch (response.StatusCode)
             {
@@ -191,8 +199,11 @@ namespace BigML
 
             var client = new HttpClient();
             var url = string.Format(BigMLOp, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId, operation_name);
+            printRequestDebug(url, null);
+
             var response = await client.GetAsync(url).ConfigureAwait(_useContextInAwaits);
             var resource = await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits);
+            printResponseDebug(response.StatusCode, resource);
 
             switch (response.StatusCode)
             {
@@ -223,8 +234,11 @@ namespace BigML
 
             var client = new HttpClient();
             var url = string.Format(BigMLOp, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId, "download");
+            printRequestDebug(url, null);
+
             var response = await client.GetAsync(url).ConfigureAwait(_useContextInAwaits);
             await response.Content.CopyToAsync(file).ConfigureAwait(_useContextInAwaits);
+            printResponseDebug(response.StatusCode, response.Content);
 
             file.Flush();
             file.Close();
@@ -265,8 +279,11 @@ namespace BigML
             var client = new HttpClient();
             var content = new JsonContent(changes);
             var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId, "");
+            printRequestDebug(url, changes);
+
             var response = await client.PutAsync(url, content).ConfigureAwait(_useContextInAwaits);
             var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
+            printResponseDebug(response.StatusCode, resource);
 
             switch (response.StatusCode)
             {
