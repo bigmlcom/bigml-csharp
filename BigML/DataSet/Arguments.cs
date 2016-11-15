@@ -9,10 +9,6 @@ namespace BigML
         {
             public Arguments(Source source): this()
             {
-                Seed = "";
-                FieldInfos = new Dictionary<string, Field>();
-                ExcludedFields = new List<string>();
-
                 Source = source.Resource;
             }
 
@@ -21,6 +17,7 @@ namespace BigML
                 Seed = "";
                 FieldInfos = new Dictionary<string,Field>();
                 ExcludedFields = new List<string>();
+                OriginDatasets = new List<string>();
             }
 
             /// <summary>
@@ -51,9 +48,18 @@ namespace BigML
             }
 
             /// <summary>
-            /// A valid dataset/id.
+            /// A valid dataset/id. Used for sample and filter a dataset
             /// </summary>
             public string OriginDataset
+            {
+                get;
+                set;
+            }
+
+            /// <summary>
+            /// A list of valid dataset/id. Used for create multidataset
+            /// </summary>
+            public List<string> OriginDatasets
             {
                 get;
                 set;
@@ -104,6 +110,15 @@ namespace BigML
                 if (OriginDataset != null)
                 {
                     json.origin_dataset = OriginDataset;
+                }
+                if (OriginDatasets.Count > 0)
+                {
+                    var origin_datasets = new JsonArray();
+                    foreach (var excludedField in OriginDatasets)
+                    {
+                        origin_datasets.Add((JsonValue)excludedField);
+                    }
+                    json.origin_datasets = origin_datasets;
                 }
                 if (!string.IsNullOrEmpty(Seed)) json.seed = Seed;
                 if (Size != 0) json.size = Size;

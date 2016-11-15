@@ -10,8 +10,6 @@ namespace BigMLTest
     [TestClass]
     public class BigMLTests
     {
-        string userName = "user";
-        string apiKey = "1a07911f835dede4607cfafa3aa4b60d9bdXXXXX";
 
         [TestMethod]
         public async Task CreateSourceFromRemote()
@@ -48,4 +46,6 @@ namespace BigMLTest
             await c.Delete(ds);
         }
     }
+       string userName = "myuser";
+       string apiKey = "1a07911f835dede4607cfafa3aa4b60d9bdXXXXX";
 }
