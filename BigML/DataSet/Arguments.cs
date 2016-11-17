@@ -114,9 +114,9 @@ namespace BigML
                 if (OriginDatasets.Count > 0)
                 {
                     var origin_datasets = new JsonArray();
-                    foreach (var excludedField in OriginDatasets)
+                    foreach (var oneDataSet in OriginDatasets)
                     {
-                        origin_datasets.Add((JsonValue)excludedField);
+                        origin_datasets.Add((JsonValue)oneDataSet);
                     }
                     json.origin_datasets = origin_datasets;
                 }
