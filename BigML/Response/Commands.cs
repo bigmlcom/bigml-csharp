@@ -161,6 +161,25 @@ namespace BigML
         }
 
         /// <summary>
+        /// Check element status up to finish.
+        /// </summary>
+        public async Task<T> Wait<T>(string resourceId) where T : Response, new()
+        {
+            if (resourceId == null)
+                throw new ArgumentNullException("resourceId");
+
+            T resource = await this.Get<T>(resourceId);
+            while ((Code)(int) resource.Object.status.code != Code.Finished)
+            {
+                await Task.Delay(1000);
+                resource = await this.Get<T>(resourceId);
+            }
+            return resource;
+        }
+
+
+
+        /// <summary>
         /// List all resources
         /// </summary>
         public async Task<Listing<T>> List<T>(string query) where T : Response, new()
