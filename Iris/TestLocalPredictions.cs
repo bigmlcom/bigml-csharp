@@ -172,6 +172,9 @@ namespace Iris
 
                         inputData.Add(listIDs[index], listValues[index]);
                     }
+                    inputData.Add("000021", 8.0);
+                    inputData.Add("000022", "2642");
+                    inputData.Add("000023", "1899");
                     N += 1;
 
                     results = localEnsemble.predict(inputData, byName:false, combiner: Combiner.Plurality, addDistribution: false);

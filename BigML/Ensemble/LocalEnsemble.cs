@@ -44,7 +44,7 @@ namespace BigML
 
                 for (i = 0; i < this._models.Count; i++)
                 {
-                    _modelsPredictions[i] = this._models[i].predict(inputData, byName);
+                    _modelsPredictions[i] = this._models[i].predict(inputData, byName, missing_strategy);
                     mv.append(_modelsPredictions[i].toDictionary(addDistribution));
                 }
                 return mv.combine((int)combiner, addDistribution: addDistribution);
