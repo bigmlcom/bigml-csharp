@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client\Debug.cs" />
     <Compile Include="DataSet\Field\Items.cs" />
     <Compile Include="DataSet\Field\Datetime.cs" />
     <Compile Include="DataSet\Field\Text.cs" />
