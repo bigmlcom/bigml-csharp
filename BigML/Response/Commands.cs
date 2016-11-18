@@ -161,7 +161,7 @@ namespace BigML
         }
 
         /// <summary>
-        /// Check element status up to finish.
+        /// Check element status periodically up to finish.
         /// </summary>
         public async Task<T> Wait<T>(string resourceId) where T : Response, new()
         {
