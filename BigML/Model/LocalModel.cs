@@ -203,11 +203,25 @@ namespace BigML
                     }
                     else
                     {
+                        //is a text field or items
+                        bool textOrItems = children.Predicate.HasTerm;
+
+                        if (missingField)
+                        {
+                            if (textOrItems)
+                            {
+                                inDataValue = "";
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+
                         inDataValue = inputData[fieldId];
                         predicateValue = children.Predicate.Value;
 
-                        //is a text field or items
-                        if (children.Predicate.HasTerm)
+                        if (textOrItems)
                         {
                             inDataValue = termMatches(inDataValue, fieldId, children.Predicate.Term);
                         }
