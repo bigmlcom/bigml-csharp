@@ -44,7 +44,7 @@ namespace Demo
       while ((s = await client.Get<Source>(s.Resource))
                               .StatusMessage.NotSuccessOrFail())
       {
-        await Task.Delay(5);
+        await Task.Delay(5000);
       }
 
       // Set the project and update the Source

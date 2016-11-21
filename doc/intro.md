@@ -6,7 +6,7 @@ Introduction
 
 BigML C# bindings use the `System.Json` DLL that was released as part of .NET Silverlight Framework, and you will need to explicitly install it in your system, if you have not already.
 
-To install `System.Json` you can use Visual Studio Package Manager. In your Visual Studio IDE, go to the Package Manager console (Tools &gt; Library Package Manager &gt; Package Manager Console) and type the following command:
+To install `System.Json` you can use Visual Studio Package Manager. In your Visual Studio IDE, go to the Package Manager console (Tools > Library Package Manager > Package Manager Console) and type the following command:
 
 ``` {.dosbatch}
 Install-Package System.Json -Version 4.0.20126.16343
@@ -194,7 +194,7 @@ namespace Demo
                                    .StatusMessage
                                    .NotSuccessOrFail())
       {
-        await Task.Delay(10);
+        await Task.Delay(5000);
       }
 
       // --- create a dataset from the previous source ---
@@ -210,7 +210,7 @@ namespace Demo
                                     .StatusMessage
                                     .NotSuccessOrFail())
       {
-        await Task.Delay(10);
+        await Task.Delay(5000);
       }
 
       // --- create a model from the previous dataset ---
@@ -226,18 +226,21 @@ namespace Demo
                                   .StatusMessage
                                   .NotSuccessOrFail())
       {
-        await Task.Delay(10);
+        await Task.Delay(50000);
       }
 
       // --- create a prediction using the model ---
       // setting the parameters to be used in prediction creation
       var parameters = new Prediction.Arguments();
-      parameters.Add("name", "my new prediction");
       // using the model ID as argument
       parameters.Add("model", model.Resource);
-      // asking for the prediction for {'petal length': 5, 'sepal width': 2.5}
+      // set INPUT DATA for prediction: {'petal length': 5, 'sepal width': 2.5}
       parameters.InputData.Add("petal length", 5);
       parameters.InputData.Add("sepal width", 2.5);
+
+      // SET MISSING STRATEGY and NAME
+      parameters.Add("missing_strategy", 1); //Proportional
+      parameters.Add("name", "prediction w/ PROPORTIONAL");
       // Prediction object which will encapsulate the prediction information
       Prediction prediction = await client.CreatePrediction(parameters);
       // checking the prediction status
@@ -245,13 +248,29 @@ namespace Demo
                                        .StatusMessage
                                        .NotSuccessOrFail())
       {
-        await Task.Delay(10);
+          await Task.Delay(5000);
       }
-      Console.Write("Prediction: ");
-      // get the string of the class predicted
-      Console.WriteLine(prediction.GetPredictionOutcome<string>());
-      Console.Write("Confidence: ");
-      Console.WriteLine(prediction.Confidence);
+      Console.WriteLine("------------------------------\nMissing strategy PROPORTIONAL");
+      Console.WriteLine("Prediction: " + prediction.GetPredictionOutcome<string>());
+      Console.WriteLine("Confidence: " + prediction.Confidence);
+
+
+      // Test same input_data, but with missing_stategy = 0 (default value)
+      // UPDATE MISSING STRATEGY and NAME
+      parameters.Update("missing_strategy", 0); //Last prediction
+      parameters.Update("name", "prediction w/ LAST PREDICTION");
+      prediction = await client.CreatePrediction(parameters);
+      while ((prediction = await client.Get<Prediction>(prediction))
+                                       .StatusMessage
+                                       .NotSuccessOrFail())
+      {
+          await Task.Delay(5000);
+      }
+
+      Console.WriteLine("------------------------------\nMissing strat. LAST PREDICTION");
+      Console.WriteLine("Prediction: " + prediction.GetPredictionOutcome<string>());
+      Console.WriteLine("Confidence: " + prediction.Confidence);
+      Console.WriteLine("------------------------------");
     }
   }
 }

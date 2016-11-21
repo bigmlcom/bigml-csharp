@@ -53,7 +53,7 @@ namespace Demo
                                             .StatusMessage
                                             .NotSuccessOrFail())
       {
-        await Task.Delay(10);
+        await Task.Delay(5000);
       }
       Console.WriteLine(batchPrediction.OutputDatasetResource);
     }

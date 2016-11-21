@@ -6,7 +6,7 @@ BigML resources are immutable, except some helpful properties: name, description
 Updating a source
 -----------------
 
-Sources describe the structure inferred by BigML from the uploaded data. This structure includes field names and types, locale, missing values, etc. You can learn more about all the available source attributes at <https://bigml.com/api/sources\#sr_source_properties>. Some of them can be updated to ensure that your data is correctly interpreted. For instance, you could upload a source where a column contains only a subset of integers. BigML will consider this a numeric field. However, in your domain these integers could be the code associated to a category. Then, the field should be handled like a categorical field. You can change the type assigned to field by calling:
+Sources describe the structure inferred by BigML from the uploaded data. This structure includes field names and types, locale, missing values, etc. You can learn more about all the available source attributes at <https://bigml.com/api/sources#sr_source_properties>. Some of them can be updated to ensure that your data is correctly interpreted. For instance, you could upload a source where a column contains only a subset of integers. BigML will consider this a numeric field. However, in your domain these integers could be the code associated to a category. Then, the field should be handled like a categorical field. You can change the type assigned to field by calling:
 
 ``` {.csharp}
 using BigML;

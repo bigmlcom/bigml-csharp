@@ -107,7 +107,7 @@ namespace Demo
       while ((s = await client.Get<Model>(modelId))
                               .StatusMessage.NotSuccessOrFail())
       {
-        await Task.Delay(5);
+        await Task.Delay(5000);
       }
 
       // Set the tags and update the Model
