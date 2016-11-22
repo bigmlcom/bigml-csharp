@@ -217,8 +217,10 @@ namespace BigML
                                 continue;
                             }
                         }
-
-                        inDataValue = inputData[fieldId];
+                        else
+                        {
+                            inDataValue = inputData[fieldId];
+                        }
                         predicateValue = children.Predicate.Value;
 
                         if (textOrItems)
