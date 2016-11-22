@@ -41,7 +41,7 @@ namespace BigML
             var client = new HttpClient();
             var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, ResourceTypeName<T>(), "");
             printRequestDebug(url, this._requestContent);
-            var response = await client.PostAsync(url, request);
+            var response = await client.PostAsync(url, request).ConfigureAwait(_useContextInAwaits); ;
             var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
             printResponseDebug(response.StatusCode, resource);
 
@@ -120,7 +120,7 @@ namespace BigML
             var client = new HttpClient();
             var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId, "");
             printRequestDebug(url, null);
-            var response = await client.GetAsync(url);
+            var response = await client.GetAsync(url).ConfigureAwait(_useContextInAwaits);
             var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
             printResponseDebug(response.StatusCode, resource);
 
@@ -155,7 +155,7 @@ namespace BigML
         /// </summary>
         public async Task<bool> IsReady(string resourceId)
         {
-            var response = await Get<Response>(resourceId);
+            var response = await Get<Response>(resourceId).ConfigureAwait(_useContextInAwaits);
             return response.Code == HttpStatusCode.OK
                     && (Code)(int)response.Object.status.code == Code.Finished;
         }
@@ -168,11 +168,11 @@ namespace BigML
             if (resourceId == null)
                 throw new ArgumentNullException("resourceId");
 
-            T resource = await this.Get<T>(resourceId);
+            T resource = await this.Get<T>(resourceId).ConfigureAwait(_useContextInAwaits);
             while ((Code)(int) resource.Object.status.code != Code.Finished)
             {
-                await Task.Delay(1000);
-                resource = await this.Get<T>(resourceId);
+                await Task.Delay(1000).ConfigureAwait(_useContextInAwaits);
+                resource = await this.Get<T>(resourceId).ConfigureAwait(_useContextInAwaits);
             }
             return resource;
         }

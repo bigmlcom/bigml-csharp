@@ -6,7 +6,7 @@ using System.Json;
 namespace BigML
 {
     /// <summary>
-    /// BigML client.
+    /// BigML client: debug print methods
     /// </summary>
     public partial class Client
     {
@@ -29,7 +29,9 @@ namespace BigML
             {
                 Console.WriteLine("   >>>>>> " + code.ToString() + " >>>>>>   ");
                 Console.WriteLine(response);
-                Console.WriteLine("\n\n");
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
             }
         }
 
@@ -39,7 +41,9 @@ namespace BigML
             {
                 Console.WriteLine("   >>>>>> " + code.ToString() + " >>>>>>   ");
                 Console.WriteLine(response);
-                Console.WriteLine("\n\n");
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
             }
         }
     }
