@@ -125,7 +125,7 @@ while ((source = await client.Get<Source>(source))
            .StatusMessage
            .NotSuccessOrFail())
 {
-    await Task.Delay(10);
+    await Task.Delay(5000);
 }
 ```
 
@@ -146,7 +146,7 @@ The steps described above define a generic pattern of how to create the resource
                                 .StatusMessage
                                 .NotSuccessOrFail())
 {
-    await Task.Delay(10);
+    await Task.Delay(5000);
 }
 ```
 

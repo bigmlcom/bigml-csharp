@@ -100,7 +100,7 @@ namespace Demo
                                   .StatusMessage
                                   .StatusCode != Code.Finished)
       {
-        await Task.Delay(10);
+        await Task.Delay(5000);
       }
       Model.LocalModel localModel = model.ModelStructure;
 
