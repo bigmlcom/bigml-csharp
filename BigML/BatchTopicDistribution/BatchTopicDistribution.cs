@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace BigML
 {
     /// <summary>
-    /// A batch Topic Distribution provides an easy way to compute a Topic 
-    /// Distribution for each instance in a dataset in only one request. To 
-    /// create a new batch Topic Distribution you need a topicmodel/id
+    /// A batch topic distribution provides an easy way to compute a topic
+    /// distribution for each instance in a dataset in only one request.
+    /// To create a new batch topic distribution you need a topicmodel/id
     /// and a dataset/id.
     /// The complete and updated reference with all available parameters is in
-    /// our <a href="https://bigml.com/api/batch_topicdistributions">
+    /// our <a href="https://bigml.com/api/batchtopicdistributions">
     /// documentation</a> website.
     /// </summary>
     public partial class BatchTopicDistribution : Response

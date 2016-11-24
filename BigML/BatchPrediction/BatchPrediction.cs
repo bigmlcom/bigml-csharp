@@ -12,7 +12,7 @@ namespace BigML
     /// prediction you need a model/id or an ensemble/id or a
     /// logisticregression/id and a dataset/id.
     /// The complete and updated reference with all available parameters is in
-    /// our <a href="https://bigml.com/api/batch_predictions">
+    /// our <a href="https://bigml.com/api/batchpredictions">
     /// documentation</a> website.
     /// </summary>
     public partial class BatchPrediction : Response

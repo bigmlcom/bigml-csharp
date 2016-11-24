@@ -4,10 +4,10 @@ using System.Json;
 namespace BigML
 {
     /// <summary>
-    /// A topicModel is a representation of your dataset with predictive
-    /// power.
-    /// You can create a topicModel selecting which fields from your dataset you want
-    /// to use as input fields (or predictors).
+    /// A topic model is an unsupervised machine learning method for unveiling
+    /// all the different topics underlying a collection of documents.
+    /// BigML uses Latent Dirichlet allocation (LDA), one of the most popular
+    /// probabilistic methods for topic modeling.
     /// The complete and updated reference with all available parameters is in
     /// our <a href="https://bigml.com/api/topicmodels">documentation</a>
     /// website.

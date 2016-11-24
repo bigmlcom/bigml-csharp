@@ -5,8 +5,9 @@ using System.Linq;
 namespace BigML
 {
     /// <summary>
-    /// A topicdistribution is created using a topicmodel/id and the new instance (input_data)
-    /// that you want to create a topicdistribution for.
+    /// A topicdistribution is created using a topicmodel/id and the new instance
+    /// (input_data) for which you wish to obtain the probability distributions
+    /// across topics.
     /// The complete and updated reference with all available parameters is in
     /// our <a href="https://bigml.com/api/topicdistributions">documentation</a>
     /// website.

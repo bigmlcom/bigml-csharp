@@ -226,7 +226,7 @@ namespace Demo
                                   .StatusMessage
                                   .NotSuccessOrFail())
       {
-        await Task.Delay(50000);
+        await Task.Delay(5000);
       }
 
       // --- create a prediction using the model ---
