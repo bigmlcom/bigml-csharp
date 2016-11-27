@@ -106,7 +106,9 @@ namespace BigML
             {
                 dynamic json = base.ToJson();
 
-                json.source = Source;
+                if (Source != null) {
+                    json.source = Source;
+                }
                 if (OriginDataset != null)
                 {
                     json.origin_dataset = OriginDataset;
@@ -142,7 +144,7 @@ namespace BigML
                        field[kv.Key] = kv.Value.ToJson();
                    }
                    json.field = field;
-                } 
+                }
 
                 return json;
             }
