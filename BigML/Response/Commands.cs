@@ -160,6 +160,7 @@ namespace BigML
                     && (Code)(int)response.Object.status.code == Code.Finished;
         }
 
+
         /// <summary>
         /// Check element status periodically up to finish.
         /// </summary>
@@ -169,14 +170,15 @@ namespace BigML
                 throw new ArgumentNullException("resourceId");
 
             T resource = await this.Get<T>(resourceId).ConfigureAwait(_useContextInAwaits);
-            while ((Code)(int) resource.Object.status.code != Code.Finished)
+            Code resourceStatusCode = (Code)(int)resource.Object.status.code;
+            while (resourceStatusCode != Code.Finished && resourceStatusCode != Code.Faulty)
             {
                 await Task.Delay(1000).ConfigureAwait(_useContextInAwaits);
                 resource = await this.Get<T>(resourceId).ConfigureAwait(_useContextInAwaits);
+                resourceStatusCode = (Code)(int)resource.Object.status.code;
             }
             return resource;
         }
-
 
 
         /// <summary>
