@@ -87,7 +87,7 @@ namespace BigML
                     {
                         inObjectVal = (JsonValue) entry.Value;
                     } else {
-                        inObjectVal = entry.Value.ToJsonObject();
+                        inObjectVal = entry.Value;
                     }
                     KeyValuePair<string, JsonValue> jsonEntry;
                     jsonEntry = new KeyValuePair<string, JsonValue>(entry.Key, inObjectVal);

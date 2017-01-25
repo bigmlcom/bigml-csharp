@@ -311,9 +311,10 @@ namespace BigML
                         inputDataByFieldId[key] = inputData[key];
                     }
 
-                    // remove empty numbers or categoricals
-                    if (!fieldAllowEmpty[fieldId] &&
-                            inputDataByFieldId[fieldId].ToString() == "")
+                    // remove empty numbers or categoricals if it's a model field
+                    if (!fieldAllowEmpty.ContainsKey(fieldId) ||
+                        (!fieldAllowEmpty[fieldId] &&
+                        inputDataByFieldId[fieldId].ToString() == ""))
                     {
                         inputDataByFieldId.Remove(fieldId);
                     }

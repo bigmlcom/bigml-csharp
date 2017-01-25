@@ -40,6 +40,7 @@ namespace BigML
 
                 if (_models.Count > 1) { 
                     inputData = _models[0].prepareInputData(inputData);
+                    byName = false;
                 }
 
                 for (i = 0; i < this._models.Count; i++)
