@@ -52,6 +52,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssociationSet\Arguments.cs" />
+    <Compile Include="AssociationSet\AssociationSet.cs" />
+    <Compile Include="AssociationSet\AssociationSetListing.cs" />
+    <Compile Include="AssociationSet\BigMLClientAssociationSet.cs" />
+    <Compile Include="AssociationSet\Filterable.cs" />
+    <Compile Include="AssociationSet\Orderable.cs" />
+    <Compile Include="AssociationSet\Status.cs" />
     <Compile Include="BatchTopicDistribution\Arguments.cs" />
     <Compile Include="BatchTopicDistribution\BatchTopicDistribution.cs" />
     <Compile Include="BatchTopicDistribution\BatchTopicDistributionListing.cs" />
