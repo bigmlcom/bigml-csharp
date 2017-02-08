@@ -12,7 +12,11 @@ namespace BigML.Meta
         /// <summary>
         /// This is the date and time in which the source was created with microsecond precision.
         /// </summary>
-        public DateTimeOffset Created { get { return Object.created; } }
+        public DateTimeOffset Created {
+            get {
+                return Object.created;
+            }
+        }
 
         /// <summary>
         /// The numbers of credits that has cost you to create this source.

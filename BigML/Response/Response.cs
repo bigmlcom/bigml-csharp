@@ -52,7 +52,7 @@ namespace BigML
         /// </summary>
         public DateTimeOffset Created
         {
-            get { return DateTimeOffset.Parse(Object.created); }
+            get { return DateTimeOffset.Parse((string) Object.created); }
         }
 
         /// <summary>

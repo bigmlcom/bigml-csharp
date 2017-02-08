@@ -50,28 +50,50 @@ namespace BigML
             return value.ToString().Trim('"');
         }
 
+        static string DateToBigML(System.DateTimeOffset value)
+        {
+            return ((System.DateTimeOffset)value).ToString("yyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffff");
+        }
+
         static IEnumerable<string> GetPredicates(BinaryExpression expression)
         {
             var filters = new List<string>();
+
+            bool isDate = expression.Right.Type.Name == "DateTimeOffset";
+            System.DateTimeOffset leftValue = new System.DateTimeOffset();
+
+            if (isDate)
+            {
+                var f = Expression.Lambda(expression.Right).Compile();
+                leftValue = (System.DateTimeOffset) f.DynamicInvoke();
+            }
+
+
             switch (expression.NodeType)
             {
                 case ExpressionType.NotEqual:
-                    filters.Add(string.Format("{0}__={1}", GetProperty(expression.Left), NoQuotes(expression.Right)));
+                    filters.Add(string.Format("{0}__={1}", GetProperty(expression.Left),
+                                    isDate? DateToBigML(leftValue) : NoQuotes(expression.Right)));
                     break;
                 case ExpressionType.Equal:
-                    filters.Add(string.Format("{0}={1}", GetProperty(expression.Left), NoQuotes(expression.Right)));
+                    filters.Add(string.Format("{0}={1}", GetProperty(expression.Left),
+                                    isDate ? DateToBigML(leftValue) : NoQuotes(expression.Right)));
                     break;
                 case ExpressionType.GreaterThan:
-                    filters.Add(string.Format("{0}__gt={1}", GetProperty(expression.Left), NoQuotes(expression.Right)));
+                    filters.Add(string.Format("{0}__gt={1}", GetProperty(expression.Left),
+                                    isDate ? DateToBigML(leftValue) : NoQuotes(expression.Right)));
                     break;
                 case ExpressionType.LessThan:
-                    filters.Add(string.Format("{0}__lt={1}", GetProperty(expression.Left), NoQuotes(expression.Right)));
+                    filters.Add(string.Format("{0}__lt={1}", GetProperty(expression.Left),
+                                    isDate ? DateToBigML(leftValue) : NoQuotes(expression.Right)));
                     break;
                 case ExpressionType.LessThanOrEqual:
-                    filters.Add(string.Format("{0}__lte={1}", GetProperty(expression.Left), NoQuotes(expression.Right)));
+                    filters.Add(string.Format("{0}__lte={1}", GetProperty(expression.Left),
+                                    isDate ? DateToBigML(leftValue) : NoQuotes(expression.Right)));
                     break;
                 case ExpressionType.GreaterThanOrEqual:
-                    filters.Add(string.Format("{0}__gte={1}", GetProperty(expression.Left), NoQuotes(expression.Right)));
+                    filters.Add(string.Format("{0}__gte={1}", GetProperty(expression.Left),
+                                    isDate ? DateToBigML(leftValue) : NoQuotes(expression.Right)));
                     break;
                 case ExpressionType.AndAlso:
                     filters.AddRange(GetPredicates(expression.Left as BinaryExpression));
