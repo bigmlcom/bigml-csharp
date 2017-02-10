@@ -102,6 +102,24 @@ namespace BigML
             get { return Object.@private; }
         }
 
+        public bool IsFinished()
+        {
+            return ((Code)(int) Object.status.code == BigML.Code.Finished);
+        }
+
+
+        /// <summary>
+        /// Whether the resource has a valid resourceID.
+        /// </summary>
+        public bool IsValidResource
+        {
+            get {
+                return ((this.Resource !=  null) &&
+                    (this.Resource != "") &&
+                    (this.Object != null));
+            }
+        }
+
         /// <summary>
         /// The numbers of credits that costed you to create this resource.
         /// </summary>

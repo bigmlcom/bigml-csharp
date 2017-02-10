@@ -48,6 +48,11 @@ namespace BigML
                 get { return (_status.extra as JValue).Select(e => (string)e); }
             }*/
 
+            protected bool IsFinished()
+            {
+                return (StatusCode == BigML.Code.Finished);
+            }
+
             public bool NotSuccessOrFail()
             {
                 return (StatusCode != BigML.Code.Finished) && (StatusCode > 0);
