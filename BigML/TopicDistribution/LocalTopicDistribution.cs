@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Json;
 using Iveonik.Stemmers;
@@ -38,13 +39,13 @@ namespace BigML
 
         string resourceId;
         IStemmer stemmer = null;
-        string seed = null;
+        float seed = 0.0F;
         bool caseSensitive = false;
         bool bigrams = false;
         int ntopics = 0;
         object temp;
         float phi = 0.0F;
-        int termToIndex = 0;
+        Dictionary<string, int> termToIndex;
         JsonObject topicModelObject;
         List<string> topics;
 
@@ -53,7 +54,7 @@ namespace BigML
         {
             this.topics = new List<string>();
 
-            if (tm.IsValidResource && tm.StatusMessage.IsFinished())
+            if (tm.IsValidResource && tm.IsFinished())
             {
                 string language;
 
@@ -62,9 +63,30 @@ namespace BigML
                 language = tm.Object["language"];
                 if (CODE_TO_NAME.ContainsKey(language))
                 {
-
+                    this.stemmer = new EnglishStemmer();
                 }
+
+                this.termToIndex = new Dictionary<string, int>();
+
+                string term;
+                for (int i = 0; tm.Object["termset"] -1; i++)
+                {
+                    term = tm.Object["termset"][i];
+                    termToIndex[this.stem(term)] = i;
+                }
+
+                this.seed = Math.Abs((float) topicModelObject["hashed_seed"]);
+                this.caseSensitive = (bool) topicModelObject["case_sensitive"];
             }
+        }
+
+        private string stem(string term)
+        {
+            if (this.stemmer == null)
+            {
+                return term;
+            }
+            return this.stemmer.Stem(term);
         }
     }
 }
