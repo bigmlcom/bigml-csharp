@@ -12,7 +12,8 @@ namespace BigML
             readonly dynamic _termanalysis;
 
             /// <summary>
-            /// Create a new SourceParser object to be passed as an argument to CreateSource
+            /// Create a new SourceParser object to be passed as an argument to
+            /// CreateSource
             /// </summary>
             public TermAnalysis()
                 : this(new JObject())
