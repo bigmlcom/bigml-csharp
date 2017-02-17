@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -48,7 +48,7 @@ namespace BigML
                 set;
             }
 
-            public override JsonValue ToJson()
+            public override JObject ToJson()
             {
                 dynamic json = base.ToJson();
 
@@ -67,12 +67,23 @@ namespace BigML
 
                 if (InputData.Count > 0)
                 {
-                    var input_data = new JsonObject();
+                    var input_data = new JObject();
+                    JToken jValue;
                     foreach(var kv in InputData)
                     {
-                        JsonPrimitive value;
-                        JsonPrimitive.TryCreate(kv.Value, out value);
-                        input_data[kv.Key] = value;
+                        jValue = (JToken)kv.Value;
+                        if (jValue.Type == JTokenType.Boolean)
+                        {
+                            input_data[kv.Key] = (bool)kv.Value;
+                        }
+                        else if (jValue.Type == JTokenType.String)
+                        {
+                            input_data[kv.Key] = (string)kv.Value;
+                        }
+                        else
+                        {
+                            input_data[kv.Key] = (JObject)kv.Value;
+                        }
                     }
                     json.input_data = input_data;
                 }

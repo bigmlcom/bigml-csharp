@@ -1,4 +1,4 @@
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -6,7 +6,7 @@ namespace BigML
     {
         public class Field : Field<Source>
         {
-            internal Field(JsonValue json): base(json)
+            internal Field(JObject json): base(json)
             {
             }
         }

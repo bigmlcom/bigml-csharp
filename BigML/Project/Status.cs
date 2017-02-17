@@ -1,4 +1,4 @@
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -9,7 +9,7 @@ namespace BigML
         /// </summary>
         public class Status : Status<Project>
         {
-            internal Status(JsonValue status): base(status)
+            internal Status(JObject status): base(status)
             {
             }
 

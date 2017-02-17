@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Json;
+using Newtonsoft.Json.Linq;
 using System.Linq;
 
 namespace BigML
@@ -16,11 +16,11 @@ namespace BigML
             /// <summary>
             /// Internal constructor for use when created internally.
             /// </summary>
-            internal Field(JsonValue json): base(json)
+            internal Field(JObject json): base(json)
             {
                 _field = json;
 
-                MissingTokens = json.ContainsKey("missing_tokens")
+                MissingTokens = json["missing_tokens"] != null
                                     ? new HashSet<string>(json["missing_tokens"].Select(x => (string)x))
                                     : new HashSet<string>();
             }
@@ -28,7 +28,7 @@ namespace BigML
             /// <summary>
             /// Public constructor to create fields for use in argument.
             /// </summary>
-            public Field(): this(new JsonObject())
+            public Field(): this(new JObject())
             {
 
             }
@@ -169,14 +169,14 @@ namespace BigML
             }
 
 
-            public JsonValue ToJson()
+            public JObject ToJson()
             {
-                dynamic copy = new JsonObject();
+                dynamic copy = new JObject();
 
                 if (!string.IsNullOrWhiteSpace(Name)) copy.name = Name;
                 if (!string.IsNullOrWhiteSpace(Locale)) copy.locale = Locale;
                 if (this.Optype != OpType.Error) copy.optype = OpType.ToString().ToLower();
-                if (MissingTokens.Count > 0) copy.missing_tokens = new JsonArray(MissingTokens.Select(t => (JsonValue)t));
+                if (MissingTokens.Count > 0) copy.missing_tokens = new JArray(MissingTokens.Select(t => (JValue)t));
 
                 return copy;
             }

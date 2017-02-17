@@ -1,4 +1,4 @@
-﻿using System.Json;
+﻿using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -7,7 +7,7 @@ namespace BigML
         public class Predicate
         {
             readonly dynamic _predicate;
-            internal Predicate(JsonValue json)
+            internal Predicate(JObject json)
             {
                 _predicate = json;
             }

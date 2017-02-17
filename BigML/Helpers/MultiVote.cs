@@ -17,7 +17,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -360,13 +360,13 @@ namespace BigML
                 {
                     predictionDist = (Dictionary<object, double>) distribution;
                 }
-                else if ((distribution == null) || (!(distribution is JsonArray)))
+                else if ((distribution == null) || (!(distribution is JArray)))
                 {
                     predictionDist = new Dictionary<object, double>();
                 }
                 else
                 {
-                    predictionDist = Utils.convertDistributionArrayToMap((JsonArray) distribution);
+                    predictionDist = Utils.convertDistributionArrayToMap((JArray) distribution);
                 }
 
                 // Equivalent to:

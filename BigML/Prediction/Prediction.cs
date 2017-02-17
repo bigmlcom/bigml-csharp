@@ -1,6 +1,7 @@
 using System;
-using System.Json;
 using System.Linq;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -34,7 +35,7 @@ namespace BigML
         /// Each entry includes the column number in original source, the name of the
         /// field, the type of the field, and the specific datatype.
         /// </summary>
-        public JsonValue Fields
+        public JObject Fields
         {
             get { return Object.fields; }
         }
@@ -42,7 +43,7 @@ namespace BigML
         /// <summary>
         /// The dictionary of input fields's ids and valued used as input for the prediction.
         /// </summary>
-        public JsonValue InputData
+        public JObject InputData
         {
             get { return Object.input_data; }
         }
@@ -100,8 +101,9 @@ namespace BigML
         /// </summary>
         public T GetPredictionOutcome<T>()
         {
-            var prediction = Object.prediction as JsonObject;
-            var key = prediction.Keys.First();
+            var prediction = Object.prediction as JObject;
+            var predictionDict = prediction.ToObject<Dictionary<string, dynamic>>();
+            var key = predictionDict.Keys.First();
             var value = Convert.ChangeType((string)prediction[key],typeof(T));
             return (T)value;
         }
@@ -127,7 +129,7 @@ namespace BigML
         /// <summary>
         /// A Prediction Path Object specifying the decision path followed to make the prediction, the next predicates, and lists of unknown fields and bad fields submitted .
         /// </summary>
-        public JsonValue Path
+        public JObject Path
         {
             get { return Object.prediction_path; }
         }

@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-using System.Json;
-using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -14,10 +12,11 @@ namespace BigML
             readonly dynamic _termanalysis;
 
             /// <summary>
-            /// Create a new SourceParser object to be passed as an argument to CreateSource
+            /// Create a new SourceParser object to be passed as an argument to
+            /// CreateSource
             /// </summary>
             public TermAnalysis()
-                : this(new JsonObject())
+                : this(new JObject())
             {
                 Enabled = _enabled;
                 UseStopwords = _use_stopwords;
@@ -27,7 +26,7 @@ namespace BigML
                 TokenMode = _token_mode;
             }
 
-            internal TermAnalysis(JsonValue json)
+            internal TermAnalysis(JObject json)
             {
                 _termanalysis = json;
             }
@@ -88,7 +87,7 @@ namespace BigML
                 get
                 {
                     var language = _termanalysis.language;
-                    return language is JsonPrimitive ? language : _language;
+                    return language is JToken ? language : _language;
                 }
                 set { _termanalysis.language = value; }
             }
@@ -104,16 +103,16 @@ namespace BigML
                 get
                 {
                     var token_mode = _termanalysis.token_mode;
-                    return token_mode is JsonPrimitive ? token_mode : _token_mode;
+                    return token_mode is JToken ? token_mode : _token_mode;
                 }
                 set { _termanalysis.token_mode = value; }
             }
             private const string _token_mode = "all";
 
 
-            public JsonValue ToJson()
+            public JObject ToJson()
             {
-                dynamic copy = new JsonObject();
+                dynamic copy = new JObject();
 
                 if (Enabled != _enabled) copy.enabled = Enabled;
                 if (UseStopwords != _use_stopwords) copy.use_stopwords = UseStopwords;

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Json;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -9,7 +8,7 @@ namespace BigML
     {
         public class LocalModel
         {
-            readonly JsonValue _jsonObject;
+            readonly JObject _jsonObject;
             readonly Dictionary<string, DataSet.Field> _fields;
 
             readonly Dictionary<string, bool> _caseSensitive;
@@ -55,7 +54,7 @@ namespace BigML
                 return options;
             }
 
-            internal LocalModel(JsonValue jsonObject, Dictionary<string, DataSet.Field> fields)
+            internal LocalModel(JObject jsonObject, Dictionary<string, DataSet.Field> fields)
             {
                 Dictionary<string, Dictionary<string, string>> termForms = new Dictionary<string, Dictionary<string, string>>();
                 Dictionary<string, string> options;
@@ -97,7 +96,7 @@ namespace BigML
 
                     // process each 'field' properties and 
                     // populate nameToIdDict from 'fields' param
-                    foreach (var kv in _jsonObject["fields"])
+                    foreach (var kv in _jsonObject["fields"].ToObject<Dictionary<string, JObject>>())
                     {
                         fieldId = kv.Key;
                         kv.Value["id"] = fieldId;
@@ -341,7 +340,7 @@ namespace BigML
 
                 // if Model was not processed before => creates root Node
                 if (rootNode == null) { 
-                    rootNode = new Node(this._jsonObject["root"]);
+                    rootNode = new Node((JObject) this._jsonObject["root"]);
                 }
 
                 return predictNode(rootNode, inputData);

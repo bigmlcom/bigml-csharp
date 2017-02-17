@@ -1,7 +1,7 @@
 using System;
 using System.Net;
 using System.Net.Http;
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -11,9 +11,9 @@ namespace BigML
     public partial class Client
     {
         static string lineSeparator = "\n---------------------------";
-        JsonValue _requestContent;
+        JObject _requestContent;
 
-        private void printRequestDebug(string url, JsonValue request)
+        private void printRequestDebug(string url, JObject request)
         {
             if (this._debug)
             {
@@ -23,7 +23,7 @@ namespace BigML
             }
         }
 
-        private void printResponseDebug(HttpStatusCode code, JsonValue response)
+        private void printResponseDebug(HttpStatusCode code, JObject response)
         {
             if (this._debug)
             {

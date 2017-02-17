@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using System.Json;
-using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -31,19 +30,24 @@ namespace BigML
                 set;
             }
 
-            public override JsonValue ToJson()
+            public override JObject ToJson()
             {
                 dynamic json = base.ToJson();
 
                 if(!string.IsNullOrWhiteSpace(Association)) json.anomaly = Association;
                 if (InputData.Count > 0)
                 {
-                    var input_data = new JsonObject();
+                    var input_data = new JObject();
                     foreach (var kv in InputData)
                     {
-                        JsonPrimitive value;
-                        JsonPrimitive.TryCreate(kv.Value, out value);
-                        input_data[kv.Key] = value;
+                        if (kv.Value.GetType().isNumericType())
+                        {
+                            input_data[kv.Key] = (double)kv.Value;
+                        }
+                        else
+                        {
+                            input_data[kv.Key] = (string)kv.Value;
+                        }
                     }
                     json.input_data = input_data;
                 }

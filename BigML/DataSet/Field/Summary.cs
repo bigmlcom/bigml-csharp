@@ -1,4 +1,4 @@
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -13,7 +13,7 @@ namespace BigML
             {
                 protected readonly dynamic _summary;
 
-                protected Summary(JsonValue json)
+                protected Summary(JObject json)
                 {
                     _summary = json;
                 }

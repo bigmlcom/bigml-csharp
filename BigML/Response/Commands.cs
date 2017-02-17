@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Json;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -28,8 +29,9 @@ namespace BigML
         /// </summary>
         public Task<T> Create<T>(Response.Arguments<T> arguments) where T : Response, new()
         {
-            var content = new JsonContent(arguments.ToJson());
             this._requestContent = arguments.ToJson();
+            var content = new JsonContent(this._requestContent);
+            
             return Create<T>(content);
         }
 
@@ -40,10 +42,11 @@ namespace BigML
         {
             var client = new HttpClient();
             var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, ResourceTypeName<T>(), "");
-            printRequestDebug(url, this._requestContent);
-            var response = await client.PostAsync(url, request).ConfigureAwait(_useContextInAwaits); ;
-            var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
-            printResponseDebug(response.StatusCode, resource);
+            //printRequestDebug(url, this._requestContent);
+            var response = await client.PostAsync(url, request).ConfigureAwait(_useContextInAwaits);
+            var resourceStr = await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits);
+            var resource = JsonConvert.DeserializeObject(resourceStr);
+            //printResponseDebug(response.StatusCode, resource);
 
             switch (response.StatusCode)
             {
@@ -87,13 +90,13 @@ namespace BigML
             switch (response.StatusCode)
             {
                 case HttpStatusCode.NoContent:
-                    return new Response { Object = new JsonObject { { "code", (int)response.StatusCode } } };
+                    return new Response { Object = new JObject {{ "code", (int)response.StatusCode } } };
 
                 case HttpStatusCode.BadRequest:
                 case HttpStatusCode.Unauthorized:
                 case HttpStatusCode.PaymentRequired:
                 case HttpStatusCode.NotFound:
-                    return new Response { Object = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits)) };
+                    return new Response { Object = JValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits)) };
 
                 default:
                     return new Response();
@@ -119,10 +122,11 @@ namespace BigML
 
             var client = new HttpClient();
             var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId, "");
-            printRequestDebug(url, null);
+            //printRequestDebug(url, null);
             var response = await client.GetAsync(url).ConfigureAwait(_useContextInAwaits);
-            var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
-            printResponseDebug(response.StatusCode, resource);
+            var resourceStr = await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits);
+            var resource = JsonConvert.DeserializeObject(resourceStr);
+            //printResponseDebug(response.StatusCode, resource);
 
             switch (response.StatusCode)
             {
@@ -188,10 +192,11 @@ namespace BigML
         {
             var client = new HttpClient();
             var url = string.Format(BigMLList, _username, _apiKey, _dev, _protocol, _VpcDomain, ResourceTypeName<T>(), query);
-            printRequestDebug(url, null);
+            //printRequestDebug(url, null);
             var response = await client.GetAsync(url).ConfigureAwait(_useContextInAwaits);
-            var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
-            printResponseDebug(response.StatusCode, resource);
+            var resourceStr = await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits);
+            var resource = JsonConvert.DeserializeObject(resourceStr);
+            //printResponseDebug(response.StatusCode, resource);
 
             switch (response.StatusCode)
             {
@@ -223,8 +228,10 @@ namespace BigML
             printRequestDebug(url, null);
 
             var response = await client.GetAsync(url).ConfigureAwait(_useContextInAwaits);
-            var resource = await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits);
-            printResponseDebug(response.StatusCode, resource);
+            //var resource = await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits);
+            var resourceStr = await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits);
+            var resource = JsonConvert.DeserializeObject(resourceStr);
+            //printResponseDebug(response.StatusCode, resource);
 
             switch (response.StatusCode)
             {
@@ -292,19 +299,22 @@ namespace BigML
         /// <summary>
         /// Update a resource with Json payload
         /// </summary>
-        public async Task<T> Update<T>(string resourceId, JsonValue changes) where T : Response, new()
+        public async Task<T> Update<T>(string resourceId, JObject changes) where T : Response, new()
         {
             if (resourceId == null)
                 throw new ArgumentNullException("resourceId");
 
             var client = new HttpClient();
             var content = new JsonContent(changes);
+
             var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId, "");
             printRequestDebug(url, changes);
 
             var response = await client.PutAsync(url, content).ConfigureAwait(_useContextInAwaits);
-            var resource = JsonValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
-            printResponseDebug(response.StatusCode, resource);
+            //var resource = JValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
+            var resourceStr = await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits);
+            var resource = JsonConvert.DeserializeObject(resourceStr);
+            //printResponseDebug(response.StatusCode, resource);
 
             switch (response.StatusCode)
             {
@@ -324,11 +334,11 @@ namespace BigML
         }
 
         /// <summary>
-        /// Update a resource.
+        /// Update a resource's name.
         /// </summary>
         public Task<T> Update<T>(string resourceId, string name) where T : Response, new()
         {
-            dynamic changes = new JsonObject();
+            dynamic changes = new JObject();
             if (!string.IsNullOrWhiteSpace(name)) changes.name = name;
             return Update(resourceId, changes);
         }

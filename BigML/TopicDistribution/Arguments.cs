@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -13,7 +13,8 @@ namespace BigML
             }
 
             /// <summary>
-            /// An object with field's id/value pairs representing the instance you want to create a prediction for.
+            /// An object with field's id/value pairs representing the instance
+            /// you want to create a prediction for.
             /// </summary>
             public IDictionary<string,object> InputData
             {
@@ -31,7 +32,7 @@ namespace BigML
             }
 
 
-            public override JsonValue ToJson()
+            public override JObject ToJson()
             {
                 dynamic json = base.ToJson();
 
@@ -42,12 +43,17 @@ namespace BigML
 
                 if (InputData.Count > 0)
                 {
-                    var input_data = new JsonObject();
+                    var input_data = new JObject();
                     foreach(var kv in InputData)
                     {
-                        JsonPrimitive value;
-                        JsonPrimitive.TryCreate(kv.Value, out value);
-                        input_data[kv.Key] = value;
+                        if (kv.Value.GetType().isNumericType())
+                        {
+                            input_data[kv.Key] = (double)kv.Value;
+                        }
+                        else
+                        {
+                            input_data[kv.Key] = (string)kv.Value;
+                        }
                     }
                     json.input_data = input_data;
                 }

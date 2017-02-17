@@ -1,5 +1,5 @@
 using System;
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -11,7 +11,7 @@ namespace BigML
         public abstract class Field<T> where T : Response
         {
             protected readonly dynamic _entry;
-            internal Field(JsonValue json)
+            internal Field(JObject json)
             {
                 _entry = json;
             }
