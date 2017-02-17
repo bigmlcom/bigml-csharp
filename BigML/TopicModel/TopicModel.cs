@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {

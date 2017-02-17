@@ -1,6 +1,6 @@
 using System;
-using System.Json;
 using System.Net;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -17,7 +17,7 @@ namespace BigML
             get
             {
                 var code = Object.code;
-                return code is JsonPrimitive
+                return code is JToken
                     ? (HttpStatusCode)(int)code
                     : HttpStatusCode.InternalServerError;
             }

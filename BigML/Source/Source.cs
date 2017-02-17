@@ -131,7 +131,9 @@ namespace BigML
         /// </summary>
         public Status StatusMessage
         {
-            get { return new Status(Object.status); }
+            get {
+                return new Status(Object.status);
+            }
         }
 
         /// <summary>

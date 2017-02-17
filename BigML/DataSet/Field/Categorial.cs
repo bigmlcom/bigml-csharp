@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -14,7 +14,7 @@ namespace BigML
                 /// </summary>
                 public class Categorical : Summary
                 {
-                    internal Categorical(JsonValue json)
+                    internal Categorical(JObject json)
                         : base(json)
                     {
                     }

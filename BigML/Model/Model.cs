@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -55,7 +55,7 @@ namespace BigML
         {
             get
             {
-                return (Object.input_fields as JsonValue).Select(field => (string)field);
+                return (Object.input_fields as JValue).Select(field => (string)field);
             }
         }
 
@@ -144,7 +144,7 @@ namespace BigML
         {
             get
             {
-                return (Object.range as JsonValue).Select(r => (int)r);
+                return (Object.range as JValue).Select(r => (int)r);
             }
         }
 

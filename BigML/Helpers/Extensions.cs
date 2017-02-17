@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Json;
+using Newtonsoft.Json.Linq;
 using System.Linq;
 
 namespace BigML
@@ -8,9 +8,9 @@ namespace BigML
     public static class Extensions
     {
 
-        public static IEnumerable<T> Select<T>(this JsonValue source, Func<JsonValue, T> selector)
+        public static IEnumerable<T> Select<T>(this JValue source, Func<JValue, T> selector)
         {
-            return (source as IEnumerable<JsonValue> ?? new JsonValue[]{}).Select(selector);
+            return (source as IEnumerable<JValue> ?? new JValue[]{}).Select(selector);
         }
 
         /// <summary>

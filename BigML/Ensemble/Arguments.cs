@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using System.Json;
-using System.Linq;
+using Newtonsoft.Json.Linq;
+
 
 namespace BigML
 {
@@ -32,17 +32,17 @@ namespace BigML
                 set;
             }
 
-            public override JsonValue ToJson()
+            public override JObject ToJson()
             {
                 dynamic json = base.ToJson();
 
                 if(!string.IsNullOrWhiteSpace(DataSet)) json.dataset = DataSet;
                 if (ExcludedFields.Count > 0)
                 {
-                    var excluded_fields = new JsonArray();
+                    var excluded_fields = new JArray();
                     foreach (var excludedField in ExcludedFields)
                     {
-                        excluded_fields.Add((JsonValue)excludedField);
+                        excluded_fields.Add((JObject)excludedField);
                     }
                     json.excluded_fields = excluded_fields;
                 }

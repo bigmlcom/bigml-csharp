@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections;
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -15,7 +15,7 @@ namespace BigML
                 /// </summary>
                 public class Text : Summary
                 {
-                    internal Text(JsonValue json)
+                    internal Text(JObject json)
                         : base(json)
                     {
                     }

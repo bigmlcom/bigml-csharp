@@ -1,9 +1,10 @@
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
     public partial class Execution
     {
+        /// <summary>
         /// The execution goes through a number of states until is completed.
         /// Through the status field in the executions you can determine when
         /// the execution has been fully executed and ready to be used to
@@ -11,7 +12,7 @@ namespace BigML
         /// </summary>
         public class Status : Status<Execution>
         {
-            internal Status(JsonValue json)
+            internal Status(JObject json)
                 : base(json)
             {
             }

@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Json;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -109,7 +109,7 @@ namespace BigML
         /// <param name="parser">New parse options for the source</param>
         public Task<Source> Update(string resourceId, string name = null, Source.Parser parser = null)
         {
-            dynamic json = new JsonObject();
+            dynamic json = new JObject();
 
             if(!string.IsNullOrWhiteSpace(name)) json.name = name;
             if(parser != null) json.source_parser = parser.ToJson();

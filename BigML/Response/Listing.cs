@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -24,7 +24,15 @@ namespace BigML
         {
             get
             {
-                return (Object.objects as JsonValue).Select(json => new T { Object = json });
+                List<T> _objects = new List<T>();
+                if (Object.objects != null)
+                {
+                    foreach (JObject resource in Object.objects)
+                    {
+                        _objects.Add(new T { Object = resource });
+                    }
+                }
+                return _objects;
             }
         }
 

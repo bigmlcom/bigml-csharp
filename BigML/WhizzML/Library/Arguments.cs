@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -14,7 +14,7 @@ namespace BigML
             }
 
 
-            public override JsonValue ToJson()
+            public override JObject ToJson()
             {
                 dynamic json = base.ToJson();
 

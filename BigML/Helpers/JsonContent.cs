@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.IO;
-using System.Json;
 using System.Net.Http.Headers;
 using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace System.Net.Http
 {
@@ -11,7 +11,7 @@ namespace System.Net.Http
     /// </summary>
     public class JsonContent : StringContent
     {
-        public JsonContent(JsonValue content): base(content.ToString(), Encoding.UTF8, "application/json")
+        public JsonContent(JObject content): base(content.ToString(), Encoding.UTF8, "application/json")
         {
         }
     }
@@ -21,16 +21,16 @@ namespace System.Net.Http
     /// </summary>
     public static class Helpers
     {
-        public static void Add(this MultipartFormDataContent source, KeyValuePair<string, JsonValue> contentName)
+        public static void Add(this MultipartFormDataContent source, KeyValuePair<string, JObject> contentName)
         {
             source.Add(contentName.Value, contentName.Key);
         }
 
-        public static void Add(this MultipartFormDataContent source, JsonObject json)
+        public static void Add(this MultipartFormDataContent source, JObject json)
         {
             foreach(var kv in json)
             {
-                source.Add(kv);
+                source.Add(new JObject() { kv.Key, kv.Value });
             };
         }
 
@@ -39,7 +39,7 @@ namespace System.Net.Http
             source.Add(new StringContent(content, Encoding.UTF8), name);
         }
 
-        public static void Add(this MultipartFormDataContent source, JsonValue content, string name)
+        public static void Add(this MultipartFormDataContent source, JObject content, string name)
         {
             source.Add(new JsonContent(content), name);
         }

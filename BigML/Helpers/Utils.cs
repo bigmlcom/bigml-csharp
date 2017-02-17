@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Json;
+using Newtonsoft.Json.Linq;
 using System.Text;
 
 namespace BigML
@@ -35,12 +35,12 @@ namespace BigML
         /// </summary>
         /// <param name="distribution">
         /// @return </param>
-        public static double meanOfDistribution(IList<JsonArray> distribution)
+        public static double meanOfDistribution(IList<JArray> distribution)
         {
             double addition = 0.0f;
             long count = 0;
 
-            foreach (JsonArray bin in distribution)
+            foreach (JArray bin in distribution)
             {
                 double point = (double) bin[0];
                 long instances = (long) bin[1];
@@ -77,20 +77,20 @@ namespace BigML
         /// <summary>
         /// Prints distribution data
         /// </summary>
-        public static StringBuilder printDistribution(JsonArray distribution)
+        public static StringBuilder printDistribution(JArray distribution)
         {
             StringBuilder distributionStr = new StringBuilder();
 
             int total = 0;
             foreach (object binInfo in distribution)
             {
-                JsonArray binInfoArr = (JsonArray) binInfo;
+                JArray binInfoArr = (JArray) binInfo;
                 total += ((int) binInfoArr[1]);
             }
 
             foreach (object binInfo in distribution)
             {
-                JsonArray binInfoArr = (JsonArray)binInfo;
+                JArray binInfoArr = (JArray)binInfo;
                 distributionStr.Append(string.Format("    {0}: {1:F2}% ({2:D} instance{3})\n", binInfoArr[0], Utils.roundOff((float)(((int)binInfoArr[1]) * 1.0 / total), 4) * 100, binInfoArr[1], (((int)binInfoArr[1]) == 1 ? "" : "s")));
             }
 
@@ -125,12 +125,12 @@ namespace BigML
         /// <param name="distribution"> current distribution as an JsonArray instance </param>
         /// <returns> the distribution as a Map instance </returns>
 
-        public static Dictionary<object, double> convertDistributionArrayToMap(JsonArray distribution)
+        public static Dictionary<object, double> convertDistributionArrayToMap(JArray distribution)
         {
             Dictionary<object, double> newDistribution = new Dictionary<object, double>();
             foreach (object distValueObj in distribution)
             {
-                JsonArray distValueArr = (JsonArray)distValueObj;
+                JArray distValueArr = (JArray)distValueObj;
                 newDistribution[distValueArr[0]] = (double)distValueArr[1];
             }
 
@@ -174,16 +174,16 @@ namespace BigML
         /// <param name="distribution"> current distribution as an JsonArray instance </param>
         /// <returns> the distribution as a Map instance </returns>
 
-        public static JsonArray convertDistributionMapToSortedArray(IDictionary<object, double> distribution)
+        public static JArray convertDistributionMapToSortedArray(IDictionary<object, double> distribution)
         {
-            JsonArray newDistribution = new JsonArray();
+            JArray newDistribution = new JArray();
 
             string opType = BigML.OpType.Numeric.ToString();
 
             foreach (object key in distribution.Keys)
             {
-                JsonArray element = new JsonArray();
-                element.Add((JsonValue) key);
+                JArray element = new JArray();
+                element.Add((JValue) key);
                 element.Add(distribution[key]);
                 newDistribution.Add(element);
 
@@ -238,37 +238,10 @@ namespace BigML
         }
 
 
-        /*private class ComparatorAnonymousInnerClassHelper : IComparer<JsonArray>
-        {
-            private string finalOpType;
-
-            public ComparatorAnonymousInnerClassHelper(string finalOpType)
-            {
-                this.finalOpType = finalOpType;
-            }
-
-            public virtual int Compare(JsonArray jsonArray1, JsonArray jsonArray2)
-            {
-                if (OpType.Numeric.Equals(finalOpType))
-                {
-                    return ((double)jsonArray1[0]).CompareTo(((double)jsonArray2[0]));
-                }
-                else if (OpType.Text.Equals(finalOpType))
-                {
-                    return ((string)jsonArray1[0]).CompareTo((string)jsonArray2[0]);
-                }
-                else
-                { // OPTYPE_DATETIME
-                  // TODO: implement this
-                    throw new Exception("Not supported");
-                }
-            }
-        }*/
-
         /// <summary>
         /// Merges the bins of a regression distribution to the given limit number
         /// </summary>
-        public static JsonArray mergeBins(JsonArray distribution, int limit)
+        public static JArray mergeBins(JArray distribution, int limit)
         {
             int length = distribution.Count;
             if (limit < 1 || length <= limit || length < 2)
@@ -280,7 +253,7 @@ namespace BigML
             double shortest = double.MaxValue;
             for (int index = 1; index < length; index++)
             {
-                double distance = ((double)((JsonArray)distribution[index]) [0]) - ((double)((JsonArray) distribution[index - 1])[0]);
+                double distance = ((double)((JArray)distribution[index]) [0]) - ((double)((JArray) distribution[index - 1])[0]);
 
                 if (distance < shortest)
                 {
@@ -289,20 +262,20 @@ namespace BigML
                 }
             }
 
-            JsonArray newDistribution = new JsonArray();
+            JArray newDistribution = new JArray();
             for (int index = 0; index < indexToMerge - 1; index++)
             {
                 newDistribution.Add(distribution[index]);
             }
             //newDistribution.addAll(distribution.subList(0, indexToMerge - 1));
 
-            JsonArray left = (JsonArray)distribution[indexToMerge - 1];
+            JArray left = (JArray)distribution[indexToMerge - 1];
 
-            JsonArray right = (JsonArray)distribution[indexToMerge];
+            JArray right = (JArray)distribution[indexToMerge];
 
-            JsonArray newBin = new JsonArray();
-            newBin.Add((JsonValue) (((((double)left[0]) * ((double)left[1])) + (((double)right[0]) * ((double)right[1]))) / (((double)left[1]) + ((double)right[1])))); //  position 0
-            newBin.Add((JsonValue) ((double) left[1] + ((double)right[1] ))); // position  1
+            JArray newBin = new JArray();
+            newBin.Add((JValue) (((((double)left[0]) * ((double)left[1])) + (((double)right[0]) * ((double)right[1]))) / (((double)left[1]) + ((double)right[1])))); //  position 0
+            newBin.Add((JValue) ((double) left[1] + ((double)right[1] ))); // position  1
 
 
             newDistribution.Add(newBin);
@@ -324,7 +297,7 @@ namespace BigML
         /// </summary>
         public static Dictionary<object, double> mergeBins(IDictionary<object, double> distribution, int limit)
         {
-            JsonArray mergedDist = mergeBins(convertDistributionMapToSortedArray(distribution), limit);
+            JArray mergedDist = mergeBins(convertDistributionMapToSortedArray(distribution), limit);
             return convertDistributionArrayToMap(mergedDist);
         }
 

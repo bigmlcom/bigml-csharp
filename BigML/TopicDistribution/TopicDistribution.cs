@@ -1,6 +1,7 @@
 using System;
-using System.Json;
 using System.Linq;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -34,7 +35,7 @@ namespace BigML
         /// A dictionary with an entry per field in the input_data.
         /// Each entry includes the column number in original source, the name of the field, the type of the field, and the specific datatype.
         /// </summary>
-        public JsonValue Fields
+        public JObject Fields
         {
             get { return Object.fields; }
         }
@@ -42,7 +43,7 @@ namespace BigML
         /// <summary>
         /// The dictionary of input fields's ids and valued used as input for the topicdistribution.
         /// </summary>
-        public JsonValue InputData
+        public JObject InputData
         {
             get { return Object.input_data; }
         }
@@ -85,9 +86,10 @@ namespace BigML
         /// </summary>
         public T GetPredictionOutcome<T>()
         {
-            var topicdistribution = Object.output as JsonObject;
-            var key = topicdistribution.Keys.First();
-            var value = Convert.ChangeType((string)topicdistribution[key],typeof(T));
+            var topicdistribution = Object.output as JObject;
+            var tdObj = topicdistribution.ToObject<Dictionary<string, dynamic>>();
+            var key = tdObj.Keys.First();
+            var value = Convert.ChangeType((string)topicdistribution[key], typeof(T));
             return (T)value;
         }
 

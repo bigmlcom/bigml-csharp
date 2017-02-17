@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Json;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -71,27 +70,26 @@ namespace BigML
                 private set;
             }
 
-            public virtual JsonValue ToJson()
+            public virtual JObject ToJson()
             {
-                dynamic json = new JsonObject();
+                dynamic json = new JObject();
 
                 if (Category != Category.Miscellaneous) json.category = (int)Category;
                 if (!string.IsNullOrWhiteSpace(Description)) json.description = Description;
                 if (!string.IsNullOrWhiteSpace(Name)) json.name = Name;
-                if (Tags.Count > 0) json.tags = new JsonArray(Tags.Select(tag => (JsonValue) tag));
+                if (Tags.Count > 0) json.tags = new JArray(Tags.Select(tag => (JValue) tag));
                 foreach (KeyValuePair<string, dynamic> entry in DynArgs)
                 {
-                    JsonValue inObjectVal;
+                    JValue inObjectVal;
                     System.Type valType = entry.Value.GetType();
                     if (valType.IsPrimitive || (valType == typeof(System.String)))
                     {
-                        inObjectVal = (JsonValue) entry.Value;
-                    } else {
+                        inObjectVal = (JValue) entry.Value;
+                    }
+                    else {
                         inObjectVal = entry.Value;
                     }
-                    KeyValuePair<string, JsonValue> jsonEntry;
-                    jsonEntry = new KeyValuePair<string, JsonValue>(entry.Key, inObjectVal);
-                    json.Add(jsonEntry);
+                    json[entry.Key] = inObjectVal;
                 }
 
                 return json;

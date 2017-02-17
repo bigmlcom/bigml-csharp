@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -12,7 +11,7 @@ namespace BigML
         {
             protected readonly dynamic _status;
 
-            protected Status(JsonValue json)
+            protected Status(JObject json)
             {
                 _status = json;
             }
@@ -44,10 +43,10 @@ namespace BigML
             /// <summary>
             /// Extra Information
             /// </summary>
-            public IEnumerable<string> Extra
+            /*public IEnumerable<string> Extra
             {
-                get { return (_status.extra as JsonValue).Select(e => (string)e); }
-            }
+                get { return (_status.extra as JValue).Select(e => (string)e); }
+            }*/
 
             public bool NotSuccessOrFail()
             {

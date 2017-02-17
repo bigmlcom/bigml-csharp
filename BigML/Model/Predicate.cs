@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Json;
 using LinqExpr = System.Linq.Expressions;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -15,7 +15,7 @@ namespace BigML
             readonly dynamic _predicate;
             private readonly string comparisonOperator;
 
-            internal Predicate(JsonValue json)
+            internal Predicate(JObject json)
             {
                 _predicate = json;
                 if (this.MissingOperator)
@@ -111,7 +111,7 @@ namespace BigML
             /// </summary>
             public bool IsSimple
             {
-                get { return _predicate.JsonType == JsonType.Boolean; }
+                get { return _predicate.Type == JTokenType.Boolean; }
             }
 
             public string OpType
@@ -179,7 +179,8 @@ namespace BigML
                 {
                     if (_parsedValue == null)
                     {
-                        if (((JsonPrimitive)_predicate.value).JsonType == JsonType.Number)
+                        if ((_predicate.value.Type == JTokenType.Float) ||
+                            (_predicate.value.Type == JTokenType.Integer))
                         {
                             _parsedValue = (double)_predicate.value;
                         }

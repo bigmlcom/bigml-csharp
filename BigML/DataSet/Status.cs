@@ -1,4 +1,4 @@
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -12,7 +12,7 @@ namespace BigML
         /// </summary>
         public class Status : Status<DataSet>
         {
-            internal Status(JsonValue json)
+            internal Status(JObject json)
                 : base(json)
             {
             }
@@ -28,7 +28,7 @@ namespace BigML
             /// <summary>
             /// Information about ill-formatted fields that includes the total format errors for the field and a sampling of the ill-formatted tokens.
             /// </summary>
-            public JsonArray FieldErrors
+            public JArray FieldErrors
             {
                 get { return _status.field_errors; }
             }
@@ -37,7 +37,7 @@ namespace BigML
             /// Information about ill-formatted rows. 
             /// It includes the total row-format errors and a sampling of the ill-formatted rows.
             /// </summary>
-            public JsonArray RowFormatErrors
+            public JArray RowFormatErrors
             {
                 get { return _status.row_format_errors; }
             }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using System.Json;
 using System.Linq;
 using System.Linq.Expressions;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -13,7 +13,7 @@ namespace BigML
         public class Node
         {
             readonly dynamic _node;
-            internal Node(JsonValue json)
+            internal Node(JObject json)
             {
                 _node = json;
             }
@@ -56,24 +56,31 @@ namespace BigML
                                               current));
             }
 
-            IEnumerable<Node> _children;
 
             /// <summary>
             /// Array of child Node Objects.
             /// </summary>
+            List<Node> _children;
             public IEnumerable<Node> Children
             {
                 get
                 {
                     if (_children == null)
                     {
-                        _children = (_node.children as JsonValue).Select(child => new Node(child));
+                        _children = new List<Node>();
+                        if (_node.children != null) {
+                            foreach (JObject child in _node.children)
+                            {
+                                _children.Add(new Node(child));
 
+                            }
+                        }
+                        //_children = (_node.children as JObject).Select(child => new Node(child));
                     }
                     return _children;
-
                 }
             }
+
 
             /// <summary>
             /// The confidence of the output with more weight in this node.
@@ -95,7 +102,7 @@ namespace BigML
             /// <summary>
             /// Distribution of the objective field at this node.
             /// </summary>
-            public JsonValue Distribution
+            public JArray Distribution
             {
                 get
                 {
@@ -114,7 +121,7 @@ namespace BigML
                     else
                     {
                         // Old splits summary case
-                        return new JsonArray();
+                        return new JArray();
                     }
                 }
             }
@@ -156,7 +163,7 @@ namespace BigML
                 }
                 else
                 {
-                    dictionaryResult.Add("distribution", new JsonObject());
+                    dictionaryResult.Add("distribution", new JObject());
                 }
 
                 return dictionaryResult;

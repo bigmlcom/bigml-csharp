@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using System.Json;
 using System.Linq;
 using System.Linq.Expressions;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -12,7 +12,7 @@ namespace BigML
             readonly dynamic _description;
             readonly IEnumerable<string> _inputFields;
 
-            internal Description(JsonValue description, IEnumerable<string> inputfields)
+            internal Description(JValue description, IEnumerable<string> inputfields)
             {
                 _description = description;
                 _inputFields = inputfields;

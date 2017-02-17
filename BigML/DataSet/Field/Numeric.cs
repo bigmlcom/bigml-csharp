@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -16,7 +16,7 @@ namespace BigML
                 /// </summary>
                 public class Numeric : Summary
                 {
-                    internal Numeric(JsonValue json)
+                    internal Numeric(JObject json)
                         : base(json)
                     {
                     }
@@ -73,9 +73,19 @@ namespace BigML
                     /// This helps you easily compute histograms with you preferred number of bins. 
                     /// Only available when the number of distinct values is more than 32.
                     /// </summary>
+                    List<double> _splits;
                     public IEnumerable<double> Splits
                     {
-                        get { return (_summary.splits as JsonArray).Select(s => (double)s); }
+                        get {
+                            if (_summary.splits != null && _splits == null) {
+                                _splits = new List<double>();
+                                foreach (var split in _summary.splits)
+                                {
+                                    _splits.Add(split);
+                                }
+                            }
+                            return _splits;
+                        }
                     }
 
                     /// <summary>

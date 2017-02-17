@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 
 namespace BigML
@@ -8,14 +8,14 @@ namespace BigML
     {
         public class LocalEnsemble
         {
-            readonly JsonValue _jsonObject;
-            readonly JsonArray _modelResourcesIds;
+            readonly JObject _jsonObject;
+            readonly JArray _modelResourcesIds;
             public List<Model.LocalModel> _models = new List<Model.LocalModel>();
             Model.Node[] _modelsPredictions;
             MultiVote mv;
             int i;
 
-            internal LocalEnsemble(JsonValue jsonObject, JsonArray modelIds)
+            internal LocalEnsemble(JObject jsonObject, JArray modelIds)
             {
                 _jsonObject = jsonObject;
                 _modelResourcesIds = modelIds;

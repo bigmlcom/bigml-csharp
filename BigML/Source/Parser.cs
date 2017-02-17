@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using System.Json;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -17,7 +17,7 @@ namespace BigML
             /// Create a new SourceParser object to be passed as an argument to CreateSource
             /// </summary>
             public Parser()
-                : this(new JsonObject())
+                : this(new JObject())
             {
                 Header = _header;
                 Trim = _trim;
@@ -26,10 +26,10 @@ namespace BigML
                 Locale = _locale;
             }
 
-            internal Parser(JsonValue json)
+            internal Parser(JObject json)
             {
                 _sourceparser = json;
-                MissingTokens = json.ContainsKey("missing_tokens")
+                MissingTokens = json["missing_tokens"] != null
                                     ? new HashSet<string>(json["missing_tokens"].Select(x => (string) x))
                                     : new HashSet<string>();
             }
@@ -53,7 +53,7 @@ namespace BigML
                 get
                 {
                     var trim = _sourceparser.trim;
-                    return trim is JsonPrimitive ? trim : _trim;
+                    return trim is JToken ? trim : _trim;
                 }
                 set { _sourceparser.trim = value; }
             }
@@ -63,31 +63,31 @@ namespace BigML
             /// The source separator character. 
             /// Default is ','.
             /// </summary>
-            public char Separator
+            public string Separator
             {
                 get
                 {
                     var separator = _sourceparser.separator;
-                    return separator is JsonPrimitive ? separator : _separator;
+                    return separator is JToken ? separator : _separator;
                 }
                 set { _sourceparser.separator = value; }
             }
-            private const char _separator = ',';
+            private const string _separator = ",";
 
             /// <summary>
             /// The source quote character. 
             /// Default is '"'.
             /// </summary>
-            public char Quote
+            public string Quote
             {
                 get
                 {
                     var quote = _sourceparser.quote;
-                    return quote is JsonPrimitive ? quote : _quote;
+                    return quote is JToken ? quote : _quote;
                 }
                 set { _sourceparser.quote = value; }
             }
-            private const char _quote = '"';
+            private const string _quote = "\"";
 
             /// <summary>
             /// The locale of the source. 
@@ -98,7 +98,7 @@ namespace BigML
                 get
                 {
                     var locale = _sourceparser.locale;
-                    return locale is JsonPrimitive ? locale : _locale;
+                    return locale is JToken ? locale : _locale;
                 }
                 set { _sourceparser.locale = value; }
             }
@@ -110,16 +110,16 @@ namespace BigML
             /// </summary>
             public ISet<string> MissingTokens { get; private set; }
 
-            public JsonValue ToJson()
+            public JObject ToJson()
             {
-                dynamic copy = new JsonObject();
+                dynamic copy = new JObject();
 
                 if (Header != _header) copy.header = Header;
                 if (Trim != _trim) copy.trim = Trim;
                 if (Separator != _separator) copy.separator = Separator;
                 if (Quote != _quote) copy.quote = Quote;
                 if (Locale != _locale) copy.locale = Locale;
-                if (MissingTokens.Count > 0) copy.missing_tokens = new JsonArray(MissingTokens.Select(t => (JsonValue) t));
+                if (MissingTokens.Count > 0) copy.missing_tokens = new JArray(MissingTokens.Select(t => (JValue) t));
 
                 return copy;
             }

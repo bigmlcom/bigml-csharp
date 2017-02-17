@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -102,7 +102,7 @@ namespace BigML
                 set;
             }
 
-            public override JsonValue ToJson()
+            public override JObject ToJson()
             {
                 dynamic json = base.ToJson();
 
@@ -115,10 +115,10 @@ namespace BigML
                 }
                 if (OriginDatasets.Count > 0)
                 {
-                    var origin_datasets = new JsonArray();
+                    var origin_datasets = new JArray();
                     foreach (var oneDataSet in OriginDatasets)
                     {
-                        origin_datasets.Add((JsonValue)oneDataSet);
+                        origin_datasets.Add((JValue)oneDataSet);
                     }
                     json.origin_datasets = origin_datasets;
                 }
@@ -128,17 +128,17 @@ namespace BigML
                 json.out_of_bag = OutOfBag;
                 if (ExcludedFields.Count > 0)
                 {
-                    var excluded_fields = new JsonArray();
+                    var excluded_fields = new JArray();
                     foreach (var excludedField in ExcludedFields)
                     {
-                        excluded_fields.Add((JsonValue) excludedField);
+                        excluded_fields.Add((JValue) excludedField);
                     }
                     json.excluded_fields = excluded_fields;
                 }
 
                 if(FieldInfos.Count > 0)
                 {
-                   var field = new JsonObject();
+                   var field = new JObject();
                    foreach(var kv in FieldInfos)
                    {
                        field[kv.Key] = kv.Value.ToJson();

@@ -1,4 +1,4 @@
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BigML
 {
@@ -8,7 +8,7 @@ namespace BigML
         public class MetaObject
         {
             readonly dynamic _meta;
-            internal MetaObject(JsonValue json)
+            internal MetaObject(JObject json)
             {
                 _meta = json;
             }
