@@ -114,7 +114,7 @@ namespace BigML
             if(!string.IsNullOrWhiteSpace(name)) json.name = name;
             if(parser != null) json.source_parser = parser.ToJson();
 
-            return Update(resourceId, json);
+            return Update<Source>(resourceId, json);
         }
 
         public Query<Source.Filterable, Source.Orderable, Source> ListSources()

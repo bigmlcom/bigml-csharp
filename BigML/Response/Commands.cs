@@ -225,10 +225,9 @@ namespace BigML
 
             var client = new HttpClient();
             var url = string.Format(BigMLOp, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId, operation_name);
-            printRequestDebug(url, null);
+            //printRequestDebug(url, null);
 
             var response = await client.GetAsync(url).ConfigureAwait(_useContextInAwaits);
-            //var resource = await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits);
             var resourceStr = await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits);
             var resource = JsonConvert.DeserializeObject(resourceStr);
             //printResponseDebug(response.StatusCode, resource);
@@ -262,11 +261,11 @@ namespace BigML
 
             var client = new HttpClient();
             var url = string.Format(BigMLOp, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId, "download");
-            printRequestDebug(url, null);
+            //printRequestDebug(url, null);
 
             var response = await client.GetAsync(url).ConfigureAwait(_useContextInAwaits);
             await response.Content.CopyToAsync(file).ConfigureAwait(_useContextInAwaits);
-            printResponseDebug(response.StatusCode, response.Content);
+            //printResponseDebug(response.StatusCode, response.Content);
 
             file.Flush();
             file.Close();
@@ -308,10 +307,9 @@ namespace BigML
             var content = new JsonContent(changes);
 
             var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, resourceId, "");
-            printRequestDebug(url, changes);
+            //printRequestDebug(url, changes);
 
             var response = await client.PutAsync(url, content).ConfigureAwait(_useContextInAwaits);
-            //var resource = JValue.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits));
             var resourceStr = await response.Content.ReadAsStringAsync().ConfigureAwait(_useContextInAwaits);
             var resource = JsonConvert.DeserializeObject(resourceStr);
             //printResponseDebug(response.StatusCode, resource);
@@ -338,9 +336,9 @@ namespace BigML
         /// </summary>
         public Task<T> Update<T>(string resourceId, string name) where T : Response, new()
         {
-            dynamic changes = new JObject();
-            if (!string.IsNullOrWhiteSpace(name)) changes.name = name;
-            return Update(resourceId, changes);
+            JObject changes = new JObject();
+            if (!string.IsNullOrWhiteSpace(name)) changes["name"] = name;
+            return Update<T>(resourceId, changes);
         }
 
     }
