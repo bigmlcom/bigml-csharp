@@ -12,7 +12,7 @@ Sources describe the structure inferred by BigML from the uploaded data. This st
 using BigML;
 using System;
 using System.Threading.Tasks;
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Demo
 {
@@ -36,9 +36,9 @@ namespace Demo
             // change the id to your source
             string sourceId = "source/57d7240228eb3e69f3000XXX";
 
-            dynamic data = new JsonObject();
-            data["fields"] = new JsonObject();
-            data["fields"]["000000"] = new JsonObject();
+            dynamic data = new JObject();
+            data["fields"] = new JObject();
+            data["fields"]["000000"] = new JObject();
             data["fields"]["000000"].optype = OpType.Categorical.ToString().ToLower();
 
             // Apply changes
@@ -61,7 +61,7 @@ Another commonly updated attribute in a dataset is the `objective_field`, that i
 using BigML;
 using System;
 using System.Threading.Tasks;
-using System.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Demo
 {
@@ -71,7 +71,7 @@ namespace Demo
     ///  * Mark one field as preferred
     ///  * Exclude one field
     ///
-    /// See complete Scripts and executions documentation at
+    /// See complete Dataset documentation at
     /// https://bigml.com/api/datasets
     /// </summary>
     class UpdateDataset
@@ -86,18 +86,18 @@ namespace Demo
             // Update this string with your dataset Id
             string datasetId = "dataset/57d7283b28eb3e69f1000XXX";
 
-            dynamic data = new JsonObject();
-            data["fields"] = new JsonObject();
+            dynamic data = new JObject();
+            data["fields"] = new JObject();
             // Mark one field as preferred
-            data["fields"]["000000"] = new JsonObject();
+            data["fields"]["000000"] = new JObject();
             data["fields"]["000000"].preferred = true;
             // Exclude these two fields
-            data["fields"]["00003f"] = new JsonObject();
+            data["fields"]["00003f"] = new JObject();
             data["fields"]["00003f"].preferred = false;
-            data["fields"]["000041"] = new JsonObject();
+            data["fields"]["000041"] = new JObject();
             data["fields"]["000041"].preferred = false;
             // Update Objective field
-            data["objective_field"] = new JsonObject();
+            data["objective_field"] = new JObject();
             data["objective_field"]["id"] = "000003";
 
             // Apply changes

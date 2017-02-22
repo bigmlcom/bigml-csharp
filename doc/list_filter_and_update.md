@@ -84,8 +84,8 @@ unique change for each resource is the class of `Update` method.
 ``` {.csharp}
 using BigML;
 using System;
-using System.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace Demo
 {
@@ -103,20 +103,21 @@ namespace Demo
       var client = new Client(User, ApiKey);
 
       // Get the Model
+      Model m;
       string modelId = "model/57f65df5421aa9efdf000YYY";
-      while ((s = await client.Get<Model>(modelId))
+      while ((m = await client.Get<Model>(modelId))
                               .StatusMessage.NotSuccessOrFail())
       {
         await Task.Delay(5000);
       }
 
       // Set the tags and update the Model
-      JsonArray tags = new JsonArray();
+      JArray tags = new JArray();
       tags.Add("cool");
       tags.Add("production");
-      JsonObject changes = new JsonObject();
+      JObject changes = new JObject();
       changes["tags"] = tags;
-      s = await client.Update<Model>(s.Resource, changes);
+      m = await client.Update<Model>(m.Resource, changes);
     }
   }
 }

@@ -13,8 +13,8 @@ To create a project you don’t need to provide any information and BigML will g
 ``` {.csharp}
 using BigML;
 using System;
-using System.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace Demo
 {
@@ -48,7 +48,7 @@ namespace Demo
       }
 
       // Set the project and update the Source
-      JsonObject changes = new JsonObject();
+      JObject changes = new JObject();
       changes["project"] = projectID;
       s = await client.Update<Source>(s.Resource, changes);
     }

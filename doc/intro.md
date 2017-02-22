@@ -9,14 +9,14 @@ BigML C# bindings use the `System.Json` DLL that was released as part of .NET Si
 To install `System.Json` you can use Visual Studio Package Manager. In your Visual Studio IDE, go to the Package Manager console (Tools > Library Package Manager > Package Manager Console) and type the following command:
 
 ``` {.dosbatch}
-Install-Package System.Json -Version 4.0.20126.16343
+Install-Package Newtonsoft.Json -Version 9.0.1
 ```
 
 If the installation is successful, you should see a message like the
 following one:
 
 ``` {.dosbatch}
-'System.Json 4.0.20126.16343' was successfully added to <your project
+'Newtonsoft.Json 9.0.1' was successfully added to <your project
 name here>.
 ```
 
@@ -248,7 +248,7 @@ namespace Demo
                                        .StatusMessage
                                        .NotSuccessOrFail())
       {
-          await Task.Delay(5000);
+          await Task.Delay(2000);
       }
       Console.WriteLine("------------------------------\nMissing strategy PROPORTIONAL");
       Console.WriteLine("Prediction: " + prediction.GetPredictionOutcome<string>());
@@ -264,7 +264,7 @@ namespace Demo
                                        .StatusMessage
                                        .NotSuccessOrFail())
       {
-          await Task.Delay(5000);
+          await Task.Delay(2000);
       }
 
       Console.WriteLine("------------------------------\nMissing strat. LAST PREDICTION");
