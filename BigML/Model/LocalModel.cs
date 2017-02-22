@@ -108,7 +108,7 @@ namespace BigML
 
                         if (_fields[fieldId].OpType == OpType.Text)
                         {
-                            currentField = fields[kv.Key];
+                            currentField = _fields[kv.Key];
 
                             //case sensitive per field
                             caseSensitive.Add(fieldId, (bool)currentField.TermAnalysis["case_sensitive"]);
@@ -224,6 +224,7 @@ namespace BigML
 
                         if (textOrItems)
                         {
+                            inDataValue = string.Format("{0}", inDataValue);
                             inDataValue = termMatches(inDataValue, fieldId, children.Predicate.Term);
                         }
 

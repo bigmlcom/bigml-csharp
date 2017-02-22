@@ -79,7 +79,8 @@ namespace BigML
 
             /// <summary>
             /// A dictionary with an entry per field in the model. 
-            /// Each entry includes the column number in original source, the name of the field, the type of the field, and the summary.
+            /// Each entry includes the column number in original source, the
+            /// name of the field, the type of the field, and the summary.
             /// </summary>
             public IDictionary<string, DataSet.Field> Fields
             {
@@ -88,7 +89,7 @@ namespace BigML
                     var dictionary = new Dictionary<string, DataSet.Field>();
                     foreach (var kv in _description.fields)
                     {
-                        dictionary[kv.Key] = new DataSet.Field(kv.Value);
+                        dictionary[kv.Name] = new DataSet.Field(kv.Value);
                     }
                     return dictionary;
                 }

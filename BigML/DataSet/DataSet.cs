@@ -30,7 +30,7 @@ namespace BigML
                 var dictionary = new Dictionary<string, Field>();
                 foreach (var kv in Object.fields)
                 {
-                    dictionary[kv.Key] = new Field(kv.Value);
+                    dictionary[kv.Name] = new Field(kv.Value);
                 }
                 return dictionary;
             }
