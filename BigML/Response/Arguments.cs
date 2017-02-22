@@ -80,9 +80,9 @@ namespace BigML
                 if (Tags.Count > 0) json.tags = new JArray(Tags.Select(tag => (JValue) tag));
                 foreach (KeyValuePair<string, dynamic> entry in DynArgs)
                 {
-                    JValue inObjectVal;
+                    dynamic inObjectVal;
                     System.Type valType = entry.Value.GetType();
-                    if (valType.IsPrimitive || (valType == typeof(System.String)))
+                    if (valType.IsPrimitive || (valType == typeof(string)))
                     {
                         inObjectVal = (JValue) entry.Value;
                     }
