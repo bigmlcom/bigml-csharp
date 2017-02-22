@@ -17,7 +17,8 @@ namespace BigML
 
 
         /// <summary>
-        /// The name of the execution as your provided or based on the name of the script by default.
+        /// The name of the execution as your provided or based on the name of
+        /// the script by default.
         /// </summary>
         public string Name
         {
