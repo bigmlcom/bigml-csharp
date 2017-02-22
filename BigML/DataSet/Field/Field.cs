@@ -138,7 +138,7 @@ namespace BigML
                         _termAnalysis = new Dictionary<string, dynamic>();
                         foreach (var kv in _field.term_analysis)
                         {
-                            _termAnalysis.Add(kv.Key, kv.Value);
+                            _termAnalysis.Add(kv.Name, kv.Value);
                         }
                     }
                     return _termAnalysis;
@@ -161,7 +161,7 @@ namespace BigML
                         _itemAnalysis = new Dictionary<string, dynamic>();
                         foreach (var kv in _field.item_analysis)
                         {
-                            _itemAnalysis.Add(kv.Key, kv.Value);
+                            _itemAnalysis.Add(kv.Name, kv.Value);
                         }
                     }
                     return _itemAnalysis;

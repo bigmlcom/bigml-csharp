@@ -12,8 +12,7 @@ namespace BigML
             readonly dynamic _termanalysis;
 
             /// <summary>
-            /// Create a new SourceParser object to be passed as an argument to
-            /// CreateSource
+            /// Create a new SourceParser object to be passed as an argument to CreateSource
             /// </summary>
             public TermAnalysis()
                 : this(new JObject())
@@ -72,7 +71,9 @@ namespace BigML
             /// </summary>
             public bool CaseSensitive
             {
-                get { return _termanalysis.case_sensitive; }
+                get {
+                    return _termanalysis.case_sensitive;
+                }
                 set { _termanalysis.case_sensitive = value; }
             }
             private const bool _case_sensitive = false;
@@ -87,6 +88,7 @@ namespace BigML
                 get
                 {
                     var language = _termanalysis.language;
+
                     return language is JToken ? language : _language;
                 }
                 set { _termanalysis.language = value; }
@@ -103,6 +105,7 @@ namespace BigML
                 get
                 {
                     var token_mode = _termanalysis.token_mode;
+
                     return token_mode is JToken ? token_mode : _token_mode;
                 }
                 set { _termanalysis.token_mode = value; }

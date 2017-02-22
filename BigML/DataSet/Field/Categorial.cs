@@ -27,7 +27,10 @@ namespace BigML
                         get
                         {
                             var counts = new Dictionary<string, int>();
-                            foreach (var kv in _summary.counts) counts[kv.Key] = kv.Value;
+                            foreach (var kv in _summary.counts)
+                            {
+                                counts[kv.Name] = kv.Value;
+                            }
                             return counts;
                         }
                     }

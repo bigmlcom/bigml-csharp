@@ -60,7 +60,7 @@ namespace BigML
                                 {
                                     list.Add(term);
                                 }
-                                termForms[kv.Key] = (string[]) list.ToArray("String".GetType());
+                                termForms[kv.Name] = (string[]) list.ToArray("String".GetType());
                             }
                             return termForms;
                         }
