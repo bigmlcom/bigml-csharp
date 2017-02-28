@@ -24,6 +24,17 @@ namespace BigMLTest
             cfArgs.Add("configurations", new JObject());
             Configuration cf = await c.CreateConfiguration(cfArgs);
 
+            
+            Ordered<Configuration.Filterable, Configuration.Orderable, Configuration> result
+                = (from cfg in c.ListConfigurations()
+                   orderby cfg.Created descending
+                   select cfg);
+            Listing<Configuration> configurations = await result;
+            if (configurations.Meta.TotalCount == 0)
+            {
+                throw new System.Exception("Creation not created or not listed");
+            }
+
             cf = await c.Update<Configuration>(cf.Resource, "renamed configuration");
 
             await c.Delete(cf);
