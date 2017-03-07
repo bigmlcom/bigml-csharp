@@ -127,6 +127,8 @@
     <Compile Include="Cluster\Cluster.cs" />
     <Compile Include="Cluster\ClusterListing.cs" />
     <Compile Include="Cluster\Filterable.cs" />
+    <Compile Include="Cluster\LocalCluster.cs" />
+    <Compile Include="Cluster\LocalCentroid.cs" />
     <Compile Include="Cluster\Orderable.cs" />
     <Compile Include="Cluster\Status.cs" />
     <Compile Include="Ensemble\LocalEnsemble.cs" />
