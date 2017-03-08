@@ -10,19 +10,23 @@ study by itself, and follows the pattern outlined in
 
 ### Adding JSON Library
 
-This bindings uses the System.Json dll that was released as part of Silverlight
-Framework ([See reference] (https://msdn.microsoft.com/en-us/library/system.json(v=vs.95).aspx)).
+This bindings uses the Newtonsoft.Json dll
+([See reference] (https://www.nuget.org/packages/Newtonsoft.Json/9.0.1)).
 So, its common to add it mannually. In order to add it you should use the
 package manager. In your visual studio enviroments
 go to the package manager console (Tools > Library packages
 manager > Package manager console) and type:
 ```Shell
-Install-Package System.Json -Version 4.0.20126.16343 BigML
+Install-Package Newtonsoft.Json -Version 9.0.1 BigML
 ```
 you should see a message like this
 ```Shell
-'System.Json 4.0.20126.16343' was successfully added to BigML.
+'Newtonsoft.Json 9.0.1' was successfully added to BigML.
 ```
+The NuGet of this library is available at https://www.nuget.org/packages/BigML/ .
+Last released version is 2.0.0. Previous versions (<2.0) use Microsoft's
+System.Json deprecated package and we encourage to update to a 2.0 version or higher.
+
 
 ### Accessing BigML.io
 
@@ -82,26 +86,24 @@ Console.WriteLine(model.StatusMessage.ToString());
 
 ### Manipulating models
 
-The model description is a JSON object that represents the decision
+The model `root` property is a JSON object that represents the decision
 tree that BigML has learned from the data we fed to it. We translate
-the model into a .NET expression tree and then compile the expression
-tree into a .NET delegate, and call it on one of the test inputs to
-see if it predicts the same kind of iris:
+the model into a Nodes tree in memory, and call it on one of the test 
+inputs to see if it predicts the same kind of iris:
 
 ```c#
-var description = model.ModelDescription;
-Console.WriteLine(description.ToString());
+// Transforms JSON in tree structure 
+Model.LocalModel localModel = model.ModelStructure;
 
-// First convert it to a .NET expression tree
-var expression = description.Expression();
-Console.WriteLine(expression.ToString());
+// --- Specify prediction inputs and calculate the prediction ---
+// input data can be provided by fieldID or by name
+Dictionary<string, dynamic> inputData = new Dictionary<string, dynamic>();
+inputData.InputData.Add("sepal width", 5);
+inputData.InputData.Add("00003", 2.5);
+// Other values are ommited or unknown
+Model.Node prediction = localModel.predict(inputData);
 
-// Then compile the expression tree into MSIL
-var predict = expression.Compile() as Func<double,double,double,double,string>;
-
-// And try the first flower of the example set.
-var result2 = predict(5.1, 3.5, 1.4, 0.2);
-Console.WriteLine("result = {0}, expected = {1}", result2, "setosa");
+Console.WriteLine("result = {0}, expected = {1}", prediction.Output, "setosa");
 ```
 
 ## Support
