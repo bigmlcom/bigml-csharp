@@ -4,9 +4,9 @@ Introduction
 ## Requirements and installation
 -----------------------------
 
-BigML C# bindings use the `System.Json` DLL that was released as part of .NET Silverlight Framework, and you will need to explicitly install it in your system, if you have not already.
+BigML C# bindings use the `Newtonsoft.Json` DLL that was released as part of .NET Silverlight Framework, and you will need to explicitly install it in your system, if you have not already.
 
-To install `System.Json` you can use Visual Studio Package Manager. In your Visual Studio IDE, go to the Package Manager console (Tools > Library Package Manager > Package Manager Console) and type the following command:
+To install `Newtonsoft.Json` you can use Visual Studio Package Manager. In your Visual Studio IDE, go to the Package Manager console (Tools > Library Package Manager > Package Manager Console) and type the following command:
 
 ``` {.dosbatch}
 Install-Package Newtonsoft.Json -Version 9.0.1
@@ -20,7 +20,7 @@ following one:
 name here>.
 ```
 
-Once you have the `System.Json` package installed, you can use Visual Studio Package Manager to install BigML C# bindings:
+Once you have the `Newtonsoft.Json` package installed, you can use Visual Studio Package Manager to install BigML C# bindings:
 
 ``` {.dosbatch}
 Install-Package BigML
