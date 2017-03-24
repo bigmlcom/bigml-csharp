@@ -109,6 +109,7 @@ namespace BigML
             if (_modelStruture == null)
             {
                 _modelStruture = new LocalModel(Object.model, fields);
+                _modelStruture.ResourceID = Object["resource"];
             }
             return _modelStruture;
         }

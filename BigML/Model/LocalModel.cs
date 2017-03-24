@@ -16,44 +16,14 @@ namespace BigML
 
             private Dictionary<string, string> nameToIdDict = new Dictionary<string, string>();
             private Node rootNode;
+            private BoostedNode rootBoostedNode;
 
             private System.Globalization.CultureInfo provider = new System.Globalization.CultureInfo("en-US");
 
             private string[] modelFieldsNames;
             private Dictionary<string, bool> fieldAllowEmpty = new Dictionary<string, bool>();
-
-            public Dictionary<string, DataSet.Field> Fields
-            {
-                get { return _fields; }
-            }
-
-
-            private Dictionary<string, string> getFieldTermAnalysis(DataSet.Field currentField)
-            {
-                Dictionary<string, string> options = new Dictionary<string, string>();
-                DataSet.Field.Summary.Text textSummary;
-                string fieldId, regex;
-                int i, totalOptions;
-
-                fieldId = currentField.Id;
-                textSummary = (DataSet.Field.Summary.Text)currentField.FieldSummary;
-
-                //term options per field
-                regex = "";
-                foreach (KeyValuePair<string, string[]> termOptions in textSummary.TermForms)
-                {
-                    regex = "(\b|_)" + termOptions.Key + "(\b|_)";
-                    totalOptions = termOptions.Value.Length;
-                    for (i = 0; i < totalOptions; i++)
-                    {
-                        regex += "|(\b|_)" + termOptions.Value[i] + "(\b|_)";
-                    }
-                    options.Add(termOptions.Key, regex);
-                }
-
-                return options;
-            }
-
+            private Dictionary<string, dynamic> _boosting;
+            
             internal LocalModel(JObject jsonObject, Dictionary<string, DataSet.Field> fields)
             {
                 Dictionary<string, Dictionary<string, string>> termForms = new Dictionary<string, Dictionary<string, string>>();
@@ -127,6 +97,55 @@ namespace BigML
 
                 _caseSensitive = caseSensitive;
                 _termForms = termForms;
+
+                if (jsonObject["boosting"] != null)
+                {
+                    _boosting = _jsonObject["boosting"].ToObject<Dictionary<string, dynamic>>();
+                }
+            }
+
+            private string _resourceID;
+            public string ResourceID
+            {
+                set { _resourceID = value; }
+                get { return _resourceID;  }
+            }
+
+            public Dictionary<string, dynamic> Boosting
+            {
+                get { return _boosting; }
+            }
+
+            public Dictionary<string, DataSet.Field> Fields
+            {
+                get { return _fields; }
+            }
+
+
+            private Dictionary<string, string> getFieldTermAnalysis(DataSet.Field currentField)
+            {
+                Dictionary<string, string> options = new Dictionary<string, string>();
+                DataSet.Field.Summary.Text textSummary;
+                string fieldId, regex;
+                int i, totalOptions;
+
+                fieldId = currentField.Id;
+                textSummary = (DataSet.Field.Summary.Text)currentField.FieldSummary;
+
+                //term options per field
+                regex = "";
+                foreach (KeyValuePair<string, string[]> termOptions in textSummary.TermForms)
+                {
+                    regex = "(\b|_)" + termOptions.Key + "(\b|_)";
+                    totalOptions = termOptions.Value.Length;
+                    for (i = 0; i < totalOptions; i++)
+                    {
+                        regex += "|(\b|_)" + termOptions.Value[i] + "(\b|_)";
+                    }
+                    options.Add(termOptions.Key, regex);
+                }
+
+                return options;
             }
 
 
@@ -286,6 +305,108 @@ namespace BigML
             }
 
 
+            private BoostedNode predictBoostedNode(BoostedNode currentNode, Dictionary<string, dynamic> inputData)
+            {
+                bool missingField;
+                string fieldId;
+                dynamic predicateValue;
+                dynamic inDataValue;
+
+                foreach (BoostedNode children in currentNode.Children)
+                {
+                    fieldId = children.Predicate.Field;
+                    missingField = !inputData.ContainsKey(fieldId);
+
+                    if ((missingField) && (children.Predicate.MissingOperator))
+                    {
+                        predictBoostedNode(children, inputData);
+                    }
+                    else
+                    {
+                        //is a text field or items
+                        bool textOrItems = children.Predicate.HasTerm;
+
+                        if (missingField)
+                        {
+                            if (textOrItems)
+                            {
+                                inDataValue = "";
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            inDataValue = inputData[fieldId];
+                        }
+                        predicateValue = children.Predicate.Value;
+
+                        if (textOrItems)
+                        {
+                            inDataValue = string.Format("{0}", inDataValue);
+                            inDataValue = termMatches(inDataValue, fieldId, children.Predicate.Term);
+                        }
+
+                        switch (children.Predicate.Operator)
+                        {
+                            case "<":
+                            case "<*":
+                                if (inDataValue < predicateValue)
+                                {
+                                    return predictBoostedNode(children, inputData);
+                                }
+                                break;
+                            case "<=":
+                            case "<=*":
+                                if (inDataValue <= predicateValue)
+                                {
+                                    return predictBoostedNode(children, inputData);
+                                }
+                                break;
+                            case ">":
+                            case ">*":
+                                if (inDataValue > predicateValue)
+                                {
+                                    return predictBoostedNode(children, inputData);
+                                }
+                                break;
+                            case ">=*":
+                            case ">=":
+                                if (inDataValue >= predicateValue)
+                                {
+                                    return predictBoostedNode(children, inputData);
+                                }
+                                break;
+                            case "=*":
+                            case "==*":
+                            case "=":
+                            case "==":
+                                if (inDataValue == predicateValue)
+                                {
+                                    return predictBoostedNode(children, inputData);
+                                }
+                                break;
+                            case "!=*":
+                            case "!=":
+                            case "<>*":
+                            case "<>":
+                                if (inDataValue != predicateValue)
+                                {
+                                    return predictBoostedNode(children, inputData);
+                                }
+                                break;
+
+                            default:
+                                throw new System.Exception(children.Predicate.Operator + " is not recognized");
+                        }
+                    }
+                }
+                return currentNode;
+            }
+
+
             string fieldId;
             Dictionary<string, dynamic> inputDataByFieldId;
             /// <summary>
@@ -344,7 +465,23 @@ namespace BigML
                     rootNode = new Node((JObject) this._jsonObject["root"]);
                 }
 
-                return predictNode(rootNode, inputData);
+                return predictNode(rootNode, inputData);                
+            }
+
+            public BoostedNode predictBoosted(Dictionary<string, dynamic> inputData, bool byName = true, int missing_strategy = 0)
+            {
+                if (byName)
+                {
+                    inputData = prepareInputData(inputData, byName);
+                }
+
+                // if Model was not processed before => creates root Node
+                if (rootBoostedNode == null)
+                {
+                    rootBoostedNode = new BoostedNode((JObject)this._jsonObject["root"]);
+                }
+
+                return predictBoostedNode(rootBoostedNode, inputData);
             }
         }
     }

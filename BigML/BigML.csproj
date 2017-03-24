@@ -178,7 +178,7 @@
     <Compile Include="Helpers\OpType.cs" />
     <Compile Include="Helpers\Reflection.cs" />
     <Compile Include="Helpers\Utils.cs" />
-	<Compile Include="Helpers\WhizzMLCategories.cs" />
+    <Compile Include="Helpers\WhizzMLCategories.cs" />
     <Compile Include="LogisticRegression\Arguments.cs" />
     <Compile Include="LogisticRegression\BigMLClientLogisticRegression.cs" />
     <Compile Include="LogisticRegression\Filterable.cs" />
@@ -193,6 +193,7 @@
     <Compile Include="Model\LocalModel.cs" />
     <Compile Include="Model\Model.cs" />
     <Compile Include="Model\ModelListing.cs" />
+    <Compile Include="Model\BoostedNode.cs" />
     <Compile Include="Model\Node.cs" />
     <Compile Include="Model\Orderable.cs" />
     <Compile Include="Model\Predicate.cs" />

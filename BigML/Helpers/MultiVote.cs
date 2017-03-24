@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2012-2016 BigML
+ * Copyright 2012-2017 BigML
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain
@@ -17,6 +17,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json.Linq;
 
 namespace BigML
@@ -28,12 +29,13 @@ namespace BigML
     ///
     public class MultiVote
     {
-
+        const string BOOSTING = "boosting";
         const string PLURALITY = "plurality";
         const string CONFIDENCE = "confidence weighted";
         const string PROBABILITY = "probability weighted";
         const string THRESHOLD = "threshold";
 
+        const int BOOSTING_CODE = -1;
         const int PLURALITY_CODE = 0;
         const int CONFIDENCE_CODE = 1;
         const int PROBABILITY_CODE = 2;
@@ -44,6 +46,7 @@ namespace BigML
         readonly string[] PREDICTION_HEADERS = {"prediction", "confidence", "order", "distribution", "count" };
 
         readonly Dictionary<String, String> COMBINATION_WEIGHTS = new Dictionary<String, String>(){
+            { BOOSTING, "weight" },
             { PLURALITY, null } ,
             { CONFIDENCE, "confidence" },
             { PROBABILITY, "probability" },
@@ -54,7 +57,8 @@ namespace BigML
             { PLURALITY_CODE, PLURALITY },
             { CONFIDENCE_CODE, CONFIDENCE },
             { PROBABILITY_CODE, PROBABILITY },
-            { THRESHOLD_CODE, THRESHOLD }
+            { THRESHOLD_CODE, THRESHOLD },
+            { BOOSTING_CODE, BOOSTING }
         };
 
         readonly Dictionary<string, String[]> WEIGHT_KEYS = new Dictionary<string, String[]>() {
@@ -64,7 +68,7 @@ namespace BigML
             { THRESHOLD, null}
         };
 
-
+        const string BOOSTING_CLASS = "class";
         const int DEFAULT_METHOD = 0;
         const int BINS_LIMIT = 32;
 
@@ -111,6 +115,12 @@ namespace BigML
             }
         }
 
+        public bool areBoostedTrees
+        {
+            get;
+            set;
+        }
+
         
         public virtual Dictionary<object, object>[] Predictions
         {
@@ -120,20 +130,30 @@ namespace BigML
             }
         }
 
-
         /// <summary>
         /// Check if this is a regression model
         /// </summary>
         /// <returns> {boolean} True if all the predictions are numbers. </returns>
-        private bool is_regression()
+        private bool isRegression()
         {
             int index, len;
-            Dictionary<object, object> prediction;
+            //Dictionary<object, object> prediction;
+
+            if (areBoostedTrees) {
+                for (index = 0, len = this.predictions.Length; index < len; index++)
+                {
+                    if (!this.predictions[index].ContainsKey("class"))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
 
             for (index = 0, len = this.predictions.Length; index < len; index++)
             {
-                prediction = this.predictions[index];
-                if (!(Utils.isNumericType(prediction["prediction"])))
+                // prediction = this.predictions[index];
+                if (!(Utils.isNumericType(this.predictions[index]["prediction"])))
                 {
                     return false;
                 }
@@ -218,6 +238,64 @@ namespace BigML
                 }
             }
             return true;
+        }
+
+        /// <summary>
+        /// Returns a weighted sum of the predictions
+        /// </summary>
+        /// <param name="predictions"></param>
+        /// <param name="weight"></param>
+        /// <returns></returns>
+        private double weightedSum(Dictionary<object, object>[] predictions, string weight = null)
+        {
+            double total = 0.0;
+            foreach (Dictionary<object, object> prediction in predictions) {
+                total += (Convert.ToDouble(prediction["prediction"]) *
+                            Convert.ToDouble(prediction[weight]));
+            }
+            return total;
+        }
+
+        /// <summary>
+        /// Returns the softmax values from a distribution given as a
+        /// dictionary like:
+        ///        {"category": {"probability": probability, "order": order}}
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns></returns>
+        Dictionary<string, Dictionary<object, dynamic>> softmax(Dictionary<string, Dictionary<object, object>> predictions)
+        {
+            double total = 0.0;
+            Dictionary<string, Dictionary<string, dynamic>> normalized = new Dictionary<string, Dictionary<string, dynamic>>();
+
+            foreach (var cat in predictions)
+            {
+                string category = cat.Key;
+                Dictionary<object, object> catInfo = cat.Value;
+
+                normalized[category] = new Dictionary<string, dynamic>{
+                    {"probability", Math.Exp((double) catInfo["probability"]) },
+                    {"order", catInfo["order"]}
+                };
+                total += (double) normalized[category]["probability"];
+            }
+
+            if (total == 0) {
+                return null;
+            } else {
+                Dictionary<string, Dictionary<object, dynamic>> result = new Dictionary<string, Dictionary<object, dynamic>>();
+
+                foreach (var cat in normalized)
+                {
+                    string category = cat.Key;
+                    Dictionary<string, object> catInfo = cat.Value;
+                    result[category] = new Dictionary<object, dynamic>() {
+                        {"probability", (double) catInfo["probability"] / total },
+                        { "order", catInfo["order"]}
+                    };
+                }
+                return result;
+            }
         }
 
 
@@ -568,12 +646,14 @@ namespace BigML
         /// <summary>
         /// Returns the prediction combining votes by using the given weight
         /// </summary>
-        /// <param name="weightLabel"> {string} weightLabel Type of combination method: 'plurality':
-        ///        plurality (1 vote per prediction) 'confidence': confidence
-        ///        weighted (confidence as a vote value) 'probability': probability
-        ///        weighted (probability as a vote value)
-        ///
-        ///        Will also return the combined confidence, as a weighted average of
+        /// <param name="weightLabel"> {string} weightLabel Type of combination
+        /// method: 
+        ///     'plurality': plurality (1 vote per prediction)
+        ///     'confidence': confidence weighted (confidence as a vote value)
+        ///     'probability': probability weighted (probability as a vote value)
+        /// </param>
+        /// <param name="withConfidence"> {bool} Indicate if it will also
+        /// return or not the combined confidence, as a weighted average of
         ///        the confidences of the votes. </param>
         public virtual Dictionary<object, object> combineCategorical(string weightLabel, bool withConfidence = false)
         {
@@ -597,7 +677,9 @@ namespace BigML
                     }
                     if (!prediction.ContainsKey(weightLabel))
                     {
-                        throw new Exception("Not enough data to use the selected prediction" + " method. Try creating your model anew.");
+                        throw new Exception("Not enough data to use the " +
+                            "selected prediction method. Try creating your" +
+                            "model anew.");
                     }
                     else
                     {
@@ -620,7 +702,6 @@ namespace BigML
                 }
 
                 mode[category] = categoryDict;
-
             }
 
             foreach (string categoryStr in mode.Keys)
@@ -665,7 +746,6 @@ namespace BigML
                         ;   //TODO
                     }
                 }
-
             }
 
             object[] tuple = (object[])tuples[0];
@@ -698,9 +778,10 @@ namespace BigML
         /// <summary>
 		/// Compute the combined weighted confidence from a list of predictions
 		/// </summary>
-		/// <param name="combinedPrediction"> {object} combinedPrediction Prediction object </param>
-		/// <param name="weightLabel"> {string} weightLabel Label of the value in the prediction object
-		///        that will be used to weight confidence </param>
+		/// <param name="combinedPrediction"> {object} combinedPrediction
+        /// Prediction object </param>
+		/// <param name="weightLabel"> {string} weightLabel Label of the value in the
+        /// prediction object that will be used to weight confidence </param>
 		public virtual Dictionary<object, object> weightedConfidence(object combinedPrediction, object weightLabel)
         {
             int index, len;
@@ -763,6 +844,114 @@ namespace BigML
 
             return result;
         }
+
+
+        /// <summary>
+        /// Combines the predictions for a boosted classification ensemble
+        /// Applies the regression boosting combiner, but per class. Tie breaks
+        /// use the order of the categories in the ensemble summary to decide.
+        /// </summary>
+        /// <param name="options"></param>
+        /// <param name="with_confidence"></param>
+        /// <param name="add_confidence"></param>
+        /// <returns></returns>
+        Dictionary<object, object> classificationBoostingCombiner(
+                                        Dictionary<string, dynamic> options,
+                                        bool? withConfidence=false,
+                                        bool? addConfidence=false) {
+
+            Dictionary<string, List <Dictionary <object, object>>>
+                groupedPredictions = 
+                    new Dictionary<string, List<Dictionary<object, object>>>();
+            List<Dictionary<object, object>> emptyList = new List<Dictionary<object, object>>();
+            string objectiveClass;
+
+            foreach (Dictionary<object, object> prediction in this.predictions) {
+                if (prediction[BOOSTING_CLASS] != null)
+                {
+                    objectiveClass = (string)prediction[BOOSTING_CLASS];
+                    if (!groupedPredictions.Keys.Contains(objectiveClass))
+                    {
+                        groupedPredictions[objectiveClass] = new List<Dictionary<object, object>>();
+                    }
+                    ((List<Dictionary<object, object>>)groupedPredictions[objectiveClass]).Add(prediction);
+                }
+            }
+
+            string[] categories = new string[0];
+            if (groupedPredictions.Keys.Contains("categories"))
+            {
+                categories = options["categories"];
+            }
+
+            Dictionary<string, Dictionary<object, object>> predictions = new Dictionary<string, Dictionary<object, object>>();
+            Dictionary<object, object> currentPrediction;
+
+            foreach (KeyValuePair<string, List<Dictionary<object, object>>> kv in groupedPredictions) {
+                currentPrediction = new Dictionary<object, object>();
+                currentPrediction["probability"] = weightedSum(kv.Value.ToArray(), weight:"weight");
+                currentPrediction["order"] = Array.IndexOf(categories, kv.Key);
+                predictions[kv.Key] = currentPrediction;
+            }
+
+            predictions = softmax(predictions);
+
+            List<Dictionary<string, Dictionary<object, object>>> sortedPredictions = new List<Dictionary<string, Dictionary<object, object>>>();
+            double highestConfidence = 2D, iterationHighest, currConfidence;
+            Dictionary<object, object> cPred2, mostProbable = null;
+            string mostProbableKey;
+
+            // sort predictions by probability and order
+            foreach (KeyValuePair<string, Dictionary<object, object>> item in predictions)
+            {
+                mostProbable = item.Value;
+                mostProbableKey = item.Key;
+                iterationHighest = -1D;
+
+                foreach (KeyValuePair<string, Dictionary<object, object>> it2 in predictions)
+                {
+                    cPred2 = it2.Value;
+                    currConfidence = (double)cPred2["probability"];
+                    if (currConfidence > iterationHighest && currConfidence < highestConfidence) { 
+                        mostProbable = cPred2;
+                        mostProbableKey = it2.Key;
+                        iterationHighest = currConfidence;
+                    }
+                }
+
+                if (iterationHighest < highestConfidence) { 
+                    highestConfidence = (double)mostProbable["probability"];
+                    // add mostProbable to list
+                    sortedPredictions.Add(new Dictionary<string, Dictionary<object, object>>() { { mostProbableKey, mostProbable } });
+                }
+            }
+            // TODO: Sort by "order" when probability are equal
+
+            Dictionary<string, Dictionary<object, object>> mostProbablePrediction = sortedPredictions[0];
+            string predictionClass = mostProbablePrediction.Keys.ElementAt(0);
+            Dictionary<object, object> predictionInfo = mostProbablePrediction.Values.ElementAt(0);
+            double confidence = (double) predictionInfo["probability"];
+            if ((bool)withConfidence) {
+                return new Dictionary<object, object>() {
+                    {"prediction", predictionClass },
+                    {"confidence", confidence }
+                };
+            }
+            else if ((bool)addConfidence)
+            {
+                Dictionary<object, dynamic> result = new Dictionary<object, dynamic>();
+                result["prediction"] = predictionClass;
+                result["probability"] = confidence;
+                result["probabilities"] = new Dictionary<string, dynamic>();
+                foreach (Dictionary<string, Dictionary<object, object>> pred in sortedPredictions) {
+                    result["probabilities"][pred.Keys.ElementAt(0)] = pred.Values.ElementAt(0)["probability"];
+                }
+                return result;
+            } else {
+                return new Dictionary<object, object>() { { "prediction", predictionClass }};
+            }
+        }
+
 
 
         /// <summary>
@@ -832,7 +1021,8 @@ namespace BigML
         public virtual Dictionary<object, object> combine(int method = PLURALITY_CODE, bool withConfidence = false,
                                                             bool? addConfidence = false, bool? addDistribution = false,
                                                             bool? addCount = false, bool? addMedian = false,
-                                                            IDictionary options = null)
+                                                            bool? addMin = false, bool? addMax = false,
+                                                            Dictionary<string, dynamic> options = null)
         {
 
             // there must be at least one prediction to be combined
@@ -843,13 +1033,38 @@ namespace BigML
 
             string[] keys = WEIGHT_KEYS[COMBINER_MAP[method]];
             // and all predictions should have the weight-related keys
-            if (keys !=  null && keys.Length > 0)
+            if (keys != null && keys.Length > 0)
             {
                 checkKeys(this.predictions, keys);
             }
 
-            // Regression ensemble
-            if (this.is_regression())
+            if (this.areBoostedTrees)
+            {
+                Dictionary<object, object> prediction;
+                int index, len;
+
+                for (index = 0, len = this.predictions.Length; index < len; index++) {
+                    prediction = predictions[index];
+                    if (prediction[COMBINATION_WEIGHTS[BOOSTING]] == null) { 
+                    
+                        prediction[COMBINATION_WEIGHTS[BOOSTING]] = 0;
+                    }
+                }
+                if (this.isRegression()) {
+                    // sum all gradients weighted by their "weight"
+                    return new Dictionary<object, object>() {
+                        {"prediction", weightedSum(this.predictions, "weight")}
+                    };
+                }
+                else {
+                    return this.classificationBoostingCombiner(
+                        options, withConfidence:withConfidence,
+                        addConfidence:addConfidence);
+                }
+            }
+            
+            // Decision Trees Regression ensemble
+            else if (this.isRegression())
             {
                 foreach (Dictionary<object, object> prediction in predictions)
                 {
@@ -866,7 +1081,7 @@ namespace BigML
                 return this.avg(withConfidence, addConfidence, addDistribution, addCount, addMedian);
             }
 
-            // Categorical ensemble
+            // Decision Trees Categorical ensemble
             MultiVote multiVote = null;
             if (method == THRESHOLD_CODE)
             {
