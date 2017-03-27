@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
-
 
 namespace BigML
 {
@@ -27,10 +27,10 @@ namespace BigML
             List<string> summaryFields = null;
             Dictionary<string, double> scales;
             Dictionary<string, Dictionary<string, string[]>> termForms = new Dictionary<string, Dictionary<string, string[]>>();
-            Dictionary<string, string[]> tagClouds;
+            Dictionary<string, string[]> tagClouds = new Dictionary<string, string[]>();
             Dictionary<string, Dictionary<string, dynamic>> termAnalysis = new Dictionary<string, Dictionary<string, dynamic>>();
             Dictionary<string, Dictionary<string, dynamic>> itemAnalysis = new Dictionary<string, Dictionary<string, dynamic>>();
-            Dictionary<string, string[]> items;
+            Dictionary<string, string[]> items = new Dictionary<string, string[]>();
 
             Dictionary<string, string> nameToIdDict = new Dictionary<string, string>();
             Dictionary<string, bool> fieldAllowEmpty = new Dictionary<string, bool>();
@@ -85,7 +85,6 @@ namespace BigML
             }
 
 
-
             List<string> parseTerms(string text, bool case_sensitive = true) {
                 List<string> result = new List<string>();
 
@@ -93,15 +92,15 @@ namespace BigML
                     return result;
                 }
 
-                string expression = "(\b|_)([^\b_\\s]+?)(\b|_)";
+                string expression = "(\\b|_)([^\\b_\\s]+?)(\\b|_)";
 
-                foreach (string match in Regex.Matches(text, expression)) {
+                foreach (Match match in Regex.Matches(text, expression)) {
                     if (case_sensitive) {
-                        result.Add(match);
+                        result.Add(match.Groups[0].Value);
                     }
                     else
                     {
-                        result.Add(match.ToLower());
+                        result.Add(match.Groups[0].Value.ToLower());
                     }
                 }
                 return result;
@@ -155,6 +154,33 @@ namespace BigML
                     _fields[fieldId] = field;
                     nameToIdDict.Add(_fields[fieldId].Name, fieldId);
                     fieldAllowEmpty[fieldId] = _fields[fieldId].OpType.Equals(OpType.Text) || _fields[fieldId].OpType.Equals(OpType.Items);
+
+                    
+                    if (_fields[fieldId].OpType.Equals(OpType.Text))
+                    {
+                        this.termForms[fieldId] = new Dictionary<string, string[]>();
+                        this.termForms[fieldId] = fieldData.Value["summary"]["term_forms"].ToObject<Dictionary<string, string[]>>();
+                        List<string> listTags = new List<string>();
+                        foreach (var tag in fieldData.Value["summary"]["tag_cloud"])
+                        {
+                            listTags.Add((string) tag[0]);
+                        }
+                        this.tagClouds[fieldId] = listTags.ToArray();
+                        this.termAnalysis[fieldId] = new Dictionary<string, dynamic>();
+                        this.termAnalysis[fieldId]= field.TermAnalysis;
+                    }
+
+                    if (_fields[fieldId].OpType.Equals(OpType.Items))
+                    {
+                        List<string> listItems = new List<string>();
+                        foreach (string item in fieldData.Value["items"])
+                        {
+                            listItems.Add(item);
+                        }
+                        this.items[fieldId] = listItems.ToArray();
+                        this.itemAnalysis[fieldId] = new Dictionary<string, dynamic>();
+                        this.itemAnalysis[fieldId]= field.ItemAnalysis;
+                    }
                 }
 
                 scales = jsonObject["scales"].ToObject<Dictionary<string, double>>();
@@ -207,7 +233,7 @@ namespace BigML
                     {
                         inputDataField = inputData[fieldId];
 
-                        if (inputDataField.GetType() == "string")
+                        if (inputDataField.GetType().Name == "String")
                         {
                             bool caseSensitive = this.termAnalysis[fieldId]["case_sensitive"];
                             string tokenMode = this.termAnalysis[fieldId]["token_mode"];
@@ -231,7 +257,7 @@ namespace BigML
                                 }
                                 else
                                 {
-                                    terms.Add(inputDataField.toLower());
+                                    terms.Add(((string) inputDataField.ToLower()));
                                 }
                             }
 
@@ -370,4 +396,3 @@ namespace BigML
         }
     }
 }
-
