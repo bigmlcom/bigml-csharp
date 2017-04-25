@@ -59,7 +59,7 @@ namespace BigML
                             terms = termSets[fieldId];
                         }
                         distance2 += cosineDistance2(terms, value, fScale);
-                        System.Console.WriteLine("with field " + fieldId + "(Ar) d2 is " + distance2);
+                        //System.Console.WriteLine("with field " + fieldId + "(Ar) d2 is " + distance2);
                     }
                     else if(typeName == "String")
                     {
@@ -69,12 +69,12 @@ namespace BigML
                         {
                             distance2 += 1 * Math.Pow(fScale, 2);
                         }
-                        System.Console.WriteLine("with field " + fieldId + "(st) d2 is " + distance2);
+                        //System.Console.WriteLine("with field " + fieldId + "(st) d2 is " + distance2);
                     }
                     else {
                         // numeric field
                         distance2 += Math.Pow(((inputData[fieldId] - value) * fScale), 2);
-                        System.Console.WriteLine("with field " + fieldId + "(nu) d2 is " + distance2);
+                        //System.Console.WriteLine("with field " + fieldId + "(nu) d2 is " + distance2);
                     }
 
                     // if this centroid is farer than previous one => stop

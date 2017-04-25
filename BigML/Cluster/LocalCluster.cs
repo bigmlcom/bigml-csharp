@@ -41,13 +41,10 @@ namespace BigML
                               "maximum", "standard_deviation",
                               "sum", "sum_squares", "variance" };
 
-            /*INTERCENTROID_MEASURES = [('Minimum', min),
-                          ('Mean', lambda(x): sum(x) / float(len(x))),
-                          ('Maximum', max)]*/
-
             string GlobalClusterLabel = "Global";
             static string[] NumericDefaults = { "mean", "median", "minimum",
                                "maximum", "zero" };
+
 
             bool isGmeans() {
                 return this.criticalValue != null;
