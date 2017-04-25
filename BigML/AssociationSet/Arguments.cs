@@ -13,7 +13,7 @@ namespace BigML
             }
 
             /// <summary>
-            /// A valid anomaly/id.
+            /// A valid association/id.
             /// </summary>
             public string Association
             {
