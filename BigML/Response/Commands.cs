@@ -253,6 +253,7 @@ namespace BigML
         /// <summary>
         /// Download resource content, no its JSON
         /// Available operation for datasets
+        /// If dataset export is not available, request for it.
         /// </summary>
         private async Task<bool> Download(string resourceId, FileStream file)
         {
@@ -267,8 +268,6 @@ namespace BigML
             await response.Content.CopyToAsync(file).ConfigureAwait(_useContextInAwaits);
             //printResponseDebug(response.StatusCode, response.Content);
 
-            file.Flush();
-            file.Close();
             switch (response.StatusCode)
             {
                 case HttpStatusCode.OK:

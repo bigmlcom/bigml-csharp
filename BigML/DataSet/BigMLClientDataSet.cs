@@ -69,6 +69,49 @@ namespace BigML
         }
 
 
+        /// <summary>
+        /// Completes the process of requests agains the server in order to
+        /// create a file with a DataSet content
+        /// </summary>
+        /// <param name="datasetID"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public async Task<bool> DownloadDataset(string datasetID, string path)
+        {
+            int downloadStatus = 0;
+            DataSet ds;
+            FileStream fs;
+
+            do
+            {
+                ds = await this.Get<DataSet>(datasetID);
+                downloadStatus = (int)ds.Object["download"]["code"];
+                switch (downloadStatus)
+                {
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                        // not started or in progress => request
+                        Download(ds, null);
+                        await Task.Delay(5000);
+                        break;
+                    case 5:
+                        // finished => save
+                        fs = new FileStream(path, System.IO.FileMode.Create);
+                        await Download(ds, fs);
+                        fs.Flush();
+                        fs.Close();
+                        break;
+                    case -1:
+                        new System.Exception("An error occurred downloading the dataset export");
+                        break;
+                }
+            } while (downloadStatus != 5);
+            return true;
+        }
+
+
         public Query<DataSet.Filterable, DataSet.Orderable, DataSet> ListDataSets()
         {
             return new DataSetListing(List<DataSet>);
