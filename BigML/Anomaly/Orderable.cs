@@ -12,7 +12,7 @@ namespace BigML
         public class Orderable : Orderable<Anomaly>
         {
             /// <summary>
-            /// The number of fields in the dataset.
+            /// The number of fields in the anomaly detector.
             /// </summary>
             public Int Columns
             {
@@ -20,23 +20,40 @@ namespace BigML
             }
 
             /// <summary>
-            /// The current number of models that use this source.
+            /// The dataset/id that was used to build anomaly detector.
             /// </summary>
-            public Int NumberOfModels
+            public String Dataset
             {
-                get { return Object.number_of_models; }
+                get { return Object.dataset; }
             }
 
             /// <summary>
-            /// The current number of predictions that use this source.
+            /// Whether the dataset is still available or has been deleted.
             /// </summary>
-            public Int NumberOfPredictions
+            public Bool DatasetStatus
             {
-                get { return Object.number_of_predictions; }
+                get { return Object.dataset_status; }
             }
 
             /// <summary>
-            /// The total number of rows in the dataset.
+            /// The current number of anomaly scores that use this anomaly.
+            /// </summary>
+            public Int NumberOfAnomalyScores
+            {
+                get { return Object.number_of_anomalyscores; }
+            }
+
+            /// <summary>
+            /// The current number of batch anomaly scores that use this
+            /// anomaly detector.
+            /// </summary>
+            public Int NumberOfBatchAnomalyScores
+            {
+                get { return Object.number_of_batchanomalyscores; }
+            }
+
+            /// <summary>
+            /// The total number of rows used to build the anomaly detector.
             /// </summary>
             public Int Rows
             {
@@ -44,7 +61,8 @@ namespace BigML
             }
 
             /// <summary>
-            /// The source/id that was used to build the dataset.
+            /// The source/id that was used to build the dataset used to create
+            /// the anomaly detector.
             /// </summary>
             public String Source
             {
@@ -58,6 +76,16 @@ namespace BigML
             {
                 get { return Object.source_status; }
             }
+
+            /// <summary>
+            /// The number of top anomalies returned after scoring each row
+            /// in the training dataset.
+            /// </summary>
+            public Int TopN
+            {
+                get { return Object.top_n; }
+            }
+
         }
     }
 }

@@ -69,6 +69,22 @@ namespace BigML
         }
 
         /// <summary>
+        /// The current number of logistic regresssions that use this dataset.
+        /// </summary>
+        public int NumberOfLogisticRegressions
+        {
+            get { return Object.number_of_logisticregressions; }
+        }
+
+        /// <summary>
+        /// The current number of time series that use this dataset.
+        /// </summary>
+        public int NumberOfTimeSeries
+        {
+            get { return Object.number_of_timeseries; }
+        }
+
+        /// <summary>
         /// The current number of clusters that use this dataset.
         /// </summary>
         public int NumberOfClusters
@@ -93,11 +109,11 @@ namespace BigML
         }
 
         /// <summary>
-        /// The current number of logistic regresssions that use this dataset.
+        /// The current number of topic models that use this dataset.
         /// </summary>
-        public int NumberOfLogisticRegressions
+        public int NumberOfTopicModels
         {
-            get { return Object.number_of_logisticregressions; }
+            get { return Object.number_of_topicmodels; }
         }
 
         /// <summary>

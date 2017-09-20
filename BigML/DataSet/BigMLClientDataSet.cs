@@ -56,12 +56,47 @@ namespace BigML
         /// <param name="name">The optional name you want to give to the new dataset. </param>
         public Task<DataSet> Transform(DataSet dataset, string name = null, DataSet.Arguments arguments = null)
         {
+            return TransformDataset(dataset, name, arguments);
+        }
+
+        /// <summary>
+        /// Clone, filter or sample a dataset
+        /// </summary>
+        /// <param name="newname">The optional name you want to give to the new dataset. </param>
+        public Task<DataSet> TransformDataset(DataSet dataset, string newname = null, DataSet.Arguments arguments = null)
+        {
             arguments = arguments ?? new DataSet.Arguments();
             arguments.OriginDataset = dataset.Resource;
-            if (!string.IsNullOrWhiteSpace(name)) arguments.Name = name;
+            if (!string.IsNullOrWhiteSpace(newname)) arguments.Name = newname;
             return Create<DataSet>(arguments);
         }
 
+        /// <summary>
+        /// Clone, filter or sample a dataset
+        /// </summary>
+        /// <param name="newname">The optional name you want to give to the new dataset. </param>
+        public Task<DataSet> CloneDataset(DataSet dataset, string newname = null, DataSet.Arguments arguments = null)
+        {
+            return TransformDataset(dataset, newname, arguments);
+        }
+
+        /// <summary>
+        /// Clone, filter or sample a dataset
+        /// </summary>
+        /// <param name="newname">The optional name you want to give to the new dataset. </param>
+        public Task<DataSet> FilterDataset(DataSet dataset, string newname = null, DataSet.Arguments arguments = null)
+        {
+            return TransformDataset(dataset, newname, arguments);
+        }
+
+        /// <summary>
+        /// Clone, filter or sample a dataset
+        /// </summary>
+        /// <param name="newname">The optional name you want to give to the new dataset. </param>
+        public Task<DataSet> SampleDataset(DataSet dataset, string newname = null, DataSet.Arguments arguments = null)
+        {
+            return TransformDataset(dataset, newname, arguments);
+        }
 
         public Task<bool> Download(DataSet dataset, FileStream f)
         {

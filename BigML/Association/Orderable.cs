@@ -20,7 +20,41 @@ namespace BigML
             }
 
             /// <summary>
-            /// The source/id that was used to build the dataset.
+            /// The dataset/id that was used to build the association.
+            /// </summary>
+            public String Dataset
+            {
+                get { return Object.dataaset; }
+            }
+
+            /// <summary>
+            /// Whether the dataset is still available or has been deleted.
+            /// </summary>
+            public Bool DatasetStatus
+            {
+                get { return Object.dataset_status; }
+            }
+
+            /// <summary>
+            /// The current number of association sets that use this
+            /// association.
+            /// </summary>
+            public Int NumberOfAssociationSets
+            {
+                get { return Object.number_of_associationsets; }
+            }
+
+            /// <summary>
+            /// The number of instances used to build the association.
+            /// </summary>
+            public Int Rows
+            {
+                get { return Object.rows; }
+            }
+
+            /// <summary>
+            /// The source/id that was used to build the dataset used to build
+            /// the association
             /// </summary>
             public String Source
             {

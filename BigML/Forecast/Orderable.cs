@@ -1,16 +1,18 @@
-using BigML.Meta;
+﻿using BigML.Meta;
 
 namespace BigML
 {
-    public partial class TopicModel
+    using Meta.Key;
+
+    public partial class Forecast
     {
         /// <summary>
-        /// Filterable properties for TopicModel
+        /// Orderable properties for Forecast.
         /// </summary>
-        public class Filterable : Filterable<TopicModel>
+        public class Orderable : Orderable<Forecast>
         {
             /// <summary>
-            /// The dataset/id that was used to build the topicModel.
+            /// The dataset/id that was used to build the timeseries.
             /// </summary>
             public String DataSet
             {
@@ -26,15 +28,23 @@ namespace BigML
             }
 
             /// <summary>
-            /// The current number of predictions that has this Topic Model.
+            /// The timeseries/id that was used to build the prediction.
             /// </summary>
-            public Int NumberOfPredictions
+            public String TimeSeries
             {
-                get { return Object.number_of_predictions; }
+                get { return Object.timeseries; }
             }
 
             /// <summary>
-            /// The source/id that was used to build the topicModel.
+            /// Whether the timeseries is still available or has been deleted.
+            /// </summary>
+            public Bool TimeSeriesStatus
+            {
+                get { return Object.timeseries_status; }
+            }
+
+            /// <summary>
+            /// The source/id that was used to build the dataset.
             /// </summary>
             public String Source
             {

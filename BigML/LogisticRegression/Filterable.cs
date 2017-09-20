@@ -18,15 +18,42 @@ namespace BigML
             }
 
             /// <summary>
-            /// The current number of models that use this source.
+            /// The dataset/id that was used to build the logistic regression.
             /// </summary>
-            public Int NumberOfModels
+            public String Dataset
             {
-                get { return Object.number_of_models; }
+                get { return Object.dataaset; }
             }
 
             /// <summary>
-            /// The current number of predictions that use this source.
+            /// Whether the dataset is still available or has been deleted.
+            /// </summary>
+            public Bool DatasetStatus
+            {
+                get { return Object.dataset_status; }
+            }
+
+            /// <summary>
+            /// The current number of batch predictions that use this logistic
+            /// regression.
+            /// </summary>
+            public Int NumberOfBatchPredictions
+            {
+                get { return Object.number_of_evaluations; }
+            }
+
+            /// <summary>
+            /// The current number of evaluations that use this logistic
+            /// regression.
+            /// </summary>
+            public Int NumberOfEvaluations
+            {
+                get { return Object.number_of_evaluations; }
+            }
+
+            /// <summary>
+            /// The current number of predictions that use this logistic
+            /// regression.
             /// </summary>
             public Int NumberOfPredictions
             {
@@ -42,7 +69,8 @@ namespace BigML
             }
 
             /// <summary>
-            /// The source/id that was used to build the dataset.
+            /// The source/id that was used to build the dataset used to build
+            /// the logistic regression.
             /// </summary>
             public String Source
             {

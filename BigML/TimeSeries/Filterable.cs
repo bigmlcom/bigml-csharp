@@ -2,12 +2,12 @@
 
 namespace BigML
 {
-    public partial class Association
+    public partial class TimeSeries
     {
         /// <summary>
-        /// Filterable properties for Associations
+        /// Filterable properties for Time Series
         /// </summary>
-        public class Filterable : Filterable<Association>
+        public class Filterable : Filterable<TimeSeries>
         {
             /// <summary>
             /// The number of fields in the dataset.
@@ -18,31 +18,23 @@ namespace BigML
             }
 
             /// <summary>
-            /// The dataset/id that was used to build the association.
+            /// The current number of evaluations that use this time series.
             /// </summary>
-            public String Dataset
+            public Int NumberOfEvaluations
             {
-                get { return Object.dataaset; }
+                get { return Object.number_of_evaluations; }
             }
 
             /// <summary>
-            /// Whether the dataset is still available or has been deleted.
+            /// The current number of forecasts that use this time series.
             /// </summary>
-            public Bool DatasetStatus
+            public Int NumberOfForecasts
             {
-                get { return Object.dataset_status; }
+                get { return Object.number_of_forecasts; }
             }
 
             /// <summary>
-            /// The current number of anomaly scores that use this anomaly.
-            /// </summary>
-            public Int NumberOfAssociationSets
-            {
-                get { return Object.number_of_associationsets; }
-            }
-
-            /// <summary>
-            /// The number of instances used to build the association.
+            /// The total number of rows in the dataset.
             /// </summary>
             public Int Rows
             {
@@ -50,8 +42,7 @@ namespace BigML
             }
 
             /// <summary>
-            /// The source/id that was used to build the dataset used to build
-            /// the association
+            /// The source/id that was used to build the dataset.
             /// </summary>
             public String Source
             {

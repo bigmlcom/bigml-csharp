@@ -47,7 +47,7 @@ namespace BigML
         }
 
         /// <summary>
-        /// The current number of predictions that this topicModel has.
+        /// The current number of predictions that this Topic Model has.
         /// </summary>
         public int NumberOfPredictions
         {

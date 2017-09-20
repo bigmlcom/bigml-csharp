@@ -12,7 +12,7 @@ namespace BigML
         public class Orderable : Orderable<Cluster>
         {
             /// <summary>
-            /// The number of fields in the dataset.
+            /// The number of fields in the cluster.
             /// </summary>
             public Int Columns
             {
@@ -20,23 +20,47 @@ namespace BigML
             }
 
             /// <summary>
-            /// The current number of models that use this source.
+            /// The dataset/id that was used to build cluster.
             /// </summary>
-            public Int NumberOfModels
+            public String Dataset
             {
-                get { return Object.number_of_models; }
+                get { return Object.dataset; }
             }
 
             /// <summary>
-            /// The current number of predictions that use this source.
+            /// Whether the dataset is still available or has been deleted.
             /// </summary>
-            public Int NumberOfPredictions
+            public Bool DatasetStatus
             {
-                get { return Object.number_of_predictions; }
+                get { return Object.dataset_status; }
             }
 
             /// <summary>
-            /// The total number of rows in the dataset.
+            /// The number of clusters.
+            /// </summary>
+            public Bool K
+            {
+                get { return Object.k; }
+            }
+
+            /// <summary>
+            /// The current number of batch centroids that use this cluster.
+            /// </summary>
+            public Int NumberOfBatchCentroids
+            {
+                get { return Object.number_of_batchcentroids; }
+            }
+
+            /// <summary>
+            /// The current number of centroids that use this cluster.
+            /// </summary>
+            public Int NumberOfCentroids
+            {
+                get { return Object.number_of_centroids; }
+            }
+
+            /// <summary>
+            /// The total number of instances used to build the cluster.
             /// </summary>
             public Int Rows
             {
@@ -44,7 +68,8 @@ namespace BigML
             }
 
             /// <summary>
-            /// The source/id that was used to build the dataset.
+            /// The source/id that was used to build the dataset used to build
+            /// the cluster.
             /// </summary>
             public String Source
             {

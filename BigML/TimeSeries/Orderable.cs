@@ -2,12 +2,14 @@
 
 namespace BigML
 {
-    public partial class Centroid
+    using Meta.Key;
+
+    public partial class TimeSeries
     {
         /// <summary>
-        /// Filterable properties for Centroids
+        /// Orderable properties for time series
         /// </summary>
-        public class Filterable : Filterable<Centroid>
+        public class Orderable : Orderable<TimeSeries>
         {
             /// <summary>
             /// The number of fields in the dataset.
@@ -15,6 +17,14 @@ namespace BigML
             public Int Columns
             {
                 get { return Object.columns; }
+            }
+
+            /// <summary>
+            /// The current number of forecasts that use this time series.
+            /// </summary>
+            public Int NumberOfForecasts
+            {
+                get { return Object.number_of_forecasts; }
             }
 
             /// <summary>
