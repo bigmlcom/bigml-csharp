@@ -34,7 +34,8 @@ namespace BigML
             }
 
             /// <summary>
-            /// The current number of anomaly scores that use this anomaly.
+            /// The current number of association sets that use this
+            /// association.
             /// </summary>
             public Int NumberOfAssociationSets
             {

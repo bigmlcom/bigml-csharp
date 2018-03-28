@@ -24,7 +24,7 @@ namespace BigML
             /// <summary>
             /// A valid timeseries/id.
             /// </summary>
-            public string Timeseries
+            public string TimeSeries
             {
                 get;
                 set;
@@ -35,9 +35,9 @@ namespace BigML
             {
                 dynamic json = base.ToJson();
 
-                if (Timeseries != null)
+                if (TimeSeries != null)
                 {
-                    json.timeseries = Timeseries;
+                    json.timeseries = TimeSeries;
                 }
 
                 if (InputData.Count > 0)

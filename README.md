@@ -11,20 +11,20 @@ study by itself, and follows the pattern outlined in
 ### Adding JSON Library
 
 This bindings uses the Newtonsoft.Json dll
-([See reference] (https://www.nuget.org/packages/Newtonsoft.Json/9.0.1)).
+([See reference] (https://www.nuget.org/packages/Newtonsoft.Json/11.0.1)).
 So, its common to add it mannually. In order to add it you should use the
 package manager. In your visual studio enviroments
 go to the package manager console (Tools > Library packages
 manager > Package manager console) and type:
 ```Shell
-Install-Package Newtonsoft.Json -Version 9.0.1 BigML
+Install-Package Newtonsoft.Json -Version 11.0.1 BigML
 ```
 you should see a message like this
 ```Shell
-'Newtonsoft.Json 9.0.1' was successfully added to BigML.
+'Newtonsoft.Json 11.0.1' was successfully added to BigML.
 ```
 The NuGet of this library is available at https://www.nuget.org/packages/BigML/ .
-Last released version is 2.0.0. Previous versions (<2.0) use Microsoft's
+Last released version is 2.2.0. Previous versions (<2.0) use Microsoft's
 System.Json deprecated package and we encourage to update to a 2.0 version or higher.
 
 
