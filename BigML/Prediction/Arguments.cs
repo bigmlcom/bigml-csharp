@@ -71,7 +71,7 @@ namespace BigML
                     JToken jValue;
                     foreach(var kv in InputData)
                     {
-                        jValue = (JToken)kv.Value;
+                        jValue = JToken.FromObject(kv.Value);
                         if (jValue.Type == JTokenType.Boolean)
                         {
                             input_data[kv.Key] = (bool)kv.Value;
@@ -80,7 +80,15 @@ namespace BigML
                         {
                             input_data[kv.Key] = (string)kv.Value;
                         }
-                        else
+                        else if (jValue.Type == JTokenType.Integer)
+                        {
+                            input_data[kv.Key] = (int)kv.Value;
+                        }
+                        else if (jValue.Type == JTokenType.Float)
+                        {
+                            input_data[kv.Key] = (double)kv.Value;
+                        }
+                        else if (jValue.Type == JTokenType.Object)
                         {
                             input_data[kv.Key] = (JObject)kv.Value;
                         }

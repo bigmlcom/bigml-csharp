@@ -71,7 +71,10 @@ namespace BigML
                         fieldId = kv.Key;
                         kv.Value["id"] = fieldId;
                         _fields[fieldId] = new DataSet.Field(kv.Value);
-                        nameToIdDict.Add(_fields[fieldId].Name, fieldId);
+                        if (!nameToIdDict.ContainsKey(_fields[fieldId].Name))
+                        {
+                            nameToIdDict.Add(_fields[fieldId].Name, fieldId);
+                        }
 
                         //text analysis initialization
                         options = new Dictionary<string, string>();
