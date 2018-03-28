@@ -28,7 +28,7 @@ namespace BigML
 
             public bool areBoostedTrees
             {
-                get { return this._jsonObject["boosting"] != null; }
+                get { return this._jsonObject["boosting"].Type != JTokenType.Null; }
             }
 
 
