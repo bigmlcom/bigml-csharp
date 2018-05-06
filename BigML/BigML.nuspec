@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>BigML</id>
+    <version>2.3</version>
+    <title>BigML</title>
+    <authors>BigML Team</authors>
+    <licenseUrl>https://bigml.com/tos</licenseUrl>
+    <projectUrl>https://github.com/bigmlcom/bigml-csharp</projectUrl>
+    <iconUrl>https://secure.gravatar.com/avatar/d286e440ee01b6de94c1db5855352e09</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Official BigML bindings for dotnet developers</description>
+    <summary>- Update reference to Newtonsoft 11.0.1</summary>
+    <releaseNotes>- Fix issue input data for remote predictions</releaseNotes>
+    <copyright>BigML Inc 2018</copyright>
+    <language>en-US</language>
+    <dependencies>
+        <dependency id="EntityFramework" version="6.1.3" />
+        <dependency id="Newtonsoft.Json" version="11.0.1" />
+    </dependencies>
+  </metadata>
+</package>
