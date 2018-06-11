@@ -124,6 +124,19 @@ namespace BigML
                 return copy;
             }
 
+            public bool isEmpty()
+            {
+
+                if (Header != _header) return false;
+                if (Trim != _trim) return false;
+                if (Separator != _separator) return false;
+                if (Quote != _quote) return false;
+                if (Locale != _locale) return false;
+                if (MissingTokens.Count > 0) return false;
+
+                return true;
+            }
+
             public override string ToString()
             {
                 return ToJson().ToString();

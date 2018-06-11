@@ -1,4 +1,4 @@
 ﻿To run and develop you should use dotnet framework 4.5
-To develop to need visual studio 2012 (version 11) or higher.
+To develop to need visual studio 2015 (version 14) or higher.
 To add the reference "Newtonsoft.Json" you need to run in the package manager:
-	PM> Install-Package Newtonsoft.Json -Version 9.0.1 BigML
+	PM> Install-Package Newtonsoft.Json -Version 11.0.1 BigML

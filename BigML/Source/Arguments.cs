@@ -53,7 +53,8 @@ namespace BigML
                 if (!string.IsNullOrWhiteSpace(File)) json.file = File;
                 if (Data != null && Data.Any()) json.data = string.Join("\n", Data);
                 if (!string.IsNullOrWhiteSpace(Remote)) json.remote = Remote;
-                json.source_parser = Parser.ToJson();
+
+                if (!Parser.isEmpty()) json.parser = Parser.ToJson();
                 return json;
             }
         }
