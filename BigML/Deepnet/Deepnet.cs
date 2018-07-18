@@ -47,8 +47,8 @@ namespace BigML
 
 
         /// <summary>
-        /// A description of the status of the correlation. It includes a code, a message,
-        /// and some extra information.
+        /// A description of the status of the deepnet.
+        /// It includes a code, a message, and some extra information.
         /// </summary>
         public Status StatusMessage
         {

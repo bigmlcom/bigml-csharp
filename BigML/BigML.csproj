@@ -165,6 +165,13 @@
     <Compile Include="DataSet\Filterable.cs" />
     <Compile Include="DataSet\Orderable.cs" />
     <Compile Include="DataSet\Status.cs" />
+    <Compile Include="Fusion\Arguments.cs" />
+    <Compile Include="Fusion\BigMLClientFusion.cs" />
+    <Compile Include="Fusion\Fusion.cs" />
+    <Compile Include="Fusion\FusionListing.cs" />
+    <Compile Include="Fusion\Filterable.cs" />
+    <Compile Include="Fusion\Orderable.cs" />
+    <Compile Include="Fusion\Status.cs" />
     <Compile Include="Ensemble\Arguments.cs" />
     <Compile Include="Ensemble\BigMLClientEnsemble.cs" />
     <Compile Include="Ensemble\Ensemble.cs" />

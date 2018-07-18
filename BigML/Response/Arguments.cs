@@ -86,8 +86,11 @@ namespace BigML
                     {
                         inObjectVal = (JValue) entry.Value;
                     }
-                    else {
+                    else if (!valType.IsClass) {
                         inObjectVal = entry.Value;
+                    }
+                    else {
+                        continue;
                     }
                     json[entry.Key] = inObjectVal;
                 }
