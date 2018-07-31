@@ -5,20 +5,19 @@ using BigML;
 namespace BigMLTest
 {
     /// <summary>
-    /// Test resources related with OptiML
+    /// Test resources related with Logistic Regression and its predictions
     /// </summary>
     [TestClass]
-    public class TestOptiML
+    public class TestLogisticRegressions
     {
         string userName = "myUser";
         string apiKey = "8169dabca34b6ae5612a47b63dd97bead3bfeXXX";
 
         [TestMethod]
-        public async Task CreateOptiMLFromRemoteSource()
+        public async Task CreateLogisticRegressionFromRemoteSource()
         {
             Client c = new Client(userName, apiKey);
             Source.Arguments args = new Source.Arguments();
-
             args.Add("remote", "https://static.bigml.com/csv/iris.csv");
             args.Add("name", "C# tests - Iris");
 
@@ -34,18 +33,25 @@ namespace BigMLTest
 
             Assert.AreEqual(ds.StatusMessage.StatusCode, Code.Finished);
 
-            OptiML.Arguments argsOM = new OptiML.Arguments();
-            argsOM.Add("dataset", ds.Resource);
-            argsOM.Add("name", "C# tests - TestOptiML");
-            OptiML om = await c.CreateOptiML(argsOM);
-            om = await c.Wait<OptiML>(om.Resource);
+            LogisticRegression.Arguments argsTM = new LogisticRegression.Arguments();
+            argsTM.Add("dataset", ds.Resource);
+            LogisticRegression lr = await c.CreateLogisticRegression(argsTM);
+            lr = await c.Wait<LogisticRegression>(lr.Resource);
+            
+            // test it is finished
+            Assert.AreEqual(lr.StatusMessage.StatusCode, Code.Finished);
 
-            // This ste can take a bit
-            Assert.AreNotEqual(om.StatusMessage.StatusCode, Code.Faulty);
+            // test update method
+            Newtonsoft.Json.Linq.JObject changes = new Newtonsoft.Json.Linq.JObject();
+            Newtonsoft.Json.Linq.JArray tags = new Newtonsoft.Json.Linq.JArray();
+            tags.Add("Bindings C# test");
+            changes.Add("tags", tags);
+            lr = await c.Update<LogisticRegression>(lr.Resource, changes);
+            Assert.AreEqual(lr.Code, System.Net.HttpStatusCode.Accepted);
 
             await c.Delete(s);
             await c.Delete(ds);
-            await c.Delete(om);
+            await c.Delete(lr);
         }
     }
 }
