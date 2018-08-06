@@ -6,7 +6,7 @@ using BigML;
 namespace BigMLTest
 {
     /// <summary>
-    /// Test resources related with Topic Models and its predictions
+    /// Test resources related with Configurations
     /// </summary>
     [TestClass]
     public class TestConfigurations

@@ -21,11 +21,19 @@ namespace BigMLTest
 
             args.Add("remote", "https://static.bigml.com/csv/iris.csv");
             args.Add("name", "C# tests - Iris");
+            // The project can be added as a regular parameter in the creation
+            args.Add("project", "project/58a7147e663ac2321f00239f");
 
             Source s = await c.CreateSource(args);
             s = await c.Wait<Source>(s.Resource);
-
             Assert.AreEqual(s.StatusMessage.StatusCode, Code.Finished);
+
+            // Update the project
+            Newtonsoft.Json.Linq.JObject changes = new Newtonsoft.Json.Linq.JObject();
+            changes.Add("project", "project/5878b1cb7e0a8d5cc500de61");
+            s = await c.Update<Source>(s.Resource, changes);
+            Assert.AreEqual(s.Code, System.Net.HttpStatusCode.Accepted);
+
 
             DataSet.Arguments argsDS = new DataSet.Arguments();
             argsDS.Add("source", s.Resource);
@@ -40,7 +48,7 @@ namespace BigMLTest
             OptiML om = await c.CreateOptiML(argsOM);
             om = await c.Wait<OptiML>(om.Resource);
 
-            // This ste can take a bit
+            // This step can take a bit
             Assert.AreNotEqual(om.StatusMessage.StatusCode, Code.Faulty);
 
             await c.Delete(s);
