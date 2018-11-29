@@ -18,11 +18,6 @@ namespace BigML.Meta
         public Key.DateTimeOffset Created { get { return Object.created; } }
 
         /// <summary>
-        /// The numbers of credits that has cost you to create this source.
-        /// </summary>
-        public Key.Double Credits { get { return Object.credits; } }
-
-        /// <summary>
         /// The name of the source as your provided.
         /// </summary>
         public Key.String Name { get { return Object.name; } }

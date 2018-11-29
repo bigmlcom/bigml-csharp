@@ -119,13 +119,5 @@ namespace BigML
                     (this.Object != null));
             }
         }
-
-        /// <summary>
-        /// The numbers of credits that costed you to create this resource.
-        /// </summary>
-        public double Credits
-        {
-            get { return Object.credits; }
-        }
     }
 }

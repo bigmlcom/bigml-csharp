@@ -19,11 +19,6 @@ namespace BigML.Meta
         }
 
         /// <summary>
-        /// The numbers of credits that has cost you to create this source.
-        /// </summary>
-        public Double Credits { get { return Object.credits; } }
-
-        /// <summary>
         /// The name of the resource as your provided.
         /// </summary>
         public String Name { get { return Object.name; } }
