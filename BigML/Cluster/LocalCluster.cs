@@ -15,15 +15,9 @@ namespace BigML
 
             string resourceId;
             List<LocalCentroid> centroids;
-            JObject[] theClusters;
             JObject clusterGlobal;
-            int totalSs = 0;
-            int withIn = 0;
-            int betweenSs = 0;
-            float ratioSs = 0;
             float? criticalValue;
             string defaultNumericValue;
-            int k = 0;
             List<string> summaryFields = null;
             Dictionary<string, double> scales;
             Dictionary<string, Dictionary<string, string[]>> termForms = new Dictionary<string, Dictionary<string, string[]>>();
@@ -41,7 +35,6 @@ namespace BigML
                               "maximum", "standard_deviation",
                               "sum", "sum_squares", "variance" };
 
-            string GlobalClusterLabel = "Global";
             static string[] NumericDefaults = { "mean", "median", "minimum",
                                "maximum", "zero" };
 
