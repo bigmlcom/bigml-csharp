@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>BigML</id>
-    <version>2.4</version>
+    <version>2.5.0</version>
     <title>BigML</title>
     <authors>BigML Team</authors>
     <owners>BigML Inc.</owners>
@@ -11,8 +11,8 @@
     <iconUrl>https://secure.gravatar.com/avatar/d286e440ee01b6de94c1db5855352e09</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Official BigML bindings for dotnet developers</description>
-    <summary>+ Add OptiML as new resource</summary>
-    <releaseNotes>+ Add OptiML as new resource</releaseNotes>
+    <summary>+ Add Fusion as new resource. Fix documentations and bugs.</summary>
+    <releaseNotes>+ Add Fusion as new resource. Fix documentations and bugs.</releaseNotes>
     <language>en-US</language>
     <dependencies>
         <dependency id="EntityFramework" version="6.1.3" />
