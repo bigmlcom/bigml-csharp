@@ -14,7 +14,17 @@ namespace BigML
 
             public Arguments()
             {
-               
+                Imports = new List<string>();
+            }
+
+            /// <summary>
+            /// A list of valid library/id.
+            /// Used to include declared methods in a script
+            /// </summary>
+            public List<string> Imports
+            {
+                get;
+                set;
             }
 
             /// <summary>
@@ -29,6 +39,16 @@ namespace BigML
             public override JObject ToJson()
             {
                 dynamic json = base.ToJson();
+
+                if (Imports.Count > 0)
+                {
+                    var imports = new JArray();
+                    foreach (var oneLibrary in Imports)
+                    {
+                        imports.Add((JValue)oneLibrary);
+                    }
+                    json.imports = imports;
+                }
 
                 return json;
             }
