@@ -21,7 +21,7 @@ namespace BigML
         {
             arguments = arguments ?? new Execution.Arguments();
             if (!string.IsNullOrWhiteSpace(name)) arguments.Name = name;
-            arguments.Script = script;
+            arguments.Script = script.Resource;
             return Create<Execution>(arguments);
         }
 
