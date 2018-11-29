@@ -40,7 +40,12 @@ namespace BigML
         /// </summary>
         private async Task<T> Create<T>(HttpContent request) where T : Response, new()
         {
-            var client = new HttpClient();
+            HttpClient client = new HttpClient();
+            if (ResourceTypeName<T>() == "source")
+            {
+                client.Timeout = TimeSpan.FromHours(1);
+            }
+
             var url = string.Format(BigML, _username, _apiKey, _dev, _protocol, _VpcDomain, ResourceTypeName<T>(), "");
             //printRequestDebug(url, this._requestContent);
             var response = await client.PostAsync(url, request).ConfigureAwait(_useContextInAwaits);
