@@ -15,8 +15,10 @@ namespace Demo
 
             Model model;
             string modelId = "model/575085112275c16672016XXX";
-            while ((model = await client.Get<Model>(modelId)).StatusMessage.StatusCode != Code.Finished) await Task.Delay(10);
-            Model.LocalModel localModel = model.ModelStructure;
+            while ((model = await client.Get<Model>(modelId)).StatusMessage.StatusCode != Code.Finished) {
+                await Task.Delay(3000);
+            }
+            Model.LocalModel localModel = model.ModelStructure();
 
             Dictionary<string, dynamic> inputData = new Dictionary<string, dynamic>();
             inputData.Add("000000", 1.6);
