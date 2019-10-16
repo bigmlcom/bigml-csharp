@@ -98,8 +98,8 @@ Model.LocalModel localModel = model.ModelStructure;
 // --- Specify prediction inputs and calculate the prediction ---
 // input data can be provided by fieldID or by name
 Dictionary<string, dynamic> inputData = new Dictionary<string, dynamic>();
-inputData.InputData.Add("sepal width", 5);
-inputData.InputData.Add("00003", 2.5);
+inputData.Add("sepal width", 5);
+inputData.Add("00003", 2.5);
 // Other values are ommited or unknown
 Model.Node prediction = localModel.predict(inputData);
 
