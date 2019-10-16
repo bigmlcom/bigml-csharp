@@ -102,13 +102,13 @@ namespace Demo
       {
         await Task.Delay(5000);
       }
-      Model.LocalModel localModel = model.ModelStructure;
+      Model.LocalModel localModel = model.ModelStructure();
 
       // --- Specify prediction inputs and calculate the prediction ---
       Dictionary<string, dynamic>
       inputData = new Dictionary<string, dynamic>();
-      inputData.InputData.Add("sepal length", 5);
-      inputData.InputData.Add("sepal width", 2.5);
+      inputData.Add("sepal length", 5);
+      inputData.Add("sepal width", 2.5);
       Model.Node prediction = localModel.predict(inputData);
     }
   }
