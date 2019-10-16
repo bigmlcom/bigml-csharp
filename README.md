@@ -93,7 +93,7 @@ inputs to see if it predicts the same kind of iris:
 
 ```c#
 // Transforms JSON in tree structure 
-Model.LocalModel localModel = model.ModelStructure;
+Model.LocalModel localModel = model.ModelStructure();
 
 // --- Specify prediction inputs and calculate the prediction ---
 // input data can be provided by fieldID or by name
