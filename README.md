@@ -11,7 +11,7 @@ study by itself, and follows the pattern outlined in
 ### Adding JSON Library
 
 This bindings uses the Newtonsoft.Json dll
-([See reference] (https://www.nuget.org/packages/Newtonsoft.Json/11.0.1)).
+([See reference](https://www.nuget.org/packages/Newtonsoft.Json/11.0.1)).
 So, its common to add it mannually. In order to add it you should use the
 package manager. In your visual studio enviroments
 go to the package manager console (Tools > Library packages
