@@ -1,19 +1,22 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
+using System;
+using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using System.Configuration;
 using BigML;
 
-namespace BigMLTest
+namespace BigML.Tests
 {
     /// <summary>
     /// Test resources related with Deepnets
     /// </summary>
-    [TestClass]
+    [TestFixture()]
     public class TestDeepnets
     {
-        string userName = "myUser";
-        string apiKey = "8169dabca34b6ae5612a47b63dd97bead3bfeXXX";
+        string userName = ConfigurationManager.AppSettings["BIGML_USERNAME"];
+        string apiKey = ConfigurationManager.AppSettings["BIGML_API_KEY"];
 
-        [TestMethod]
+        [Test()]
         public async Task CreateDeepnetFromRemoteSource()
         {
             // Prepare connection
@@ -40,7 +43,7 @@ namespace BigMLTest
             argsDn.Add("dataset", ds.Resource);
             Deepnet dn = await c.CreateDeepnet(argsDn);
             dn = await c.Wait<Deepnet>(dn.Resource);
-            
+
             Assert.AreEqual(dn.StatusMessage.StatusCode, Code.Finished);
 
             // test UPDATE method

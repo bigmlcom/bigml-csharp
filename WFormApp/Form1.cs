@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,8 +9,8 @@ namespace WFormApp
 {
     public partial class Form1 : Form
     {
-        string userName = "user1";
-        string apiKey = "1a07911f835dede4607cfafa3fa4b60d9bd7XXXX";
+        string userName = System.Environment.GetEnvironmentVariable("BIGML_USERNAME");
+        string apiKey = System.Environment.GetEnvironmentVariable("BIGML_API_KEY");
 
         public Form1()
         {

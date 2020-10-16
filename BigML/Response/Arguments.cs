@@ -84,12 +84,14 @@ namespace BigML
                     System.Type valType = entry.Value.GetType();
                     if (valType.IsPrimitive || (valType == typeof(string)))
                     {
-                        inObjectVal = (JValue) entry.Value;
+                        inObjectVal = (JValue)entry.Value;
                     }
-                    else if (!valType.IsClass) {
+                    else if (!valType.IsClass || valType == typeof(Newtonsoft.Json.Linq.JObject))
+                    {
                         inObjectVal = entry.Value;
                     }
-                    else {
+                    else
+                    {
                         continue;
                     }
                     json[entry.Key] = inObjectVal;

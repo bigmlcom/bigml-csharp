@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -121,6 +121,7 @@ namespace BigML
 
                 resourceId = (string)jsonObject["resource"];
                 defaultNumericValue = (string)jsonObject["default_numeric_value"];
+                criticalValue = (float?) jsonObject["critical_value"];
 
                 summaryFields = new List<string>();
                 foreach (JObject oneSummaryField in jsonObject["summary_fields"])

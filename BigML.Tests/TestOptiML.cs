@@ -1,28 +1,36 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
+using System;
+using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using System.Configuration;
 using BigML;
 
-namespace BigMLTest
+namespace BigML.Tests
 {
     /// <summary>
     /// Test resources related with OptiML
     /// </summary>
-    [TestClass]
+    [TestFixture()]
     public class TestOptiML
     {
-        string userName = "myUser";
-        string apiKey = "8169dabca34b6ae5612a47b63dd97bead3bfeXXX";
+        string userName = ConfigurationManager.AppSettings["BIGML_USERNAME"];
+        string apiKey = ConfigurationManager.AppSettings["BIGML_API_KEY"];
 
-        [TestMethod]
+        [Test()]
         public async Task CreateOptiMLFromRemoteSource()
         {
             Client c = new Client(userName, apiKey);
-            Source.Arguments args = new Source.Arguments();
 
+            Project.Arguments pArgs = new Project.Arguments();
+            pArgs.Add("name", "Test Project");
+            Project p1 = await c.CreateProject(pArgs);
+            Project p2 = await c.CreateProject(pArgs);
+
+            Source.Arguments args = new Source.Arguments();
             args.Add("remote", "https://static.bigml.com/csv/iris.csv");
             args.Add("name", "C# tests - Iris");
             // The project can be added as a regular parameter in the creation
-            args.Add("project", "project/58a7147e663ac2321f00239f");
+            args.Add("project", p1.Resource);
 
             Source s = await c.CreateSource(args);
             s = await c.Wait<Source>(s.Resource);
@@ -30,7 +38,7 @@ namespace BigMLTest
 
             // Update the project
             Newtonsoft.Json.Linq.JObject changes = new Newtonsoft.Json.Linq.JObject();
-            changes.Add("project", "project/5878b1cb7e0a8d5cc500de61");
+            changes.Add("project", p2.Resource);
             s = await c.Update<Source>(s.Resource, changes);
             Assert.AreEqual(s.Code, System.Net.HttpStatusCode.Accepted);
 
@@ -45,6 +53,7 @@ namespace BigMLTest
             OptiML.Arguments argsOM = new OptiML.Arguments();
             argsOM.Add("dataset", ds.Resource);
             argsOM.Add("name", "C# tests - TestOptiML");
+            argsOM.Add("max_training_time", 100 );
             OptiML om = await c.CreateOptiML(argsOM);
             om = await c.Wait<OptiML>(om.Resource);
 
@@ -54,6 +63,9 @@ namespace BigMLTest
             await c.Delete(s);
             await c.Delete(ds);
             await c.Delete(om);
+            await c.Delete(p1);
+            await c.Delete(p2);
+
         }
     }
 }

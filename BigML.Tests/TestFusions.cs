@@ -1,20 +1,22 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
+using System;
+using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
+using System.Configuration;
 using BigML;
 
-namespace BigMLTest
+namespace BigML.Tests
 {
     /// <summary>
     /// Test resources related with Fusions
     /// </summary>
-    [TestClass]
+    [TestFixture()]
     public class TestFusions
     {
-        string userName = "myUser";
-        string apiKey = "8169dabca34b6ae5612a47b63dd97bead3bfeXXX";
+        string userName = ConfigurationManager.AppSettings["BIGML_USERNAME"];
+        string apiKey = ConfigurationManager.AppSettings["BIGML_API_KEY"];
 
-        [TestMethod]
+        [Test()]
         public async Task CreateFusionFromRemoteSource()
         {
             // Prepare connection
@@ -50,13 +52,13 @@ namespace BigMLTest
 
             // Create Fusion
             Fusion.Arguments argsFs = new Fusion.Arguments();
-            List<dynamic> modelIDs = new List<dynamic>();
+            System.Collections.Generic.List<dynamic> modelIDs = new System.Collections.Generic.List<dynamic>();
             modelIDs.Add(lr.Resource);
             modelIDs.Add(md.Resource);
             argsFs.Models = modelIDs;
             Fusion fs = await c.CreateFusion(argsFs);
             fs = await c.Wait<Fusion>(fs.Resource);
-            
+
             Assert.AreEqual(fs.StatusMessage.StatusCode, Code.Finished);
 
             // test UPDATE method

@@ -1,30 +1,35 @@
-﻿using Newtonsoft.Json.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
+using System;
+using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using System.Configuration;
 using BigML;
 
-namespace BigMLTest
+namespace BigML.Tests
 {
-    /// <summary>
-    /// Test resources related with Configurations
-    /// </summary>
-    [TestClass]
+    [TestFixture()]
     public class TestConfigurations
     {
-        string userName = "myuser";
-        string apiKey = "8169dabca34b6ae5612a47b63dd97bead3bfXXXX";
+        string userName = ConfigurationManager.AppSettings["BIGML_USERNAME"];
+        string apiKey = ConfigurationManager.AppSettings["BIGML_API_KEY"];
 
-        [TestMethod]
-        public async Task CreateConfiguration()
+        [Test()]
+        public async Task TestCase()
         {
             Client c = new Client(userName, apiKey);
 
             Configuration.Arguments cfArgs = new Configuration.Arguments();
             cfArgs.Add("name", "configuration bindings test");
-            cfArgs.Add("configurations", new JObject());
+            Newtonsoft.Json.Linq.JObject configs = new Newtonsoft.Json.Linq.JObject();
+            Newtonsoft.Json.Linq.JObject any = new Newtonsoft.Json.Linq.JObject();
+            Newtonsoft.Json.Linq.JArray tags = new Newtonsoft.Json.Linq.JArray();
+            tags.Add("test");
+            any.Add("tags", tags);
+            configs.Add("any", any);
+
+            cfArgs.Add("configurations", configs);
             Configuration cf = await c.CreateConfiguration(cfArgs);
 
-            
             Ordered<Configuration.Filterable, Configuration.Orderable, Configuration> result
                 = (from cfg in c.ListConfigurations()
                    orderby cfg.Created descending
@@ -36,8 +41,9 @@ namespace BigMLTest
             }
 
             cf = await c.Update<Configuration>(cf.Resource, "renamed configuration");
-
+            
             await c.Delete(cf);
+
         }
     }
 }

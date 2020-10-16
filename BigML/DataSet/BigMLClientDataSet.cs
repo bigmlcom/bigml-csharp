@@ -128,7 +128,7 @@ namespace BigML
                     case 2:
                     case 3:
                         // not started or in progress => request
-                        Download(ds, null);
+                        await Download(ds, null);
                         await Task.Delay(5000);
                         break;
                     case 5:

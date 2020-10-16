@@ -1,19 +1,22 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
+using System;
+using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using System.Configuration;
 using BigML;
 
-namespace BigMLTest
+namespace BigML.Tests
 {
-   /// <summary>
-   /// 
-   /// </summary>
-    [TestClass]
+    /// <summary>
+    /// 
+    /// </summary>
+    [TestFixture()]
     public class TestSources
     {
-        string userName = "myuser";
-        string apiKey = "8169dabca34b6ae5612a47b63dd97bead3bfXXXX";
+        string userName = ConfigurationManager.AppSettings["BIGML_USERNAME"];
+        string apiKey = ConfigurationManager.AppSettings["BIGML_API_KEY"];
 
-        [TestMethod]
+        [Test()]
         public async Task CreateSourceFromRemote()
         {
             Client c = new Client(userName, apiKey);
@@ -28,15 +31,15 @@ namespace BigMLTest
             await c.Delete(s);
         }
 
-        [TestMethod]
+        [Test()]
         public async Task CreateSourceFromLocal()
         {
             Client c = new Client(userName, apiKey);
-            Source s = await c.CreateSource("C:/Users/You/Downloads/train.tsv", "C# Tests");
+            Source s = await c.CreateSource("../../data/SpanishBank.csv", "C# Tests");
             s = await c.Wait<Source>(s.Resource);
-        
+
             Assert.AreEqual(s.StatusMessage.StatusCode, Code.Finished);
-        
+
             await c.Delete(s);
         }
     }

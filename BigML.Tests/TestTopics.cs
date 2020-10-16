@@ -1,19 +1,22 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
+using System;
+using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using System.Configuration;
 using BigML;
 
-namespace BigMLTest
+namespace BigML.Tests
 {
     /// <summary>
     /// Test resources related with Topic Models and its predictions
     /// </summary>
-    [TestClass]
+    [TestFixture()]
     public class TestTopics
     {
-        string userName = "myuser";
-        string apiKey = "8169dabca34b6ae5612a47b63dd97bead3XXXXX";
+        string userName = ConfigurationManager.AppSettings["BIGML_USERNAME"];
+        string apiKey = ConfigurationManager.AppSettings["BIGML_API_KEY"];
 
-        [TestMethod]
+        [Test()]
         public async Task CreateTopicModelFromRemoteSource()
         {
             Client c = new Client(userName, apiKey);

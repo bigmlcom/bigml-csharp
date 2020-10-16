@@ -1,19 +1,24 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
+using System;
+using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using System.Configuration;
 using BigML;
 
-namespace BigMLTest
+
+namespace BigML.Tests
 {
-   /// <summary>
-   /// 
-   /// </summary>
-    [TestClass]
+    /// <summary>
+    /// 
+    /// </summary>
+    ///     
+    [TestFixture()]
     public class TestDatasets
     {
-        string userName = "myuser";
-        string apiKey = "8169dabca34b6ae5612a47b63dd97bead3bfXXXX";
+        string userName = ConfigurationManager.AppSettings["BIGML_USERNAME"];
+        string apiKey = ConfigurationManager.AppSettings["BIGML_API_KEY"];
 
-        [TestMethod]
+        [Test()]
         public async Task CreateDataset()
         {
             Client c = new Client(userName, apiKey);
@@ -26,6 +31,7 @@ namespace BigMLTest
             Assert.AreEqual(s.StatusMessage.StatusCode, Code.Finished);
 
             DataSet.Arguments argsDS = new DataSet.Arguments();
+            argsDS.Source = s.Resource;
             DataSet ds = await c.CreateDataset(argsDS);
             ds = await c.Wait<DataSet>(ds.Resource);
 
@@ -33,15 +39,14 @@ namespace BigMLTest
             await c.Delete(ds);
         }
 
-       
-        [TestMethod]
+        [Test()]
         public async Task CreateMultiDataset()
         {
             Client c = new Client(userName, apiKey);
             Source.Arguments args = new Source.Arguments();
             args.Add("remote", "https://static.bigml.com/csv/iris.csv");
             args.Add("name", "https://static.bigml.com/csv/iris.csv");
- 
+
             Source s = await c.CreateSource(args);
             s = await c.Wait<Source>(s.Resource);
 
