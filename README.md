@@ -24,7 +24,7 @@ you should see a message like this
 'Newtonsoft.Json 11.0.1' was successfully added to BigML.
 ```
 The NuGet of this library is available at https://www.nuget.org/packages/BigML/ .
-Last released version is 2.2.0. Previous versions (<2.0) use Microsoft's
+Last released version is 2.5.1. Previous versions (<2.0) use Microsoft's
 System.Json deprecated package and we encourage to update to a 2.0 version or higher.
 
 
@@ -88,11 +88,11 @@ Console.WriteLine(model.StatusMessage.ToString());
 
 The model `root` property is a JSON object that represents the decision
 tree that BigML has learned from the data we fed to it. We translate
-the model into a Nodes tree in memory, and call it on one of the test 
+the model into a Nodes tree in memory, and call it on one of the test
 inputs to see if it predicts the same kind of iris:
 
 ```c#
-// Transforms JSON in tree structure 
+// Transforms JSON in tree structure
 Model.LocalModel localModel = model.ModelStructure();
 
 // --- Specify prediction inputs and calculate the prediction ---
