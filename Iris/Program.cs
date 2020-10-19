@@ -34,7 +34,7 @@ namespace Iris
             {
                 await Task.Delay(10);
             }
-            Console.WriteLine(source.StatusMessage.ToString());
+            Console.WriteLine(source.StatusMessage);
 
             // Default dataset from source
             var dataset = await client.CreateDataset(source);
@@ -43,7 +43,7 @@ namespace Iris
             {
                 await Task.Delay(10);
             }
-            Console.WriteLine(dataset.StatusMessage.ToString());
+            Console.WriteLine(dataset.StatusMessage);
 
             // Default model from dataset
             var model = await client.CreateModel(dataset);
@@ -52,7 +52,7 @@ namespace Iris
             {
                 await Task.Delay(10);
             }
-            Console.WriteLine(model.StatusMessage.ToString());
+            Console.WriteLine(model.StatusMessage);
 
             Console.WriteLine("Creating local model");
             Dictionary<string, dynamic> inputData = new Dictionary<string, dynamic>();

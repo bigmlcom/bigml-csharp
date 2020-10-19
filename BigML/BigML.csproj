@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\NuGet.Build.Packaging.0.2.0\build\NuGet.Build.Packaging.props" Condition="Exists('..\packages\NuGet.Build.Packaging.0.2.0\build\NuGet.Build.Packaging.props')" />
-  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -12,21 +11,23 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BigML</RootNamespace>
     <AssemblyName>BigML</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <PackOnBuild>true</PackOnBuild>
     <PackageId>BigML</PackageId>
     <PackageVersion>2.5.1</PackageVersion>
     <Authors>BigML Team</Authors>
-    <Owners>BigML Inc.</Owners>
-    <Title>BigML</Title>
-    <Description>Bindings to use  BigML's API and local predictors</Description>
     <PackageIconUrl>https://secure.gravatar.com/avatar/d286e440ee01b6de94c1db5855352e09</PackageIconUrl>
-    <PackageProjectUrl>https://github.com/bigmlcom/bigml-csharp   </PackageProjectUrl>
-    <PackageReleaseNotes>Changing to NUnit tests. Fix documentations and bugs.</PackageReleaseNotes>
-    <Summary>Bindings to use BigML's API and create local Machine Learning predictions</Summary>
-    <PackageTags>en-US</PackageTags>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageLicenseUrl>https://bigml.com/tos</PackageLicenseUrl>
+    <Owners>BigML Inc.</Owners>
+    <PackageProjectUrl>https://github.com/bigmlcom/bigml-csharp</PackageProjectUrl>
+    <PackageReleaseNotes>Changing to NUnit tests. Fix documentations and bugs</PackageReleaseNotes>
+    <Summary>C# bindings for the BigML API</Summary>
+    <Title>BigML</Title>
+    <Description>C# bindings for BigML API</Description>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,11 +50,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
-  <ItemGroup>
+  </PropertyGroup>  <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="StemmersNet, Version=1.1.1.0, Culture=neutral, PublicKeyToken=5b16b226aedf3c3b, processorArchitecture=MSIL">
       <HintPath>..\packages\StemmersNet.1.1.1.0\lib\net20\StemmersNet.dll</HintPath>
@@ -62,16 +59,10 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http" />
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <Package>monodevelop</Package>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Anomaly\Anomaly.cs" />
@@ -385,6 +376,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <Import Project="..\packages\NuGet.Build.Packaging.0.2.0\build\NuGet.Build.Packaging.targets" Condition="Exists('..\packages\NuGet.Build.Packaging.0.2.0\build\NuGet.Build.Packaging.targets')" />
 </Project>

@@ -1,24 +1,35 @@
 <?xml version="1.0"?>
-<package >
-  <metadata>
+<package>
+  <metadata minClientVersion="">
     <id>BigML</id>
     <version>2.5.1</version>
     <title>BigML</title>
     <authors>BigML Team</authors>
     <owners>BigML Inc.</owners>
-    <licenseUrl>https://bigml.com/tos</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">license.txt</license>
     <projectUrl>https://github.com/bigmlcom/bigml-csharp</projectUrl>
     <iconUrl>https://secure.gravatar.com/avatar/d286e440ee01b6de94c1db5855352e09</iconUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Official BigML bindings for dotnet developers</description>
-    <summary>+ Changing to NUnit tests. Fix documentations and bugs.</summary>
-    <releaseNotes>+ Changing to NUnit tests. Fix documentations and bugs.</releaseNotes>
+    <icon>bigml.png</icon>
+    <description>C# bindings for BigML API</description>
+    <summary>C# bindings for the BigML API</summary>
+    <releaseNotes>Changing to NUnit tests. Fix documentations and bugs</releaseNotes>
+    <copyright></copyright>
     <language>en-US</language>
-    <dependencies>
-        <dependency id="EntityFramework" version="6.1.3" />
-        <dependency id="Newtonsoft.Json" version="11.0.1" />
-    </dependencies>
-    <copyright>BigML Inc 2020</copyright>
     <tags></tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.7.2" />
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework=".NETFramework4.7.2" />
+      <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework=".NETFramework4.7.2" />
+      <frameworkAssembly assemblyName="System.Core" targetFramework=".NETFramework4.7.2" />
+      <frameworkAssembly assemblyName="System" targetFramework=".NETFramework4.7.2" />
+      <frameworkAssembly assemblyName="System.Net.Http" targetFramework=".NETFramework4.7.2" />
+    </frameworkAssemblies>
   </metadata>
+  <files>
+    <file src="_doc\license.txt" target="" />
+    <file src="_doc\bigml.png" target="" />
+  </files>
 </package>
