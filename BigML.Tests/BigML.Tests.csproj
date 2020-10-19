@@ -44,8 +44,15 @@
     <Reference Include="System.Configuration.ConfigurationManager">
       <HintPath>..\packages\System.Configuration.ConfigurationManager.4.7.0\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
-      <Package>monodevelop</Package>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="BigML">
+      <HintPath>packages\BigML.2.5.1\lib\net472\BigML.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -62,12 +69,6 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BigML\BigML.csproj">
-      <Project>{458B9779-E302-4C7C-A0E7-7F20F4EA2D67}</Project>
-      <Name>BigML</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
