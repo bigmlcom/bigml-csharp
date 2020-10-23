@@ -2,17 +2,19 @@ Resources management
 ====================
 
 You can list BigML’s resources using the client listing functions. In
-addition using [`LINQ`](https://msdn.microsoft.com/en-us/library/bb397676.aspx) expressions you can retrieve, filter and order a
-collection of them.
+addition using [`LINQ`](https://msdn.microsoft.com/en-us/library/bb397676.aspx)
+xpressions you can retrieve, filter and order a collection of them.
 
 Filtering resources
 -------------------
 
 In order to filter resources you can use any of the properties labeled
-as *filterable* in the [BigML documentation](https://bigml.com/api). Please, check the available properties for each
+as *filterable* in the [BigML documentation](https://bigml.com/api). Please,
+check the available properties for each
 kind of resource in their particular section. In addition to specific
 selectors you can use two general selectors to paginate the resources
-list: `offset` and `limit`. For details, please check [this requests section](https://bigml.com/api/requests#rq_paginating_resources).
+list: `offset` and `limit`. For details, please check
+[this requests section](https://bigml.com/api/requests#rq_paginating_resources).
 
 ``` {.csharp}
   string User = "myuser";
@@ -38,12 +40,14 @@ list: `offset` and `limit`. For details, please check [this requests section](ht
 Ordering resources
 ------------------
 
-In order to order resources you can use any of the properties labeled as
-*sortable* in the [BigML documentation](https://bigml.com/api). Please, check the sortable properties for each kind
+In order to sort resources you can use any of the properties labeled as
+*sortable* in the [BigML documentation](https://bigml.com/api). Please,
+check the sortable properties for each kind
 of resources in their particular section. By default BigML paginates the
 results in groups of 20, so it’s possible that you need to specify the
 `offset` or increase the `limit` of resources to returned in the list
-call. For details, please, check [this requests section](https://bigml.com/api/requests#rq_paginating_resources).
+call. For details, please, check
+[this requests section](https://bigml.com/api/requests#rq_paginating_resources).
 
 ``` {.csharp}
   string User = "myuser";
@@ -71,15 +75,20 @@ call. For details, please, check [this requests section](https://bigml.com/api/r
 Updating resources
 ------------------
 
-In general, BigML resources are immutable so their properties are not modified. This general rule has exceptions, and some properties (depending on the resource type) can be updated. They are listed in the [API help section](https://bigml.com/api). Basically, you can modify `name`, `description`, `tags` and `category`
-in any resource. Shareable resources allow you to modify their `privacy`
-and for resources included in projects the `project` is also updatable.
+In general, the core information in BigML resources is immutable. This is so
+to ensure traceability and reproducibility. Therefore, only non-essential
+properties that are available as auxiliar data, like `name`, `description`,
+`tags` and `category`, can be modified. They are listed in the
+[API help section](https://bigml.com/api).
 
-Due to their special nature, some resources like `Source` or `Script` have other properties that can be updated, e.g. the locale used in `source_parser` of a source or `inputs` types or descriptions of a script. As we mentioned before, the complete list of updatable
-properties can be found in [API help section](https://bigml.com/api). Other that that, if you want to modify a
-property of your existing resource you will need to create a new one.
 The following is an example about how to update the tags in a model. The
-unique change for each resource is the class of `Update` method.
+`Update` method in the `Client` class receives as arguments the ID of the
+resource that is to be updated and the properties that should be changed.
+The ID of a resource follow the schema
+`resource_type/alphanumeric24digits00ID` and can be found in the `Resource`
+method of the corresponding class and is the final part of the URL that
+points to the resource view in the Dashboard.
+
 
 ``` {.csharp}
 using BigML;
@@ -122,6 +131,21 @@ namespace Demo
   }
 }
 ```
+
+Shareable resources allow you to
+modify their `privacy` and for resources included
+in projects the `project` is also updatable. Due to their special nature,
+some resources like `Source` or `Script` have
+other properties that can be updated, e.g. the locale used in `source_parser`
+of a source or `inputs` types or descriptions of the arguments for a script.
+Other that that, if you want to modify a
+property of your existing resource you will need to create a new one.
+That's for instance the case when you want to add data to a previously created
+model. You just upload your new data to create a new `source`, generate a
+`dataset` from it and merge it with the existing dataset that contained the
+old data. The consolidated dataset can now be used to rebuild a new `model`
+based on the entire data set.
+
 
 Removing resources
 ------------------

@@ -1,6 +1,6 @@
-<?xml version="1.0"?>
-<package>
-  <metadata minClientVersion="">
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
     <id>BigML</id>
     <version>2.5.1</version>
     <title>BigML</title>
@@ -8,16 +8,17 @@
     <owners>BigML Inc.</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="file">license.txt</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <icon>bigml.png</icon>
     <projectUrl>https://github.com/bigmlcom/bigml-csharp</projectUrl>
     <iconUrl>https://secure.gravatar.com/avatar/d286e440ee01b6de94c1db5855352e09</iconUrl>
-    <icon>bigml.png</icon>
     <description>C# bindings for BigML API</description>
     <summary>C# bindings for the BigML API</summary>
     <releaseNotes>Changing to NUnit tests. Fix documentations and bugs</releaseNotes>
     <copyright></copyright>
     <language>en-US</language>
-    <tags></tags>
     <dependencies>
+      <dependency id="Newtonsoft.Json" version="12.0.3" />
       <group targetFramework=".NETFramework4.7.2" />
     </dependencies>
     <frameworkAssemblies>
@@ -28,8 +29,4 @@
       <frameworkAssembly assemblyName="System.Net.Http" targetFramework=".NETFramework4.7.2" />
     </frameworkAssemblies>
   </metadata>
-  <files>
-    <file src="_doc\license.txt" target="" />
-    <file src="_doc\bigml.png" target="" />
-  </files>
 </package>

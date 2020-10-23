@@ -15,6 +15,7 @@ namespace BigML
             public Arguments()
             {
                 Imports = new List<string>();
+                Inputs = new JArray();
             }
 
             /// <summary>
@@ -22,6 +23,15 @@ namespace BigML
             /// Used to include declared methods in a script
             /// </summary>
             public List<string> Imports
+            {
+                get;
+                set;
+            }
+
+            /// <summary>
+            /// A list of valid inputs definitions
+            /// </summary>
+            public JArray Inputs
             {
                 get;
                 set;
@@ -50,6 +60,15 @@ namespace BigML
                     json.imports = imports;
                 }
 
+
+                if (Inputs.Count > 0)
+                {
+                    json.inputs = new JArray();
+                    foreach (var parameter in Inputs)
+                    {
+                        json.inputs.Add(parameter);
+                    }
+                }
                 return json;
             }
         }

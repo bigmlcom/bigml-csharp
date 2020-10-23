@@ -11,7 +11,7 @@ namespace BigML
         /// </summary>
         public abstract class Arguments<T> where T : Response
         {
-            protected Arguments()
+            public Arguments()
             {
                 Tags = new HashSet<string>();
                 DynArgs = new Dictionary<string, dynamic>();
@@ -82,11 +82,13 @@ namespace BigML
                 {
                     dynamic inObjectVal;
                     System.Type valType = entry.Value.GetType();
-                    if (valType.IsPrimitive || (valType == typeof(string)))
+
+                    if (valType.IsPrimitive || valType == typeof(string))
                     {
-                        inObjectVal = (JValue)entry.Value;
+                        inObjectVal = (JValue) entry.Value;
                     }
-                    else if (!valType.IsClass || valType == typeof(Newtonsoft.Json.Linq.JObject))
+                    else if (!valType.IsClass || valType == typeof(Newtonsoft.Json.Linq.JObject) ||
+                             valType == typeof(Newtonsoft.Json.Linq.JArray))
                     {
                         inObjectVal = entry.Value;
                     }

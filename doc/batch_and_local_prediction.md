@@ -1,9 +1,16 @@
 Batch predictions
 =================
 
-This chapter builds [Quickstart](./intro.md) on and shows how to create a **batch prediction** for multiple instances using an existing **ensemble**. Using an `ensemble` instead on a `model` is just a variation so you can see how flexible and orthogonal BigML API is.
+This chapter builds [Quickstart](./intro.md) on and shows how to create a
+**batch prediction** for multiple instances using an existing **ensemble**.
+Using an `ensemble` instead on a `model` is just a variation so you can see
+how flexible and orthogonal BigML API is.
 
-To create a `Batch prediction`, you will need an `ensemble` and a `dataset` containing all the data instances you want predictions for. You can easily create both resources by following the steps detailed in [Quickstart](./intro.md). In the following code, you will only focus on the last step in the process, i.e., creating the `Batch prediction`.
+To create a `Batch prediction`, you will need an `ensemble` and a `dataset`
+containing all the data instances you want predictions for. You can easily
+create both resources by following the steps detailed in
+[Quickstart](./intro.md). In the following code, you will only focus
+on the last step in the process, i.e., creating the `Batch prediction`.
 
 ``` {.csharp}
 using BigML;
@@ -61,13 +68,20 @@ namespace Demo
 }
 ```
 
-In the code above, if you want to use a `model` or a `logistic regression` instead of an `ensemble`, all you have to do is specify the model’s or logistic regression’s Id for the “model” parameter.
+In the code above, if you want to use a `model` or a `logistic regression`
+instead of an `ensemble`, all you have to do is specify the model’s or
+logistic regression’s Id for the “model” parameter.
 
 Local predictions
 =================
-In addition to making predictions remotely on BigML servers, the BigML C# bindings also provide support for making predictions locally. This means you can download your `model`, `ensemble`, or `logistic regression` resource and use it to make predictions offline, i.e., without accessing the network.
+In addition to making predictions remotely on BigML servers, the BigML
+C# bindings also provide support for making predictions locally.
+This means that you can download your `model`, `ensemble`,
+or `logistic regression` resource and use it to make predictions
+offline, i.e., without accessing the network.
 
-The following code snippet shows how you can retrieve a `model` created BigML in and use it for local predictions:
+The following code snippet shows how you can retrieve a `model` created in
+BigML and use it for local predictions:
 
 ``` {.csharp}
 using BigML;

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Demo
 {
-    class DevClusterFromAzureSource
+    class ClusterFromAzureSource
     {
         static async void Main()
         {
@@ -12,7 +12,7 @@ namespace Demo
             Console.Write("user: "); var User = Console.ReadLine();
             Console.Write("key: "); var ApiKey = Console.ReadLine();
             // set true the development mode
-            var client = new Client(User, ApiKey, true);
+            var client = new Client(User, ApiKey);
 
             // create a source
             var remoteURL = @"azure://csv/iris.csv?AccountName=bigmlpublic";

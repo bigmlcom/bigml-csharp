@@ -1,14 +1,22 @@
 Projects
 ========
 
-A project is an abstract resource that helps you group related BigML resources. You can assign any resource to a pre-existing project (except for projects themselves). When a user assings a source or a dataset to a project all the subsequent resources created using it will belong to the same project.
+A project is an abstract resource that helps you group related BigML resources.
+You can assign any resource to a pre-existing project (except for projects
+themselves). When a user assigns a source or a dataset to a project,
+all the subsequent resources created using it will belong to the same project.
 
-When using projects, resources will be organized in your Dashboard in project folders. If you change the project in the project selection bar the shown resources will change accordingly. To show all the resources or mix resources from different projects unselect any current project and set selector as “All”.
+When using projects, resources will be organized in your Dashboard in project
+folders. If you change the project in the project selection bar the shown
+resources will change accordingly. To show all the resources or mix resources
+from different projects unselect any current project and set selector as “All”.
 
 Creating a project
 ------------------
 
-To create a project you don’t need to provide any information and BigML will give a default name to it. However, it’s recommended to set a mainingful name, description or tags to make it easy to work with.
+To create a project you don’t need to provide any information and BigML
+will give a default name to it. However, it’s recommended to set a meaningful
+name, description or tags to make it easy to work with.
 
 ``` {.csharp}
 using BigML;
@@ -56,12 +64,19 @@ namespace Demo
 }
 ```
 
-Every resource stored in BigML can be moved from one project to another or included in a certain project[^1]. As in the previous example, you only need to make an update operation on the resource giving the projectID. For instance, you can create a bunch of models in your “Tests” project and move the best one to your “Production” project. In the Dashboard, resources can be moved from the list view or from the detail view.
+Every resource stored in BigML can be moved from one project to another or
+included in a certain project[#]_. As in the previous example, you only need
+to make an update operation on the resource giving the projectID. For instance,
+you can create a bunch of models in your “Tests” project and move the best one
+to your “Production” project. In the Dashboard, resources can be moved
+from the list view or from the detail view.
 
 Removing a project
 ------------------
 
-One of the benefits of using projects for your work is that removing a project implies removing all the resources included. Thus, you won’t need to remove them one by one.
+One of the benefits of using projects for your work is that removing
+a project implies removing all the resources included. Thus, you won’t need
+to remove them one by one.
 
 ``` {.csharp}
 using BigML;
@@ -93,5 +108,5 @@ namespace Demo
 }
 ```
 
-[^1]: Once a resource is included in a project, it’s not possible set it
-    out of any project.
+.. [#] Once a resource is included in a project, it can be moved to another
+       one but it must remain associated to one of the existing projects.

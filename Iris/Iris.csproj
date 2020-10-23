@@ -76,8 +76,13 @@
     <Reference Include="StemmersNet">
       <HintPath>..\packages\StemmersNet.1.1.1.0\lib\net20\StemmersNet.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
-      <Package>monodevelop</Package>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="BigML">
+      <HintPath>..\packages\BigML.2.5.1\lib\net472\BigML.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -89,12 +94,6 @@
     <None Include="packages.config" />
     <None Include="_dataFiles\1001.csv" />
     <None Include="_dataFiles\SpanishBank.csv" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BigML\BigML.csproj">
-      <Project>{458b9779-e302-4c7c-a0e7-7f20f4ea2d67}</Project>
-      <Name>BigML</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
