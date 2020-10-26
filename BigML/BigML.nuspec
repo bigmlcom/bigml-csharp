@@ -15,7 +15,7 @@
     <description>C# bindings for BigML API</description>
     <summary>C# bindings for the BigML API</summary>
     <releaseNotes>Changing to NUnit tests. Fix documentations and bugs</releaseNotes>
-    <copyright></copyright>
+    <copyright>BigML Inc 2020</copyright>
     <language>en-US</language>
     <dependencies>
       <dependency id="Newtonsoft.Json" version="12.0.3" />
