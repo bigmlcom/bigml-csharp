@@ -3,6 +3,7 @@ using System;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 using System.Configuration;
+using System.Collections.Generic;
 using BigML;
 
 namespace BigML.Tests
@@ -52,7 +53,7 @@ namespace BigML.Tests
 
             // Create Fusion
             Fusion.Arguments argsFs = new Fusion.Arguments();
-            System.Collections.Generic.List<dynamic> modelIDs = new System.Collections.Generic.List<dynamic>();
+            List<dynamic> modelIDs = new List<dynamic>();
             modelIDs.Add(lr.Resource);
             modelIDs.Add(md.Resource);
             argsFs.Models = modelIDs;
@@ -62,8 +63,8 @@ namespace BigML.Tests
             Assert.AreEqual(fs.StatusMessage.StatusCode, Code.Finished);
 
             // test UPDATE method
-            Newtonsoft.Json.Linq.JObject changes = new Newtonsoft.Json.Linq.JObject();
-            Newtonsoft.Json.Linq.JArray tags = new Newtonsoft.Json.Linq.JArray();
+            JObject changes = new JObject();
+            JArray tags = new JArray();
             tags.Add("Bindings C# test");
             changes.Add("tags", tags);
             fs = await c.Update<Fusion>(fs.Resource, changes);
