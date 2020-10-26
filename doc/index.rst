@@ -339,6 +339,6 @@ as detailed in [Requirements and installation](#requirements-and-installation).
 
 .. rubric:: Footnotes
 
-..[#f1] You can find your API Key in your BigML account information panel.
-      If needed, you can also create additional API Keys and restrict the
-      privileges that are associated with each of them.
+.. [#f1] You can find your API Key in your BigML account information panel.
+         If needed, you can also create additional API Keys and restrict the
+         privileges that are associated with each of them.
