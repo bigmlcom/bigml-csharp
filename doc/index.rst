@@ -74,13 +74,14 @@ input:
 
 
 The `client` object encapsulates your credentials and provides
-methods for most of the operations available through the BigML API. [#]_
+methods for most of the operations available through the BigML API [#f1]_ .
 
 
 Connecting to a Virtual Private Cloud
 -------------------------------------
 
-If you are using [Managed Virtual Private Cloud](https://support.bigml.com/hc/en-us/articles/208270815-What-is-a-Managed-VPC-) (VPC),
+If you are using
+`Managed Virtual Private Cloud <https://support.bigml.com/hc/en-us/articles/208270815-What-is-a-Managed-VPC->`_ (VPC),
 you can specify your VPC URL when instantiating your `client`:
 
 .. code-block:: C#
@@ -100,7 +101,7 @@ make a prediction for a new single instance.
 
 Imagine that you want to use a **remote CSV file**
 <https://static.bigml.com/csv/iris.csv> containing the
-`Iris flower dataset<http://en.wikipedia.org/wiki/Iris\_flower\_data\_set>`_
+`Iris flower dataset <http://en.wikipedia.org/wiki/Iris\_flower\_data\_set>`_
 to predict the species of a flower based on its morphological characteristics.
 A preview of the dataset is shown below. It has 4 numeric fields: sepal length,
 sepal width, petal length, petal width and a categorical field: species.
@@ -336,6 +337,8 @@ as detailed in [Requirements and installation](#requirements-and-installation).
     }
 
 
-..[#] You can find your API Key in your BigML account information panel.
+.. rubric:: Footnotes
+
+..[#f1] You can find your API Key in your BigML account information panel.
       If needed, you can also create additional API Keys and restrict the
       privileges that are associated with each of them.
